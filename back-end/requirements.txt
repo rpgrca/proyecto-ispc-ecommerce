@@ -11,7 +11,7 @@ exceptiongroup==1.1.2
 iniconfig==2.0.0
 Markdown==3.4.3
 mysqlclient==2.2.0
-numpy==1.24.3
+numpy==1.25.1
 packaging==23.1
 Pillow==10.0.0
 pluggy==1.2.0
