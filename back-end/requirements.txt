@@ -9,7 +9,7 @@ djangorestframework==3.14.0
 djangorestframework-simplejwt==5.2.2
 exceptiongroup==1.1.2
 iniconfig==2.0.0
-Markdown==3.4.3
+Markdown==3.4.4
 mysqlclient==2.2.0
 numpy==1.25.2
 packaging==23.1
