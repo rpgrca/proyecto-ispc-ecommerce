@@ -17,7 +17,7 @@
     "@angular/forms": "^16.2.11",
     "@angular/platform-browser": "^16.2.11",
     "@angular/platform-browser-dynamic": "^16.2.10",
-    "@angular/router": "^16.2.8",
+    "@angular/router": "^16.2.11",
     "@auth0/angular-jwt": "^5.1.2",
     "@popperjs/core": "^2.11.7",
     "animate.css": "^4.1.1",
