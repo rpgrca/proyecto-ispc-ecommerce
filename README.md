@@ -56,5 +56,5 @@ Para instrucciones más precisas leer los archivos README de cada directorio.
 [issues-url]: https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/issues
 [discuss-img]: https://img.shields.io/github/discussions/NataliaAlvarezIspc/proyecto-ispc-ecommerce
 [discuss-url]: https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/discussions
-[pipeline-img]: https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/actions/workflows/python.yml/badge.svg
-[pipeline-url]: https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/actions/workflows/python.yml
+[pipeline-img]: https://github.com/rpgrca/proyecto-ispc-ecommerce/actions/workflows/python.yml/badge.svg
+[pipeline-url]: https://github.com/rpgrca/proyecto-ispc-ecommerce/actions/workflows/python.yml
