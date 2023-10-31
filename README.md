@@ -5,6 +5,7 @@
 [![Python package][pipeline-img]][pipeline-url]
 
 # proyecto-ispc-ecommerce
+Este repositorio es un fork del [repositorio original](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce) para refactoring y mantenimiento independiente del código original.
 
 ## EnBalde - Heladería
 
