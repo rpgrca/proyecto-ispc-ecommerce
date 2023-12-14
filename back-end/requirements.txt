@@ -10,7 +10,7 @@ djangorestframework-simplejwt==5.3.1
 exceptiongroup==1.2.0
 iniconfig==2.0.0
 Markdown==3.5.1
-mysqlclient==2.2.0
+mysqlclient==2.2.1
 numpy==1.26.2
 packaging==23.2
 Pillow==10.1.0
