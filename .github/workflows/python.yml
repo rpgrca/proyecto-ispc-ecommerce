@@ -43,9 +43,10 @@ jobs:
         cd back-end/django
         coverage run --source=enbalde --omit=*/migrations/* manage.py test --settings=server.test_settings enbalde
         coverage xml
+        mv coverage.xml ${{ matrix.runs-on }}-coverage.xml
 
     - name: Archive code coverage results
       uses: actions/upload-artifact@v3
       with:
-        name: code-coverage-report
-        path: back-end/django/coverage.xml
+        name: code-coverage-report-${{ matrix.runs-on }}
+        path: back-end/django/${{ matrix.runs-on }}-coverage.xml
