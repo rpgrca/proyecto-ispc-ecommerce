@@ -5,13 +5,13 @@ from .views import UnCarrito, Carritos, Compras, ContactoView, LoginView, Logout
 
 
 router = routers.DefaultRouter()
-router.register('usuarios', UsuarioViewSet)
 router.register('tipo_articulos', TipoArticuloViewSet)
 router.register('articulos', ArticuloViewSet)
 router.register('ventas', VentaViewSet)
 router.register('ofertas', OfertaViewSet)
 router.register('envios', EnvioViewSet)
-router.register('usuarios_admin', UsuarioAdminViewSet)
+router.register('admins', UsuarioAdminViewSet, basename='admins')
+router.register('usuarios', UsuarioViewSet, basename='usuarios')
 
 
 urlpatterns = [
