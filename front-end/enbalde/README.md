@@ -1,7 +1,7 @@
 # Front-end del sistema EnBalde
 
 ## Instrucciones de uso
-1. Dentro del directorio enbalde ejecutar el comando **npm install** para instalar las dependencias.
+1. Dentro del directorio enbalde ejecutar el comando **npm install --legacy-peer-deps** para instalar las dependencias.
 
 ![image](https://user-images.githubusercontent.com/15602473/234670647-6551ff0a-c008-46ad-b014-0d8ef73f9ed8.png)
 
