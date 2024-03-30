@@ -84,7 +84,7 @@ class Carritos(APIView):
                     seleccion.delete()
 
                 carrito.delete()
-        except Exception as ex:
+        except Exception:
             pass
 
     def post(self, request: Request, format=None):
