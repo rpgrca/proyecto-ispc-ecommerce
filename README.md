@@ -37,11 +37,7 @@ Para instrucciones más precisas leer los archivos README de cada directorio.
 * [Diagrama Entidad Relación](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Diagrama-Entidad-Relaci%C3%B3n)
 * [Diagrama Relacional](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Diagrama-Relacional)
 * [Mapa del sitio](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Mapa-del-sitio)
-* [Daily](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/discussions)
-* [Planning, Review, Retrospective](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Planning----Retrospective----Review)
-* [Novedades del Grupo](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/wiki/Novedades-del-grupo)
-* [Video Demo Srint 3](https://www.youtube.com/watch?v=t3DCGW4qhqg)
-* [Video Final Sprint 4](https://www.youtube.com/watch?v=nAKpPReAxBE)
+  
 
 [commit-img]: https://img.shields.io/github/commit-activity/w/NataliaAlvarezIspc/proyecto-ispc-ecommerce/dev
 [commit-url]: https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/graphs/code-frequency
