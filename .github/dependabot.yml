@@ -1,25 +1,25 @@
-version: 2
-updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "thursday"
-
-  - package-ecosystem: "pip"
-    directory: "/back-end"
-    schedule:
-      interval: "weekly"
-      day: "thursday"
-
-  - package-ecosystem: "npm"
-    directory: "/front-end/enbalde"
-    schedule:
-      interval: "weekly"
-      day: "thursday"
-
-  - package-ecosystem: "npm"
-    directory: "/front-end/enbaldePago"
-    schedule:
-      interval: "weekly"
-      day: "thursday"
+#version: 2
+#updates:
+#  - package-ecosystem: "github-actions"
+#    directory: "/"
+#    schedule:
+#      interval: "weekly"
+#      day: "thursday"
+#
+#  - package-ecosystem: "pip"
+#    directory: "/back-end"
+#    schedule:
+#      interval: "weekly"
+#      day: "thursday"
+#
+#  - package-ecosystem: "npm"
+#    directory: "/front-end/enbalde"
+#    schedule:
+#      interval: "weekly"
+#      day: "thursday"
+#
+#  - package-ecosystem: "npm"
+#    directory: "/front-end/enbaldePago"
+#    schedule:
+#      interval: "weekly"
+#      day: "thursday"
