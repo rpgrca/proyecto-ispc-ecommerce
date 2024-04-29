@@ -32,7 +32,8 @@ El proyecto tiene componentes web y móvil, divididos en:
    - `cd back-end/django`
    - `pip install -r requirements.txt`
    - Configurar MySQL y ajustes en `server/settings.py`
-   - Ejecutar migraciones y servidor con `python manage.py runserver`
+   - Ejecutar migraciones `python manage.py migrate`
+   - Ejecutar servidor con `python manage.py runserver`
 
 Acceder al sitio en `http://localhost:4200`.
 
