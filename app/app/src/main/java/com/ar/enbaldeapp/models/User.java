@@ -1,5 +1,7 @@
 package com.ar.enbaldeapp.models;
 
+import java.util.Date;
+
 public class User {
     private final long id;
     private final String lastName;
@@ -35,3 +37,4 @@ public class User {
     public String getPhone() { return phone; }
     public String getObservations() { return observations; }
 }
+

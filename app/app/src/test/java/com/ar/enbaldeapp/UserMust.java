@@ -4,6 +4,7 @@ import static com.ar.enbaldeapp.support.Constants.*;
 
 import static org.junit.Assert.*;
 
+import com.ar.enbaldeapp.models.Offer;
 import com.ar.enbaldeapp.models.User;
 
 import org.junit.Test;
