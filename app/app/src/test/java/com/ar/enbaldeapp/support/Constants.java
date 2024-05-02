@@ -10,5 +10,12 @@ public class Constants {
     public static final String OBSERVATIONS = "Good client";
 
     public static final long PRODUCT_TYPE_ID = 1;
-    public static final String PRODUCT_TYPE_NAME = "Helado de agua";
+    public static final String PRODUCT_TYPE_NAME = "Balde";
+
+    public static final long PRODUCT_ID = 1;
+    public static final String PRODUCT_NAME = "Helado de chocolate";
+    public static final String PRODUCT_DESCRIPTION = "Un helado muy rico de chocolate con chips";
+    public static final double PRODUCT_PRICE = 1100;
+    public static final int PRODUCT_QUANTITY = 13;
+    public static final String PRODUCT_IMAGE = "http://localhost:4200/enbalde/assets/chocolate.png";
 }
