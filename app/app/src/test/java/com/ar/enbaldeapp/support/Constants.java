@@ -1,5 +1,8 @@
 package com.ar.enbaldeapp.support;
 
+import com.ar.enbaldeapp.models.Product;
+import com.ar.enbaldeapp.models.ProductType;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -22,6 +25,7 @@ public class Constants {
     public static final double PRODUCT_PRICE = 1100;
     public static final int PRODUCT_QUANTITY = 13;
     public static final String PRODUCT_IMAGE = "http://localhost:4200/enbalde/assets/chocolate.png";
+    public static final ProductType PRODUCT_TYPE = new ProductType(PRODUCT_TYPE_ID, PRODUCT_TYPE_NAME);
 
     public static final long SHIPPING_METHOD_ID = 1;
     public static final String SHIPPING_METHOD_NAME = "Hasta 3km de distancia";
@@ -39,4 +43,10 @@ public class Constants {
             return working.getTime();
         }
     }
+
+    public static final long SELECTION_ID = 1;
+    public static final Product SELECTION_PRODUCT = new Product(PRODUCT_ID, PRODUCT_NAME, PRODUCT_DESCRIPTION, PRODUCT_PRICE, PRODUCT_QUANTITY, PRODUCT_IMAGE, PRODUCT_TYPE);
+    public static final int SELECTION_QUANTITY = 3;
+    public static final double SELECTION_DISCOUNT = 1300;
+    public static final double SELECTION_TOTAL = 8700;
 }

@@ -1,7 +1,5 @@
 package com.ar.enbaldeapp.models;
 
-import java.util.Date;
-
 public class User {
     private final long id;
     private final String lastName;
