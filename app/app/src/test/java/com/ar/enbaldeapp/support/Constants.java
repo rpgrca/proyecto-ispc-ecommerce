@@ -8,4 +8,7 @@ public class Constants {
     public static final String PHONE = "1234-5678";
     public static final String ADDRESS = "123 Main St Miami, FL";
     public static final String OBSERVATIONS = "Good client";
+
+    public static final long PRODUCT_TYPE_ID = 1;
+    public static final String PRODUCT_TYPE_NAME = "Helado de agua";
 }
