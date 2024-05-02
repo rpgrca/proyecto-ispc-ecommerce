@@ -1,11 +1,15 @@
 package com.ar.enbaldeapp.support;
 
+import com.ar.enbaldeapp.models.Offer;
 import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.models.ProductType;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class Constants {
     public static final long USER_ID = 1;
@@ -47,6 +51,8 @@ public class Constants {
     public static final long SELECTION_ID = 1;
     public static final Product SELECTION_PRODUCT = new Product(PRODUCT_ID, PRODUCT_NAME, PRODUCT_DESCRIPTION, PRODUCT_PRICE, PRODUCT_QUANTITY, PRODUCT_IMAGE, PRODUCT_TYPE);
     public static final int SELECTION_QUANTITY = 3;
+    public static final Offer SELECTION_OFFER = new Offer(OFFER_ID, OFFER_NAME, OFFER_DISCOUNT, OFFER_EXPIRATION_DATE);
+    public static final ArrayList<Offer> SELECTION_OFFERS = new ArrayList(Arrays.asList(SELECTION_OFFER));
     public static final double SELECTION_DISCOUNT = 1300;
     public static final double SELECTION_TOTAL = 8700;
 }
