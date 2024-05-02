@@ -18,4 +18,8 @@ public class Constants {
     public static final double PRODUCT_PRICE = 1100;
     public static final int PRODUCT_QUANTITY = 13;
     public static final String PRODUCT_IMAGE = "http://localhost:4200/enbalde/assets/chocolate.png";
+
+    public static final long SHIPPING_METHOD_ID = 1;
+    public static final String SHIPPING_METHOD_NAME = "Hasta 3km de distancia";
+    public static final double SHIPPING_METHOD_COST = 3000;
 }
