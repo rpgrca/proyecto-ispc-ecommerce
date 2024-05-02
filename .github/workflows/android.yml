@@ -15,6 +15,7 @@ jobs:
           node-version: 16
   
   build:
+
     runs-on: ubuntu-latest
 
     steps:
@@ -27,61 +28,11 @@ jobs:
         distribution: 'adopt'
 
     - name: Grant execute permission for gradlew
-      working-directory: app
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      working-directory: app
-      run: mkdir -p build && ./gradlew build --stacktrace --info 2> build/results.txt
-      continue-on-error: true
-      id: build
+      run: mkdir -p build && ./gradlew build --stacktrace --info
 
     - name: Test
-      working-directory: app
-      run: mkdir -p build && ./gradlew test 2> build/results-test.txt
-      continue-on-error: true
-      id: test
+      run: mkdir -p build && ./gradlew test
 
-    - name: Get build results
-      working-directory: app
-      if: steps.build.outcome == 'failure'
-      run: echo "BUILD_RESULT=$(sed ':a;N;$!ba;s/\n/ /g' build/results.txt)" >> $GITHUB_ENV
-      continue-on-error: true
-
-    - name: Get test results
-      working-directory: app
-      if: steps.test.outcome == 'failure'
-      run: echo "TEST_RESULT=$(sed ':a;N;$!ba;s/\n/ /g' build/results-test.txt)" >> $GITHUB_ENV
-      continue-on-error: true
-
-    - name: Create PR comment
-      working-directory: app
-      if: steps.build.outcome == 'failure' || steps.test.outcome == 'failure'
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const pr = context.payload.pull_request;
-          if (!pr) {
-            console.log('No es una Pull Request');
-            return;
-          }
-          
-          var buildResult = "";
-          var testResult = "";
-          if (process.env.BUILD_RESULT) {
-            buildResult = process.env.BUILD_RESULT.replace(/(?:\r\n|\r|\n)/g, ' ');
-          }
-
-          if (process.env.TEST_RESULT) {
-            testResult = process.env.TEST_RESULT.replace(/(?:\r\n|\r|\n)/g, ' ');
-          }
-
-          const issueComment = 'El pull request fallo con el siguiente error: \n```\n' + buildResult + testResult + '\n```\n';
-          github.rest.issues.createComment({
-            issue_number: pr.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: issueComment
-          });
-          core.setFailed('Se agregó un comentario en el PR sobre el fallo.')
-    
