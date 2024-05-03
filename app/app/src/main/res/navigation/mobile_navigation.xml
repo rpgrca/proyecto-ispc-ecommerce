@@ -14,8 +14,8 @@
     <fragment
         android:id="@+id/navigation_catalogue"
         android:name="com.ar.enbaldeapp.ui.catalogue.CatalogueFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:label="@string/title_catalogue"
+        tools:layout="@layout/fragment_catalogue" />
 
     <fragment
         android:id="@+id/navigation_notifications"

@@ -10,21 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.ar.enbaldeapp.databinding.FragmentDashboardBinding;
+import com.ar.enbaldeapp.databinding.FragmentCatalogueBinding;
 
 public class CatalogueFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+    private FragmentCatalogueBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         CatalogueViewModel catalogueViewModel =
                 new ViewModelProvider(this).get(CatalogueViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentCatalogueBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
+        final TextView textView = binding.textCatalogue;
         catalogueViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
