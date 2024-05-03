@@ -56,7 +56,10 @@ public class CatalogueFragment extends Fragment {
         return new ArrayList<>(List.of(
                 new Product(1, "Helado de chocolate", "Un helado de chocolate Aguila", 3500, 10, "images/helado-chocolate.png", productTypes.get(1)),
                 new Product(2, "Helado de frutilla", "Helado de frutilla con trozos de fruta natural", 5500, 6, "images/helado-frutilla.png", productTypes.get(2)),
-                new Product(3, "Helado granizado", "Helado de dulce de leche con chips de chocolate", 1500, 20, "images/helado-granizado.png", productTypes.get(2))
+                new Product(3, "Helado granizado", "Helado de dulce de leche con chips de chocolate", 1500, 20, "images/helado-granizado.png", productTypes.get(2)),
+                new Product(4, "Helado de cereza", "Helado de cereza natural", 3500, 10, "images/helado-cereza.png", productTypes.get(1)),
+                new Product(5, "Helado almendrado", "Helado con trozos de almendra", 5500, 6, "images/helado-almendra.png", productTypes.get(1)),
+                new Product(6, "Super Dulce de Leche", "Helado de dulce de leche al natural", 1500, 20, "images/helado-super-leche.png", productTypes.get(2))
         ));
     }
 
