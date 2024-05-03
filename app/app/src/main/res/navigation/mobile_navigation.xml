@@ -18,10 +18,10 @@
         tools:layout="@layout/fragment_catalogue" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.ar.enbaldeapp.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_cart"
+        android:name="com.ar.enbaldeapp.ui.cart.CartFragment"
+        android:label="@string/title_cart"
+        tools:layout="@layout/fragment_cart" />
 
     <fragment
         android:id="@+id/navigation_profile"
