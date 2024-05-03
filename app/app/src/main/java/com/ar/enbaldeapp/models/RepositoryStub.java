@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 
 public class RepositoryStub implements IRepository {
     private User loggedUser;
-    private Map<Integer, ProductType> productTypes;
-    private List<Selection> selections;
-    private List<Product> catalog;
-    private List<Sale> sales;
-    private List<ShippingMethod> shippingMethods;
+    private final Map<Integer, ProductType> productTypes;
+    private final List<Selection> selections;
+    private final List<Product> catalog;
+    private final List<Sale> sales;
+    private final List<ShippingMethod> shippingMethods;
 
     public RepositoryStub() {
         selections = new ArrayList<>();
