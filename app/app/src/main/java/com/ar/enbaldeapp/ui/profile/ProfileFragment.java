@@ -11,10 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.ar.enbaldeapp.R;
-import com.ar.enbaldeapp.databinding.FragmentDashboardBinding;
 import com.ar.enbaldeapp.databinding.FragmentProfileBinding;
-import com.ar.enbaldeapp.ui.dashboard.DashboardViewModel;
 
 public class ProfileFragment extends Fragment {
 

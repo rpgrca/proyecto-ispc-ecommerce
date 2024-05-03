@@ -1,4 +1,4 @@
-package com.ar.enbaldeapp.ui.dashboard;
+package com.ar.enbaldeapp.ui.catalogue;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,20 +12,20 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.ar.enbaldeapp.databinding.FragmentDashboardBinding;
 
-public class DashboardFragment extends Fragment {
+public class CatalogueFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        CatalogueViewModel catalogueViewModel =
+                new ViewModelProvider(this).get(CatalogueViewModel.class);
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        catalogueViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
