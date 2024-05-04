@@ -1,5 +1,8 @@
 package com.ar.enbaldeapp.ui.catalogue;
 
+import static com.ar.enbaldeapp.ui.IntentConstants.PRODUCT_FOR_DETAIL;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +20,7 @@ import com.ar.enbaldeapp.databinding.FragmentCatalogueBinding;
 import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.models.ProductType;
 import com.ar.enbaldeapp.services.CatalogueAdapter;
+import com.ar.enbaldeapp.ui.details.ProductDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +44,9 @@ public class CatalogueFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         adapter.setOnClickListeners((position, product) -> {
-            Toast.makeText(getActivity(), "Agregado", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
+            intent.putExtra(PRODUCT_FOR_DETAIL, product);
+            startActivity(intent);
         });
 
         return root;
