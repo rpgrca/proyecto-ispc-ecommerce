@@ -1,5 +1,7 @@
 package com.ar.enbaldeapp.ui.catalogue;
 
+import static com.ar.enbaldeapp.ui.IntentConstants.PRODUCT_FOR_DETAIL;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -43,6 +45,7 @@ public class CatalogueFragment extends Fragment {
 
         adapter.setOnClickListeners((position, product) -> {
             Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
+            intent.putExtra(PRODUCT_FOR_DETAIL, product);
             startActivity(intent);
         });
 
