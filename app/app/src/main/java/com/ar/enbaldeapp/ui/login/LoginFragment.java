@@ -29,6 +29,8 @@ import com.ar.enbaldeapp.MainActivity;
 import com.ar.enbaldeapp.databinding.FragmentLoginBinding;
 
 import com.ar.enbaldeapp.R;
+import com.ar.enbaldeapp.models.User;
+import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
 import com.ar.enbaldeapp.ui.home.HomeFragment;
 import com.ar.enbaldeapp.ui.profile.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -136,12 +138,19 @@ public class LoginFragment extends Fragment {
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
+
         // TODO : initiate successful logged in experience
         if (getContext() != null && getContext().getApplicationContext() != null) {
             Toast.makeText(getContext().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
         }
 
         replaceLoginWithProfile();
+        saveUserToPreferences(model.getModel());
+    }
+
+    private void saveUserToPreferences(User model) {
+        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getContext());
+        sharedPreferencesManager.saveCurrentUser(model);
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {

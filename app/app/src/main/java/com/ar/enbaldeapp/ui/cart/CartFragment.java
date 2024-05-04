@@ -9,8 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.databinding.FragmentCartBinding;
+import com.ar.enbaldeapp.services.CartAdapter;
 
 public class CartFragment extends Fragment {
 
@@ -18,14 +22,16 @@ public class CartFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        CartViewModel cartViewModel =
-                new ViewModelProvider(this).get(CartViewModel.class);
+        CartViewModel cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
 
         binding = FragmentCartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textCart;
-        cartViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        RecyclerView recyclerView = root.findViewById(R.id.recyclerViewCart);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        CartAdapter adapter = new CartAdapter(cartViewModel);
+        recyclerView.setAdapter(adapter);
+
         return root;
     }
 
