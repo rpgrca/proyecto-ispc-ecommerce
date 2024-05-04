@@ -1,6 +1,8 @@
 package com.ar.enbaldeapp.models;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private final long id;
     private final String name;
     private final String description;
