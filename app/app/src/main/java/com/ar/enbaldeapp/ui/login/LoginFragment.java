@@ -163,8 +163,17 @@ public class LoginFragment extends Fragment {
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.nav_view);
         Menu menu = bottomNavigationView.getMenu();
 
-        menu.findItem(R.id.navigation_login).setVisible(false);
-        menu.findItem(R.id.navigation_profile).setVisible(true);
+        MenuItem item = menu.findItem(R.id.navigation_login);
+        item.setVisible(false);
+        item.setEnabled(false);
+
+        item = menu.findItem(R.id.navigation_cart);
+        item.setVisible(true);
+        item.setEnabled(true);
+
+        item = menu.findItem(R.id.navigation_profile);
+        item.setVisible(true);
+        item.setEnabled(true);
 
         bottomNavigationView.setSelectedItemId(R.id.navigation_home);
     }
