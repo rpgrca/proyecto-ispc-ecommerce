@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -31,6 +32,7 @@ import com.ar.enbaldeapp.databinding.FragmentLoginBinding;
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
+import com.ar.enbaldeapp.ui.Utilities;
 import com.ar.enbaldeapp.ui.home.HomeFragment;
 import com.ar.enbaldeapp.ui.profile.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -144,13 +146,9 @@ public class LoginFragment extends Fragment {
             Toast.makeText(getContext().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
         }
 
-        replaceLoginWithProfile();
-        saveUserToPreferences(model.getModel());
-    }
-
-    private void saveUserToPreferences(User model) {
-        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getContext());
-        sharedPreferencesManager.saveCurrentUser(model);
+        Activity activity = getActivity();
+        Utilities.replaceLoginWithProfile(activity);
+        Utilities.saveUserToPreferences(activity, model.getModel());
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
@@ -166,24 +164,5 @@ public class LoginFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    private void replaceLoginWithProfile() {
-        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.nav_view);
-        Menu menu = bottomNavigationView.getMenu();
-
-        MenuItem item = menu.findItem(R.id.navigation_login);
-        item.setVisible(false);
-        item.setEnabled(false);
-
-        item = menu.findItem(R.id.navigation_cart);
-        item.setVisible(true);
-        item.setEnabled(true);
-
-        item = menu.findItem(R.id.navigation_profile);
-        item.setVisible(true);
-        item.setEnabled(true);
-
-        bottomNavigationView.setSelectedItemId(R.id.navigation_home);
     }
 }

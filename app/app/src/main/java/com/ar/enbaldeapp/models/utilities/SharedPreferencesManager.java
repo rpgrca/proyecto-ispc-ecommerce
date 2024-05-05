@@ -28,4 +28,8 @@ public class SharedPreferencesManager {
 
         return new Gson().fromJson(json, User.class);
     }
+
+    public void deleteCurrentUser() {
+        sharedPreferences.edit().remove(CURRENT_USER).commit();
+    }
 }
