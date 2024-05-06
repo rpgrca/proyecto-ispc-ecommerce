@@ -6,8 +6,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,6 +23,7 @@ import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.ar.enbaldeapp.services.IApiServices;
 import com.ar.enbaldeapp.ui.Utilities;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ProfileFragment extends Fragment {
 
@@ -54,7 +58,9 @@ public class ProfileFragment extends Fragment {
                 {
                     SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(context);
                     sharedPreferencesManager.deleteCurrentUser();
-                    Utilities.replaceProfileWithLogin(getActivity().findViewById(R.id.fragment_user_id), getActivity().findViewById(R.id.nav_view), getActivity().getSupportFragmentManager());
+
+                    Navigation.findNavController(getView()).navigate(R.id.action_profileFragment_to_loginFragment);
+                    Utilities.changeBottomMenuToLogin(getView());
                 },
                 () -> Toast.makeText(context, "Error trying to log out, please try again.", Toast.LENGTH_SHORT).show());
     }

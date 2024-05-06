@@ -1,7 +1,5 @@
 package com.ar.enbaldeapp.ui.login;
 
-import static androidx.navigation.fragment.FragmentKt.findNavController;
-
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
@@ -23,16 +21,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ar.enbaldeapp.MainActivity;
 import com.ar.enbaldeapp.databinding.FragmentLoginBinding;
 
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.ui.Utilities;
-import com.ar.enbaldeapp.ui.register.RegisterFragment;
-import com.ar.enbaldeapp.ui.user.UserFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class LoginFragment extends Fragment {
 
@@ -64,22 +59,12 @@ public class LoginFragment extends Fragment {
         binding.loginRegisterTextView.setOnClickListener(v -> {
             if (requireActivity() instanceof MainActivity)
             {
-                Navigation.findNavController(this.getView()).navigate(R.id.action_loginFragment_to_registrationFragment);
+                Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_registrationFragment);
+                Utilities.changeBottomMenuToRegistration(getView());
             }
             else {
 
             }
-/*
-
-            View containerView = this.getParentFragment().getView().findViewById(R.id.fragment_user_id);
-
-            this.getView().setVisibility(View.GONE);
-            getChildFragmentManager().beginTransaction()
-                   .add(containerView.getId(), new RegisterFragment())
-                   .addToBackStack("login")
-                   .commit();
-*/
-
         });
 
         loginViewModel.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<LoginFormState>() {
@@ -156,35 +141,19 @@ public class LoginFragment extends Fragment {
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
-
-        // TODO : initiate successful logged in experience
-        if (getContext() != null && getContext().getApplicationContext() != null) {
-            Toast.makeText(getContext().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-        }
-
         if (requireActivity() instanceof MainActivity)
         {
-            Navigation.findNavController(this.getView()).navigate(R.id.action_loginFragment_to_profileFragment);
+            Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_profileFragment);
+            Utilities.changeBottomMenuToProfile(getView());
         }
         else {
 
         }
-
-/*
-        Activity activity = getActivity();
-        BottomNavigationView bottomNavigationView = activity.findViewById(R.id.nav_view);
-        Utilities.replaceLoginWithProfile(this.getParentFragment().getView(), bottomNavigationView, getActivity().getSupportFragmentManager());
-        //bottomNavigationView.setSelectedItemId(R.id.navigation_home);
-        Utilities.saveUserToPreferences(activity, model.getModel());*/
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
         if (getContext() != null && getContext().getApplicationContext() != null) {
-            Toast.makeText(
-                    getContext().getApplicationContext(),
-                    errorString,
-                    Toast.LENGTH_LONG).show();
+            Snackbar.make(getView(), errorString, Snackbar.LENGTH_LONG).show();
         }
     }
 

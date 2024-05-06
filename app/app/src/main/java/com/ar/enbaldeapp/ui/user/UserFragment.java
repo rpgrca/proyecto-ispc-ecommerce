@@ -61,25 +61,11 @@ public class UserFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-/*
-        getActivity().getSupportFragmentManager().beginTransaction()
-                        .add(R.id.account_host, LoginFragment.class, null)
-                        .commit();*/
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user, container, false);
-/*
-        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.nav_view);
-        if (Utilities.isLoggedIn(this.getActivity()))
-        {
-            Utilities.replaceLoginWithProfile(view, bottomNavigationView, this.getChildFragmentManager());
-        }
-        else {
-            Utilities.replaceProfileWithLogin(view, bottomNavigationView, this.getChildFragmentManager());
-        }*/
-        return view;
+        return inflater.inflate(R.layout.fragment_user, container, false);
     }
 }
