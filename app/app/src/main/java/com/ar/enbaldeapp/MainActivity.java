@@ -1,17 +1,12 @@
 package com.ar.enbaldeapp;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.ar.enbaldeapp.ui.Utilities;
-import com.ar.enbaldeapp.ui.login.LoginFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentContainerView;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -39,44 +34,14 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+        if (Utilities.isLoggedIn(this)) {
+            View view = this.findViewById(R.id.nav_host_fragment_activity_main);
+            Utilities.changeBottomMenuToProfile(view);
+            Utilities.showCartMenuItem(view);
 
-        //View view = this.findViewById(R.id.fragment_user_id);
-/*
-        BottomNavigationView bottomNavigationView = this.findViewById(R.id.nav_view);
-        if (Utilities.isLoggedIn(this))
-        {
-            //Utilities.replaceLoginWithProfile(view, bottomNavigationView, this.getSupportFragmentManager());
-            Menu menu = bottomNavigationView.getMenu();
-            MenuItem item = menu.findItem(R.id.navigation_user);
-            item.setTitle("Profile");
-
-            item = menu.findItem(R.id.navigation_cart);
-            item.setEnabled(true);
-            item.setVisible(true);
-
-            item = menu.findItem(R.id.navigation_cart);
-            item.setEnabled(true);
-            item.setVisible(true);
+            Utilities.changeBottomMenuToProfile(binding.navView);
+            Utilities.showCartMenuItem(binding.navView);
         }
-        else {
-            //Utilities.replaceProfileWithLogin(view, this.getSupportFragmentManager());
-            Menu menu = bottomNavigationView.getMenu();
-            MenuItem item = menu.findItem(R.id.navigation_user);
-            item.setTitle("Login");
-
-            bottomNavigationView.setSelectedItemId(R.id.navigation_home);
-        }*/
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-
     }
 }
