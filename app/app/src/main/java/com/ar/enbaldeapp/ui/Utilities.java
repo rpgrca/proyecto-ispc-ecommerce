@@ -1,9 +1,12 @@
 package com.ar.enbaldeapp.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
@@ -48,5 +51,21 @@ public class Utilities {
     public static boolean isLoggedIn(Context context) {
         SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(context);
         return sharedPreferencesManager.loadCurrentUser() != null;
+    }
+
+    private static void changeToolbarTitleTo(Activity activity, String text) {
+        ((AppCompatActivity)(activity)).getSupportActionBar().setTitle(text);
+    }
+
+    public static void changeToolbarTitleToLogin(Activity activity) {
+        changeToolbarTitleTo(activity,"Login");
+    }
+
+    public static void changeToolbarTitleToProfile(Activity activity) {
+        changeToolbarTitleTo(activity, "Profile");
+    }
+
+    public static void changeToolbarTitleToRegistration(Activity activity) {
+        changeToolbarTitleTo(activity, "Registration");
     }
 }

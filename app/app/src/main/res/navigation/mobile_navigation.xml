@@ -23,10 +23,11 @@
         android:label="@string/title_cart"
         tools:layout="@layout/fragment_cart" />
 
+    <!-- label es Login para que por defecto el toolbar diga login -->
     <fragment
         android:id="@+id/navigation_user"
         android:name="com.ar.enbaldeapp.ui.user.UserFragment"
-        android:label="User"
+        android:label="Login"
         tools:layout="@layout/fragment_user" />
 
     <!--

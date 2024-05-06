@@ -54,6 +54,7 @@ public class ProfileFragment extends Fragment {
                     sharedPreferencesManager.deleteCurrentUser();
 
                     Navigation.findNavController(getView()).navigate(R.id.action_profileFragment_to_loginFragment);
+                    Utilities.changeToolbarTitleToLogin(getActivity());
                     Utilities.changeBottomMenuToLogin(getView());
                     Utilities.hideCartMenuItem(getView());
                 },

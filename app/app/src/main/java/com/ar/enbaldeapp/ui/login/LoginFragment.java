@@ -163,6 +163,7 @@ public class LoginFragment extends Fragment {
         Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_profileFragment);
         Utilities.changeBottomMenuToProfile(getView());
         Utilities.showCartMenuItem(getView());
+        Utilities.changeToolbarTitleToProfile(getActivity());
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
