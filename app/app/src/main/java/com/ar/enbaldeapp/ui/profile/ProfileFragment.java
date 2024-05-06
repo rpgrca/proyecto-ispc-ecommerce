@@ -24,6 +24,7 @@ import com.ar.enbaldeapp.services.ApiServices;
 import com.ar.enbaldeapp.services.IApiServices;
 import com.ar.enbaldeapp.ui.Utilities;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class ProfileFragment extends Fragment {
 
@@ -40,8 +41,6 @@ public class ProfileFragment extends Fragment {
         final Button logoutButton = binding.logoutButton;
         logoutButton.setOnClickListener(this::onLogout);
 
-/*        final TextView textView = binding.textProfile;
-        profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);*/
         return root;
     }
 
@@ -63,6 +62,6 @@ public class ProfileFragment extends Fragment {
                     Utilities.changeBottomMenuToLogin(getView());
                     Utilities.hideCartMenuItem(getView());
                 },
-                () -> Toast.makeText(context, "Error trying to log out, please try again.", Toast.LENGTH_SHORT).show());
+                () -> Snackbar.make(getView(), "Error trying to log out, please try again.", Snackbar.LENGTH_SHORT).show());
     }
 }
