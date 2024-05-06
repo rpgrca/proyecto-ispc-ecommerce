@@ -1,21 +1,18 @@
 package com.ar.enbaldeapp.ui.login;
 
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -23,16 +20,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ar.enbaldeapp.MainActivity;
 import com.ar.enbaldeapp.databinding.FragmentLoginBinding;
 
 import com.ar.enbaldeapp.R;
-import com.ar.enbaldeapp.ui.home.HomeFragment;
-import com.ar.enbaldeapp.ui.profile.ProfileFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
+import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
+import com.ar.enbaldeapp.ui.Utilities;
+import com.google.android.material.snackbar.Snackbar;
 
 public class LoginFragment extends Fragment {
 
@@ -47,12 +42,18 @@ public class LoginFragment extends Fragment {
 
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         return binding.getRoot();
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Si ya esta logueado navegar al perfil y salir
+        if (Utilities.isLoggedIn(getContext())) {
+            goToProfile();
+            return;
+        }
+
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
@@ -60,6 +61,17 @@ public class LoginFragment extends Fragment {
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
         final ProgressBar loadingProgressBar = binding.loading;
+
+        binding.loginRegisterTextView.setOnClickListener(v -> {
+            if (requireActivity() instanceof MainActivity)
+            {
+                Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_registrationFragment);
+                Utilities.changeBottomMenuToRegistration(getView());
+            }
+            else {
+
+            }
+        });
 
         loginViewModel.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<LoginFormState>() {
             @Override
@@ -135,21 +147,28 @@ public class LoginFragment extends Fragment {
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful logged in experience
-        if (getContext() != null && getContext().getApplicationContext() != null) {
-            Toast.makeText(getContext().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-        }
+        if (requireActivity() instanceof MainActivity)
+        {
+            SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getContext());
+            sharedPreferencesManager.saveCurrentUser(model.getModel());
 
-        replaceLoginWithProfile();
+            goToProfile();
+        }
+        else {
+
+        }
+    }
+
+    private void goToProfile() {
+        Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_profileFragment);
+        Utilities.changeBottomMenuToProfile(getView());
+        Utilities.showCartMenuItem(getView());
+        Utilities.changeToolbarTitleToProfile(getActivity());
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
         if (getContext() != null && getContext().getApplicationContext() != null) {
-            Toast.makeText(
-                    getContext().getApplicationContext(),
-                    errorString,
-                    Toast.LENGTH_LONG).show();
+            Snackbar.make(getView(), errorString, Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -157,24 +176,5 @@ public class LoginFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    private void replaceLoginWithProfile() {
-        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.nav_view);
-        Menu menu = bottomNavigationView.getMenu();
-
-        MenuItem item = menu.findItem(R.id.navigation_login);
-        item.setVisible(false);
-        item.setEnabled(false);
-
-        item = menu.findItem(R.id.navigation_cart);
-        item.setVisible(true);
-        item.setEnabled(true);
-
-        item = menu.findItem(R.id.navigation_profile);
-        item.setVisible(true);
-        item.setEnabled(true);
-
-        bottomNavigationView.setSelectedItemId(R.id.navigation_home);
     }
 }

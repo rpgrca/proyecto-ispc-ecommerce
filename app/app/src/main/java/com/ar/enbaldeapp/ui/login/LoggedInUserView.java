@@ -1,17 +1,23 @@
 package com.ar.enbaldeapp.ui.login;
 
+import com.ar.enbaldeapp.models.User;
+
 /**
  * Class exposing authenticated user details to the UI.
  */
 class LoggedInUserView {
-    private String displayName;
+    private User model;
     //... other data fields that may be accessible to the UI
 
-    LoggedInUserView(String displayName) {
-        this.displayName = displayName;
+    LoggedInUserView(User model) {
+        this.model = model;
     }
 
-    String getDisplayName() {
-        return displayName;
+    User getModel() {
+        return model;
+    }
+
+    public String getDisplayName() {
+        return this.model.getFirstName() + " " + this.model.getLastName();
     }
 }

@@ -4,16 +4,21 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.ar.enbaldeapp.models.Selection;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class CartViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    private final MutableLiveData<List<Selection>> selections;
 
     public CartViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is cart fragment");
+        selections = new MutableLiveData<>();
+        selections.setValue(new ArrayList<>());
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<List<Selection>> getSelections() {
+        return selections;
     }
 }

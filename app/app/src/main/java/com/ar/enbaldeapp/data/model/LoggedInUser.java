@@ -1,23 +1,16 @@
 package com.ar.enbaldeapp.data.model;
 
+import com.ar.enbaldeapp.models.User;
+
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
  */
 public class LoggedInUser {
+    private User model;
 
-    private String userId;
-    private String displayName;
-
-    public LoggedInUser(String userId, String displayName) {
-        this.userId = userId;
-        this.displayName = displayName;
+    public LoggedInUser(User model) {
+        this.model = model;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
+    public User getModel() { return model; }
 }

@@ -23,15 +23,24 @@
         android:label="@string/title_cart"
         tools:layout="@layout/fragment_cart" />
 
+    <!-- label es Login para que por defecto el toolbar diga login -->
     <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.ar.enbaldeapp.ui.profile.ProfileFragment"
-        android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
-
-    <fragment
-        android:id="@+id/navigation_login"
-        android:name="com.ar.enbaldeapp.ui.login.LoginFragment"
+        android:id="@+id/navigation_user"
+        android:name="com.ar.enbaldeapp.ui.user.UserFragment"
         android:label="Login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_user" />
+
+    <!--
+        <fragment
+            android:id="@+id/navigation_profile"
+            android:name="com.ar.enbaldeapp.ui.profile.ProfileFragment"
+            android:label="Profile"
+            tools:layout="@layout/fragment_profile" />
+
+        <fragment
+            android:id="@+id/navigation_login"
+            android:name="com.ar.enbaldeapp.ui.login.LoginFragment"
+            android:label="Login"
+            tools:layout="@layout/fragment_login" />
+        -->
 </navigation>

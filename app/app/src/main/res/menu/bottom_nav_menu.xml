@@ -19,6 +19,13 @@
         android:title="@string/title_cart" />
 
     <item
+        android:id="@+id/navigation_user"
+        android:icon="@drawable/baseline_person_24"
+        android:visible="true"
+        android:enabled="true"
+        android:title="Login" />
+<!--
+    <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/baseline_person_24"
         android:visible="false"
@@ -29,4 +36,5 @@
         android:id="@+id/navigation_login"
         android:icon="@drawable/baseline_person_24"
         android:title="Login" />
+        -->
 </menu>

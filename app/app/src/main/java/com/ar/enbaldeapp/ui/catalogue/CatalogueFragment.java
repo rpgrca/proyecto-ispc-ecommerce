@@ -1,7 +1,9 @@
 package com.ar.enbaldeapp.ui.catalogue;
 
+import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_USER_FOR_DETAIL;
 import static com.ar.enbaldeapp.ui.IntentConstants.PRODUCT_FOR_DETAIL;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +21,8 @@ import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.databinding.FragmentCatalogueBinding;
 import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.models.ProductType;
+import com.ar.enbaldeapp.models.User;
+import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
 import com.ar.enbaldeapp.services.CatalogueAdapter;
 import com.ar.enbaldeapp.ui.details.ProductDetailActivity;
 
@@ -44,8 +48,12 @@ public class CatalogueFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         adapter.setOnClickListeners((position, product) -> {
-            Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
+            Context context = getActivity();
+            Intent intent = new Intent(context, ProductDetailActivity.class);
             intent.putExtra(PRODUCT_FOR_DETAIL, product);
+
+            User user = new SharedPreferencesManager(context).loadCurrentUser();
+            intent.putExtra(CURRENT_USER_FOR_DETAIL, user);
             startActivity(intent);
         });
 

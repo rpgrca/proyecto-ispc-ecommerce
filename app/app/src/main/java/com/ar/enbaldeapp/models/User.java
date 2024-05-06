@@ -1,6 +1,8 @@
 package com.ar.enbaldeapp.models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private final long id;
     private final String lastName;
     private final String firstName;
