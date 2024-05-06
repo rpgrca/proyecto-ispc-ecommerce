@@ -61,6 +61,7 @@ public class ProfileFragment extends Fragment {
 
                     Navigation.findNavController(getView()).navigate(R.id.action_profileFragment_to_loginFragment);
                     Utilities.changeBottomMenuToLogin(getView());
+                    Utilities.hideCartMenuItem(getView());
                 },
                 () -> Toast.makeText(context, "Error trying to log out, please try again.", Toast.LENGTH_SHORT).show());
     }
