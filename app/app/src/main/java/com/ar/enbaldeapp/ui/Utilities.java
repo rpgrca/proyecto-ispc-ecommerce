@@ -1,18 +1,12 @@
 package com.ar.enbaldeapp.ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
-import com.ar.enbaldeapp.ui.login.LoginFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Utilities {
@@ -54,14 +48,5 @@ public class Utilities {
     public static boolean isLoggedIn(Context context) {
         SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(context);
         return sharedPreferencesManager.loadCurrentUser() != null;
-    }
-
-    public static void showProfileMenuItem(View view) {
-        BottomNavigationView bottomNavigationView = view.getRootView().findViewById(R.id.nav_view);
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem item = menu.findItem(R.id.navigation_user);
-        item.setEnabled(true);
-        item.setVisible(true);
-
     }
 }
