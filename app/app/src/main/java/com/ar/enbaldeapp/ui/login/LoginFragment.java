@@ -1,22 +1,21 @@
 package com.ar.enbaldeapp.ui.login;
 
-import androidx.fragment.app.FragmentTransaction;
+import static androidx.navigation.fragment.FragmentKt.findNavController;
+
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -30,13 +29,10 @@ import com.ar.enbaldeapp.MainActivity;
 import com.ar.enbaldeapp.databinding.FragmentLoginBinding;
 
 import com.ar.enbaldeapp.R;
-import com.ar.enbaldeapp.models.User;
-import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
 import com.ar.enbaldeapp.ui.Utilities;
-import com.ar.enbaldeapp.ui.home.HomeFragment;
-import com.ar.enbaldeapp.ui.profile.ProfileFragment;
+import com.ar.enbaldeapp.ui.register.RegisterFragment;
+import com.ar.enbaldeapp.ui.user.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 
 public class LoginFragment extends Fragment {
 
@@ -64,6 +60,27 @@ public class LoginFragment extends Fragment {
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
         final ProgressBar loadingProgressBar = binding.loading;
+
+        binding.loginRegisterTextView.setOnClickListener(v -> {
+            if (requireActivity() instanceof MainActivity)
+            {
+                Navigation.findNavController(this.getView()).navigate(R.id.action_loginFragment_to_registrationFragment);
+            }
+            else {
+
+            }
+/*
+
+            View containerView = this.getParentFragment().getView().findViewById(R.id.fragment_user_id);
+
+            this.getView().setVisibility(View.GONE);
+            getChildFragmentManager().beginTransaction()
+                   .add(containerView.getId(), new RegisterFragment())
+                   .addToBackStack("login")
+                   .commit();
+*/
+
+        });
 
         loginViewModel.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<LoginFormState>() {
             @Override
@@ -146,9 +163,20 @@ public class LoginFragment extends Fragment {
             Toast.makeText(getContext().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
         }
 
+        if (requireActivity() instanceof MainActivity)
+        {
+            Navigation.findNavController(this.getView()).navigate(R.id.action_loginFragment_to_profileFragment);
+        }
+        else {
+
+        }
+
+/*
         Activity activity = getActivity();
-        Utilities.replaceLoginWithProfile(activity);
-        Utilities.saveUserToPreferences(activity, model.getModel());
+        BottomNavigationView bottomNavigationView = activity.findViewById(R.id.nav_view);
+        Utilities.replaceLoginWithProfile(this.getParentFragment().getView(), bottomNavigationView, getActivity().getSupportFragmentManager());
+        //bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+        Utilities.saveUserToPreferences(activity, model.getModel());*/
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {

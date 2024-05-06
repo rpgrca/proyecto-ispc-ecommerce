@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.databinding.FragmentProfileBinding;
 import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
 import com.ar.enbaldeapp.services.ApiServices;
@@ -53,7 +54,7 @@ public class ProfileFragment extends Fragment {
                 {
                     SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(context);
                     sharedPreferencesManager.deleteCurrentUser();
-                    Utilities.replaceProfileWithLogin(getActivity());
+                    Utilities.replaceProfileWithLogin(getActivity().findViewById(R.id.fragment_user_id), getActivity().findViewById(R.id.nav_view), getActivity().getSupportFragmentManager());
                 },
                 () -> Toast.makeText(context, "Error trying to log out, please try again.", Toast.LENGTH_SHORT).show());
     }

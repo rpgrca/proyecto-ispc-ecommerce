@@ -3,30 +3,64 @@ package com.ar.enbaldeapp.ui;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
+import com.ar.enbaldeapp.ui.login.LoginFragment;
+import com.ar.enbaldeapp.ui.profile.ProfileFragment;
+import com.ar.enbaldeapp.ui.register.RegisterFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Utilities {
-    public static void replaceLoginWithProfile(Activity activity) {
-        BottomNavigationView bottomNavigationView = activity.findViewById(R.id.nav_view);
-        Menu menu = bottomNavigationView.getMenu();
+    public static void replaceLoginWithProfile(View fragmentContainerView, BottomNavigationView bottomNavigationView, FragmentManager fragmentManager) {
+        //Menu menu = bottomNavigationView.getMenu();
+        //MenuItem item = menu.findItem(R.id.navigation_user);
 
-        MenuItem item = menu.findItem(R.id.navigation_login);
-        item.setVisible(false);
-        item.setEnabled(false);
+        //if (item != null && item.getTitle() != "Profile") {
+            //hideLoginFragment(fragmentContainerView, bottomNavigationView, fragmentManager);
+            //hideRegisterFragment(fragmentContainerView, bottomNavigationView, fragmentManager);
+            showProfileFragment(fragmentContainerView, bottomNavigationView, fragmentManager);
 
-        item = menu.findItem(R.id.navigation_cart);
-        item.setVisible(true);
-        item.setEnabled(true);
+//            item.setTitle("Profile");
 
-        item = menu.findItem(R.id.navigation_profile);
-        item.setVisible(true);
-        item.setEnabled(true);
+//            item = menu.findItem(R.id.navigation_cart);
+//            item.setEnabled(true);
+//            item.setVisible(true);
+//        }
+    }
 
-        bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+    private static void showProfileFragment(View activity, BottomNavigationView bottomNavigationView, FragmentManager fragmentManager) {
+        /*View containerView = activity.findViewById(R.id.user_fragment_container_view);
+        View profile = activity.findViewById(R.id.fragment_profile_id);
+        if (profile == null) {
+            fragmentManager.beginTransaction()
+                    .add(containerView.getId(), new ProfileFragment())
+                    .addToBackStack("profile")
+                    .commit();
+
+            profile = activity.findViewById(R.id.fragment_profile_id);
+        }*/
+    }
+
+    private static void hideLoginFragment(View activity, BottomNavigationView bottomNavigationView, FragmentManager fragmentManager) {
+        View login = activity.findViewById(R.id.fragment_login_id);
+        if (login != null) {
+            login.setVisibility(View.GONE);
+            login.setEnabled(false);
+        }
+    }
+
+    private static void hideRegisterFragment(View activity, BottomNavigationView bottomNavigationView, FragmentManager fragmentManager) {
+        View register = activity.findViewById(R.id.fragment_register_id);
+        if (register != null) {
+            register.setVisibility(View.GONE);
+            register.setEnabled(false);
+        }
     }
 
     public static void saveUserToPreferences(Activity activity, User model) {
@@ -40,22 +74,43 @@ public class Utilities {
         return user != null;
     }
 
-    public static void replaceProfileWithLogin(Activity activity) {
-        BottomNavigationView bottomNavigationView = activity.findViewById(R.id.nav_view);
-        Menu menu = bottomNavigationView.getMenu();
+    public static void replaceProfileWithLogin(View view, BottomNavigationView bottomNavigationView, FragmentManager fragmentManager) {
+        /*View profile = view.findViewById(R.id.fragment_profile_id);
+        if (profile != null && profile.getVisibility() == View.VISIBLE) {
+            hideRegisterFragment(view, bottomNavigationView, fragmentManager);
+            hideProfileFragment(view, bottomNavigationView, fragmentManager);
+            showLoginFragment(view, bottomNavigationView, fragmentManager);
 
-        MenuItem item = menu.findItem(R.id.navigation_cart);
-        item.setVisible(false);
-        item.setEnabled(false);
+            Menu menu = bottomNavigationView.getMenu();
+            MenuItem item = menu.findItem(R.id.navigation_user);
+            item.setTitle("Login");
 
-        item = menu.findItem(R.id.navigation_profile);
-        item.setVisible(false);
-        item.setEnabled(false);
+            item = menu.findItem(R.id.navigation_cart);
+            item.setVisible(false);
+            item.setEnabled(false);
+        }*/
+    }
 
-        item = menu.findItem(R.id.navigation_login);
-        item.setVisible(true);
-        item.setEnabled(true);
+    private static void showLoginFragment(View view, BottomNavigationView bottomNavigationView, FragmentManager fragmentManager) {
+        /*View login = view.findViewById(R.id.fragment_login_id);
+        if (login == null) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.user_fragment_container_view, new LoginFragment())
+                    .addToBackStack("login")
+                    .commit();
 
-        bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+            //activity.findViewById(R.id.navigation_login);
+        }*/
+/*
+        login.setVisibility(View.VISIBLE);
+        login.setEnabled(true);*/
+    }
+
+    private static void hideProfileFragment(View userView, BottomNavigationView bottomNavigationView, FragmentManager fragmentManager) {
+        /*View profile = userView.findViewById(R.id.fragment_profile_id);
+        if (profile != null) {
+            profile.setVisibility(View.GONE);
+            profile.setEnabled(false);
+        }*/
     }
 }
