@@ -58,6 +58,6 @@ public class ProfileFragment extends Fragment {
                     Utilities.changeBottomMenuToLogin(getView());
                     Utilities.hideCartMenuItem(getView());
                 },
-                () -> Snackbar.make(getView(), "Error trying to log out, please try again.", Snackbar.LENGTH_SHORT).show());
+                e -> Snackbar.make(getView(), "Error trying to log out, please try again.", Snackbar.LENGTH_SHORT).show());
     }
 }

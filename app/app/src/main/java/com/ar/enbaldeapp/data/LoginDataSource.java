@@ -18,7 +18,7 @@ public class LoginDataSource {
             IApiServices apiServices = new ApiServices();
             apiServices.login(username, password,
                     (User u) -> result[0] = new Result.Success<>(new LoggedInUser(u)),
-                    () -> result[0] = new Result.Error(new IOException("Could not log in")));
+                    e -> result[0] = new Result.Error(new IOException("Could not log in: " + e.getMessage())));
 
             return result[0];
         } catch (Exception e) {
@@ -32,7 +32,7 @@ public class LoginDataSource {
             IApiServices apiServices = new ApiServices();
             apiServices.logout(
                     () -> new Result.Success<String>("Logout successful!"),
-                    () -> new Result.Error(new IOException("Could not log out")));
+                    e -> new Result.Error(new IOException("Could not log out: " + e.getMessage())));
 
             return result[0];
         } catch (Exception e) {

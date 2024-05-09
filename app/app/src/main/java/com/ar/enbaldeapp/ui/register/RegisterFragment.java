@@ -11,9 +11,12 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ar.enbaldeapp.R;
+import com.ar.enbaldeapp.services.ApiServices;
 import com.ar.enbaldeapp.ui.Utilities;
 
 /**
@@ -31,6 +34,14 @@ public class RegisterFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private EditText firstNameEditText;
+    private EditText lastNameEditText;
+    private EditText emailEditText;
+    private EditText addressEditText;
+    private EditText phoneEditText;
+    private EditText passwordEditText;
+    private EditText usernameEditText;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -73,6 +84,31 @@ public class RegisterFragment extends Fragment {
         textView.setOnClickListener(v -> {
             Navigation.findNavController(view).navigate(R.id.action_registrationFragment_to_loginFragment);
             Utilities.changeToolbarTitleToLogin(getActivity());
+        });
+
+        firstNameEditText = view.findViewById(R.id.registerFirstNameEditText);
+        lastNameEditText = view.findViewById(R.id.registerLastNameEditText);
+        emailEditText = view.findViewById(R.id.registerEmailEditText);
+        addressEditText = view.findViewById(R.id.registerAddressEditText);
+        phoneEditText = view.findViewById(R.id.registerPhoneEditText);
+        passwordEditText = view.findViewById(R.id.registerPasswordEditText);
+        usernameEditText = view.findViewById(R.id.registerUsernameEditText);
+
+        Button button = view.findViewById(R.id.buttonRegisterAccount);
+        button.setOnClickListener(v -> {
+            new ApiServices().register(firstNameEditText.getText().toString(),
+                    lastNameEditText.getText().toString(),
+                    emailEditText.getText().toString(),
+                    addressEditText.getText().toString(),
+                    phoneEditText.getText().toString(),
+                    usernameEditText.getText().toString(),
+                    passwordEditText.getText().toString(),
+                    r -> {
+
+                    },
+                    f -> {
+
+                    });
         });
 
         Utilities.changeToolbarTitleToRegistration(getActivity());
