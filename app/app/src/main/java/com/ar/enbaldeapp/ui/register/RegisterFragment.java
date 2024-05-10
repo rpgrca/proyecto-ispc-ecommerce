@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.ar.enbaldeapp.ui.Utilities;
+import com.google.android.material.snackbar.Snackbar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -104,10 +105,10 @@ public class RegisterFragment extends Fragment {
                     usernameEditText.getText().toString(),
                     passwordEditText.getText().toString(),
                     r -> {
-
+                        Snackbar.make(getView(), r.getUsername() + " created successfully!", Snackbar.LENGTH_LONG).show();
                     },
-                    f -> {
-
+                    e -> {
+                        Snackbar.make(getView(), e.getMessage(), Snackbar.LENGTH_LONG).show();
                     });
         });
 

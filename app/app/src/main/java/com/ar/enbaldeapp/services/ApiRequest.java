@@ -1,15 +1,13 @@
 package com.ar.enbaldeapp.services;
 
-import com.google.gson.Gson;
-
 public class ApiRequest {
-    private Gson json;
+    private String data;
 
-    public ApiRequest(Gson json) {
-        this.json = json;
+    public ApiRequest(String data) {
+        this.data = data;
     }
 
-    public Gson getJson() {
-        return this.json;
+    public String getData() {
+        return this.data;
     }
 }
