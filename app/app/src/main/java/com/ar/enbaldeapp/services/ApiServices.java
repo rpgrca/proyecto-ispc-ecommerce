@@ -20,7 +20,6 @@ import java.util.function.Consumer;
 
 public class ApiServices implements IApiServices {
     private static String ServerUrl = "http://10.0.2.2:8000";
-    private static String ContentDispositionSeparator = "-----------------------------316364238710708646983401506042";
 
     @Override
     public void login(String username, String password, Consumer<User> onSuccess, Consumer<ApiError> onError) {
@@ -37,19 +36,20 @@ public class ApiServices implements IApiServices {
 
     @Override
     public void register(String firstName, String lastName, String email, String address, String phoneNumber, String username, String password, Consumer<User> onSuccess, Consumer<ApiError> onError) {
-        StringBuilder stringBuilder = new StringBuilder();
-        addContentDisposition(stringBuilder, "nombre", firstName);
-        addContentDisposition(stringBuilder, "apellido", lastName);
-        addContentDisposition(stringBuilder, "email", email);
-        addContentDisposition(stringBuilder, "direccion", address);
-        addContentDisposition(stringBuilder, "telefono", phoneNumber);
-        addContentDisposition(stringBuilder, "usuario", username);
-        addContentDisposition(stringBuilder, "clave", password);
-        addContentDisposition(stringBuilder, "tipo", "2");
-        addContentDisposition(stringBuilder, "observaciones", "");
-        addSeparator(stringBuilder);
+        if (firstName == null || firstName.trim().isEmpty()) onError.accept(new ApiError(""));
 
-        ApiRequest request = new ApiRequest(stringBuilder.toString());
+        ApiRequest request = new ApiRequest.Builder()
+                .addContentDisposition("nombre", firstName)
+                .addContentDisposition("apellido", lastName)
+                .addContentDisposition("email", email)
+                .addContentDisposition("direccion", address)
+                .addContentDisposition("telefono", phoneNumber)
+                .addContentDisposition("usuario", username)
+                .addContentDisposition("clave", password)
+                .addContentDisposition("tipo", "2")
+                .addContentDisposition("observaciones", "")
+                .Build();
+
         ServerConnector<User> connector = new ServerConnector<User>(ServerUrl + "/api/auth/signup/", request);
         if (connector.connect()) {
             User user = connector.getResponse().castResonseAs(User.class);
@@ -58,16 +58,6 @@ public class ApiServices implements IApiServices {
         else {
             onError.accept(connector.getError());
         }
-    }
-
-    private void addContentDisposition(StringBuilder stringBuilder, String key, String value) {
-        addSeparator(stringBuilder);
-        stringBuilder.append("Content-Disposition: form-data; name=" + "\"" + key + "\"\r\n\r\n");
-        stringBuilder.append(value + "\r\n");
-    }
-
-    private void addSeparator(StringBuilder stringBuilder) {
-        stringBuilder.append(ContentDispositionSeparator + "\r\n");
     }
 }
 
