@@ -3,6 +3,10 @@ package com.ar.enbaldeapp.services;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -64,7 +68,7 @@ public class ServerConnector<T> {
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---------------------------316364238710708646983401506042");
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + request.getBoundary());
             connection.setRequestProperty("Accept", "application/json");
 
             OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
@@ -93,14 +97,14 @@ public class ServerConnector<T> {
             jsonText = stringBuilder.toString();
 
             if (isError) {
-                this.error = new ApiError(jsonText, true);
+                this.error = new ApiError(JsonParser.parseString(jsonText).getAsJsonObject());
             }
             else {
                 this.response = new ApiResponse(jsonText, true);
                 return true;
             }
         } catch (IOException ex) {
-            error = new ApiError(ex.getMessage(), false);
+            error = new ApiError(ex.getMessage());
         } finally {
             if (connection != null) {
                 connection.disconnect();
@@ -115,7 +119,7 @@ public class ServerConnector<T> {
             url = new URL(urlString);
             return true;
         } catch (MalformedURLException ex) {
-            error = new ApiError(ex.getMessage(), false);
+            error = new ApiError(ex.getMessage());
         }
 
         return false;

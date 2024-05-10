@@ -30,7 +30,6 @@ public class ApiServices implements IApiServices {
     @Override
     public void logout(Runnable onSuccess, Consumer<ApiError> onError)
     {
-
         onSuccess.run();
     }
 
