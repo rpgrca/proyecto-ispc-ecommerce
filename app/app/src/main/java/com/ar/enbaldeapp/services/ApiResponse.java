@@ -29,8 +29,6 @@ public class ApiResponse<T> {
     {
         JsonObject object = new Gson().toJsonTree(this.data).getAsJsonObject();
         return new Gson().fromJson(object, typeParameterClass);
-        //return new Gson().fromJson(this.data, typeParameterClass);
-        //return this.data;
     }
 
     public String getMessage() { return message; }
