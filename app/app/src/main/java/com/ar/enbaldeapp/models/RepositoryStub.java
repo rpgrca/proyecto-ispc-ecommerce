@@ -73,9 +73,9 @@ public class RepositoryStub implements IRepository {
     }
 
     @Override
-    public User login(String email, String password) {
+    public User login(String username, String password) {
         if (this.loggedUser == null) {
-            this.loggedUser = new User(1, "Perez", "Juan", email, "123 Main St Miami FL", "1234-5678", "Good client");
+            this.loggedUser = new User(1, "Perez", "Juan", "juan.perez@gmail.com", "123 Main St Miami FL", "1234-5678", "Good client", username, password);
         }
 
         return this.loggedUser;

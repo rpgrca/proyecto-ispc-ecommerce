@@ -1,6 +1,5 @@
 package com.ar.enbaldeapp.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {

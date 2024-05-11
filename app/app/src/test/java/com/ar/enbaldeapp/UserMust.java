@@ -17,15 +17,17 @@ import org.junit.runner.RunWith;
 public class UserMust {
     @Test
     public void beCreatedCorrectly_whenInformationIsCorrect() {
-        User sut = new User(USER_ID, LAST_NAME, FIRST_NAME, EMAIL, ADDRESS, PHONE, OBSERVATIONS);
+        User sut = new User(USER_ID, LAST_NAME, FIRST_NAME, EMAIL, ADDRESS, PHONE, OBSERVATIONS, USERNAME, PASSWORD);
 
-        assertEquals(USER_ID, sut.getId());
+        assertEquals(USER_ID, sut.getId()); // TODO: el id no se envia desde el servidor, quitarlo?
         assertEquals(LAST_NAME, sut.getLastName());
         assertEquals(FIRST_NAME, sut.getFirstName());
         assertEquals(EMAIL, sut.getEmail());
         assertEquals(ADDRESS, sut.getAddress());
         assertEquals(PHONE, sut.getPhone());
         assertEquals(OBSERVATIONS, sut.getObservations());
+        assertEquals(USERNAME, sut.getUsername());
+        assertEquals(PASSWORD, sut.getPassword()); // TODO: el password no se envia desde el servidor, quitarlo
     }
 
     @DataPoints("invalid strings")
@@ -45,44 +47,50 @@ public class UserMust {
 
     @Theory
     public void throwException_whenIdIsInvalid(@FromDataPoints("invalid ids") long invalidId) {
-        Exception exception = assertThrows(RuntimeException.class, () -> new User(invalidId, LAST_NAME, FIRST_NAME, EMAIL, ADDRESS, PHONE, OBSERVATIONS));
+        Exception exception = assertThrows(RuntimeException.class, () -> new User(invalidId, LAST_NAME, FIRST_NAME, EMAIL, ADDRESS, PHONE, OBSERVATIONS, USERNAME, PASSWORD));
         assertEquals("El id es inválido", exception.getMessage());
     }
 
     @Theory
     public void throwException_whenLastNameIsInvalid(@FromDataPoints("invalid strings") String invalidLastName) {
-        Exception exception = assertThrows(RuntimeException.class, () -> new User(USER_ID, invalidLastName, FIRST_NAME, EMAIL, ADDRESS, PHONE, OBSERVATIONS));
+        Exception exception = assertThrows(RuntimeException.class, () -> new User(USER_ID, invalidLastName, FIRST_NAME, EMAIL, ADDRESS, PHONE, OBSERVATIONS, USERNAME, PASSWORD));
         assertEquals("El apellido es inválido", exception.getMessage());
     }
 
     @Theory
     public void throwException_whenFirstNameIsInvalid(@FromDataPoints("invalid strings") String invalidFirstName) {
-        Exception exception = assertThrows(RuntimeException.class, () -> new User(USER_ID, LAST_NAME, invalidFirstName, EMAIL, ADDRESS, PHONE, OBSERVATIONS));
+        Exception exception = assertThrows(RuntimeException.class, () -> new User(USER_ID, LAST_NAME, invalidFirstName, EMAIL, ADDRESS, PHONE, OBSERVATIONS, USERNAME, PASSWORD));
         assertEquals("El nombre es inválido", exception.getMessage());
     }
 
     @Theory
     public void throwException_whenEmailIsInvalid(@FromDataPoints("invalid strings") String invalidEmail) {
-        Exception exception = assertThrows(RuntimeException.class, () -> new User(USER_ID, LAST_NAME, FIRST_NAME, invalidEmail, ADDRESS, PHONE, OBSERVATIONS));
+        Exception exception = assertThrows(RuntimeException.class, () -> new User(USER_ID, LAST_NAME, FIRST_NAME, invalidEmail, ADDRESS, PHONE, OBSERVATIONS, USERNAME, PASSWORD));
         assertEquals("El e-mail es inválido", exception.getMessage());
     }
 
     @Theory
     public void throwException_whenAddressIsInvalid(@FromDataPoints("invalid strings") String invalidAddress) {
-        Exception exception = assertThrows(RuntimeException.class, () -> new User(USER_ID, LAST_NAME, FIRST_NAME, EMAIL, invalidAddress, PHONE, OBSERVATIONS));
+        Exception exception = assertThrows(RuntimeException.class, () -> new User(USER_ID, LAST_NAME, FIRST_NAME, EMAIL, invalidAddress, PHONE, OBSERVATIONS, USERNAME, PASSWORD));
         assertEquals("La dirección es inválida", exception.getMessage());
     }
 
     @Test
     public void throwException_whenPhoneIsInvalid() {
-        Exception exception = assertThrows(RuntimeException.class, () -> new User(USER_ID, LAST_NAME, FIRST_NAME, EMAIL, ADDRESS, null, OBSERVATIONS));
+        Exception exception = assertThrows(RuntimeException.class, () -> new User(USER_ID, LAST_NAME, FIRST_NAME, EMAIL, ADDRESS, null, OBSERVATIONS, USERNAME, PASSWORD));
         assertEquals("El teléfono es inválido", exception.getMessage());
     }
 
     @Test
     public void throwException_whenObervationsAreInvalid() {
-        Exception exception = assertThrows(RuntimeException.class, () -> new User(USER_ID, LAST_NAME, FIRST_NAME, EMAIL, ADDRESS, PHONE, null));
+        Exception exception = assertThrows(RuntimeException.class, () -> new User(USER_ID, LAST_NAME, FIRST_NAME, EMAIL, ADDRESS, PHONE, null, USERNAME, PASSWORD));
         assertEquals("Las observaciones son inválidas", exception.getMessage());
+    }
+
+    @Theory
+    public void throwException_whenUsernameIsInvalid(@FromDataPoints("invalid strings") String invalidUsername) {
+        Exception exception = assertThrows(RuntimeException.class, () -> new User(USER_ID, LAST_NAME, FIRST_NAME, EMAIL, ADDRESS, PHONE, OBSERVATIONS, invalidUsername, PASSWORD));
+        assertEquals("El nombre de usuario es inválido", exception.getMessage());
     }
 }
 

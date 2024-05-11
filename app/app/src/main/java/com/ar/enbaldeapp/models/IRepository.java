@@ -12,6 +12,6 @@ public interface IRepository {
     void removeProductFromCart(Product product);
     boolean addProductToCart(Product product, int quantity);
 
-    User login(String email, String password);
+    User login(String username, String password);
     void logout();
 }
