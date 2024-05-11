@@ -45,3 +45,38 @@ public class ApiServicesRegistrationStub extends ApiServices {
     }
 }
 
+public class ApiServicesLoginStub extends ApiServices {
+    private final boolean connectReturnValue;
+
+    public ApiServicesLoginStub(boolean connectReturnValue) {
+        this.connectReturnValue = connectReturnValue;
+    }
+
+    private static class ServerConnectorLoginStub implements IServerConnector<User> {
+        private final boolean connectReturnValue;
+
+        public ServerConnectorLoginStub(boolean connectReturnValue) {
+            this.connectReturnValue = connectReturnValue;
+        }
+
+        @Override
+        public boolean connect() {
+            return connectReturnValue;
+        }
+
+        @Override
+        public ApiResponse<User> getResponse() {
+            return new ApiResponse<>(REGISTRATION_OK_JSON, true);
+        }
+
+        @Override
+        public ApiError getError() {
+            return new ApiError("Error conectando al sitio");
+        }
+    }
+
+    @Override
+    protected IServerConnector<User> getUserFrom(String url, ApiRequest request) {
+        return new ServerConnectorLoginStub(this.connectReturnValue);
+    }
+}

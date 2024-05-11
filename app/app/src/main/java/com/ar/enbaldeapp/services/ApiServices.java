@@ -9,7 +9,19 @@ public class ApiServices implements IApiServices {
 
     @Override
     public void login(String username, String password, Consumer<User> onSuccess, Consumer<ApiError> onError) {
-        // TODO: Agregar chequeos para cada parametro, llamar al servidor
+        if (username == null || username.trim().isEmpty()) {
+            onError.accept(new ApiError(User.INVALID_USERNAME));
+            return;
+        }
+
+        if (password == null || password.trim().isEmpty()) {
+            onError.accept(new ApiError(User.INVALID_PASSWORD));
+            return;
+        }
+
+        if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
+        if (onError == null) throw new RuntimeException("El callback por fallo es inválido");
+
         User user = new User(1, "Perez", "Juan", "juan.perez@gmail.com", "123 Main St Miami FL", "1234-5678", "Good client", "juan", "12345678");
         onSuccess.accept(user);
     }
