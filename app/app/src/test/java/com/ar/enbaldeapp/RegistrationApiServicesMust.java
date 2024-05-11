@@ -30,7 +30,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 @RunWith(Theories.class)
-public class ApiServicesMust {
+public class RegistrationApiServicesMust {
     @Test
     public void callErrorCallback_whenConnectFails() {
         AtomicBoolean errorCalled = new AtomicBoolean(false);
