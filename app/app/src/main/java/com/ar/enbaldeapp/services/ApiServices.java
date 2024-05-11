@@ -38,14 +38,18 @@ public class ApiServices implements IApiServices {
                 .addContentDisposition("observaciones", "")
                 .Build();
 
-        ServerConnector<User> connector = new ServerConnector<User>(ServerUrl + "/api/auth/signup/", request);
+        IServerConnector<User> connector = getUserFrom(ServerUrl + "/api/auth/signup/", request);
         if (connector.connect()) {
-            User user = connector.getResponse().castResonseAs(User.class);
+            User user = connector.getResponse().castResponseAs(User.class);
             onSuccess.accept(user);
         }
         else {
             onError.accept(connector.getError());
         }
+    }
+
+    protected IServerConnector<User> getUserFrom(String url, ApiRequest request) {
+        return new ServerConnector<>(url, request);
     }
 }
 
