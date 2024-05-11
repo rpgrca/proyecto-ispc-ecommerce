@@ -44,7 +44,7 @@
         "pk": 6,
         "fields": {
             "nombre": "logo",
-            "valor": "4-svg.png"
+            "valor": "../assets/img/4-svg.png"
         }
     }
 ]
