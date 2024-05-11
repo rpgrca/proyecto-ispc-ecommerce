@@ -1,0 +1,26 @@
+<ng-container *ngIf="configuracion">
+  <ng-container *ngIf="editando?.id != configuracion.id">
+    <div class="row" [class.odd]="odd">
+      <div class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">{{configuracion.nombre}}</div>
+      <div class="col-3 col-sm-3 col-md-3 col-lg-4 col-xl-4">{{configuracion.valor}}</div>
+      <div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1">
+        <div class="row">
+          <button type="button" class="col-6 btn btn-primary" (click)="editar(configuracion)"><i class="bi bi-pen"></i></button>
+          <button type="button" class="col-6 btn btn-danger" (click)="borrar(configuracion)"><i class="bi bi-trash"></i></button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="editando?.id == configuracion.id">
+    <form class="row" [formGroup]="editarItemConfiguracionForm">
+      <input class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7" type="text" value="{{configuracion.nombre}}" formControlName="nuevoNombre" [class.ng-valid]="editarItemConfiguracionForm.controls['nuevoNombre'].valid" [class.ng-invalid]="editarItemConfiguracionForm.controls['nuevoNombre'].invalid">
+      <input class="col-3 col-sm-3 col-md-3 col-lg-4 col-xl-4" type="text" value="{{configuracion.valor}}" formControlName="nuevoValor" [class.ng-valid]="editarItemConfiguracionForm.controls['nuevoValor'].valid" [class.ng-invalid]="editarItemConfiguracionForm.controls['nuevoValor'].invalid">
+      <div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1">
+        <div class="row">
+          <button type="button" class="col-6 btn btn-primary" [disabled]="!editarItemConfiguracionForm.valid" (click)="grabar(configuracion, editarItemConfiguracionForm.value)"><i class="bi bi-save"></i></button>
+          <button type="button" class="col-6 btn btn-danger" (click)="cancelar(configuracion)"><i class="bi bi-x"></i></button>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</ng-container>
