@@ -23,8 +23,16 @@ public class ApiServices implements IApiServices {
 
     @Override
     public void register(String firstName, String lastName, String email, String address, String phoneNumber, String username, String password, Consumer<User> onSuccess, Consumer<ApiError> onError) {
-        // TODO: Agregar chequeos para cada parametro
-        if (firstName == null || firstName.trim().isEmpty()) onError.accept(new ApiError(""));
+        try {
+            new User(1, lastName, firstName, email, address, phoneNumber, "", username, password);
+        }
+        catch (Exception ex) {
+            onError.accept(new ApiError(ex.getMessage()));
+            return;
+        }
+
+        if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
+        if (onError == null) throw new RuntimeException("El callback por fallo es inválido");
 
         ApiRequest request = new ApiRequest.Builder()
                 .addContentDisposition("nombre", firstName)
@@ -52,4 +60,3 @@ public class ApiServices implements IApiServices {
         return new ServerConnector<>(url, request);
     }
 }
-
