@@ -6,14 +6,13 @@ import static com.ar.enbaldeapp.support.Constants.FIRST_NAME;
 import static com.ar.enbaldeapp.support.Constants.LAST_NAME;
 import static com.ar.enbaldeapp.support.Constants.PASSWORD;
 import static com.ar.enbaldeapp.support.Constants.PHONE;
-import static com.ar.enbaldeapp.support.Constants.PRODUCT_TYPE_NAME;
 import static com.ar.enbaldeapp.support.Constants.USERNAME;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
-import com.ar.enbaldeapp.models.ProductType;
+import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.ar.enbaldeapp.support.ApiServicesRegistrationSpy;
 import com.ar.enbaldeapp.support.ApiServicesRegistrationStub;
@@ -130,5 +129,21 @@ public class ApiServicesMust {
         ApiServicesRegistrationSpy sut = new ApiServicesRegistrationSpy();
         Exception exception = assertThrows(RuntimeException.class, () -> sut.register(FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, PHONE, USERNAME, PASSWORD, u -> {}, null));
         assertEquals("El callback por fallo es inválido", exception.getMessage());
+    }
+
+    @Test
+    public void deserializeServerReplyCorrectly() {
+        AtomicReference<User> atomicUser = new AtomicReference<>();
+        ApiServices sut = new ApiServicesRegistrationStub(true);
+        sut.register(FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, PHONE, USERNAME, PASSWORD, u -> atomicUser.set(u), e -> {});
+
+        User user = atomicUser.get();
+        assertEquals("Juan", user.getFirstName());
+        assertEquals("Perez", user.getLastName());
+        assertEquals("juan8", user.getUsername());
+        assertEquals("123 Main St", user.getAddress());
+        assertEquals("11112222", user.getPhone());
+        assertEquals("juan.perez@gmail.com", user.getEmail());
+        assertEquals("", user.getObservations());
     }
 }
