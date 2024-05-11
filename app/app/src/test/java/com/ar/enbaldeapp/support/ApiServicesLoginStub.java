@@ -9,17 +9,17 @@ import com.ar.enbaldeapp.services.ApiResponse;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.ar.enbaldeapp.services.IServerConnector;
 
-public class ApiServicesRegistrationStub extends ApiServices {
+public class ApiServicesLoginStub extends ApiServices {
     private final boolean connectReturnValue;
 
-    public ApiServicesRegistrationStub(boolean connectReturnValue) {
+    public ApiServicesLoginStub(boolean connectReturnValue) {
         this.connectReturnValue = connectReturnValue;
     }
 
-    private static class ServerConnectorRegistrationStub implements IServerConnector<User> {
+    private static class ServerConnectorLoginStub implements IServerConnector<User> {
         private final boolean connectReturnValue;
 
-        public ServerConnectorRegistrationStub(boolean connectReturnValue) {
+        public ServerConnectorLoginStub(boolean connectReturnValue) {
             this.connectReturnValue = connectReturnValue;
         }
 
@@ -41,7 +41,6 @@ public class ApiServicesRegistrationStub extends ApiServices {
 
     @Override
     protected IServerConnector<User> getUserFrom(String url, ApiRequest request) {
-        return new ServerConnectorRegistrationStub(this.connectReturnValue);
+        return new ServerConnectorLoginStub(this.connectReturnValue);
     }
 }
-

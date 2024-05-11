@@ -1,3 +1,4 @@
+/*
 package com.ar.enbaldeapp;
 
 import static com.ar.enbaldeapp.support.Constants.ADDRESS;
@@ -21,7 +22,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @RunWith(Theories.class)
 public class LoginApiServicesMust {
-    /*
     @Test
     public void callErrorCallback_whenConnectFails() {
         AtomicBoolean errorCalled = new AtomicBoolean(false);
@@ -39,5 +39,6 @@ public class LoginApiServicesMust {
 
         sut.login(USERNAME, PASSWORD, u -> successCalled.set(true), e -> {});
         assertTrue(successCalled.get());
-    }*/
+    }
 }
+*/
