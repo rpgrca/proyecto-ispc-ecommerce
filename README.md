@@ -13,8 +13,8 @@ EnBalde es una plataforma para la venta de helados en pote de diversos pesos y s
 - Roberto Alfonso-GitHub: rpgrca
 - Lucia Ailen Leonetti-GitHub: LuciaL152
 - Facundo Manuel Díaz-GitHub: facumd
-- Yuliana Paula Capdevilla
-- Lidio Guedez
+- Yuliana Paula Capdevila- GitHub: YuliCap
+- Lidio Guedez- GitHub: lidioguedez
 
 
 ## Emblemas
