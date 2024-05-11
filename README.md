@@ -1,5 +1,6 @@
 
-![Captura de pantalla 2024-05-11 035737](https://github.com/enbalde-ispc/enbalde-ispc/assets/89208308/92e62331-a02f-4a2d-b792-ee24ac1bbecf)
+![70747abe-f397-402e-8f14-fbf12301cf22](https://github.com/enbalde-ispc/enbalde-ispc/assets/90878370/18b9ad44-3ed2-4169-97cb-81def6c67268)
+
 
 # EnBalde - Heladería 🍨
 
