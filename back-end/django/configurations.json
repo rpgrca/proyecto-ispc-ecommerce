@@ -43,8 +43,16 @@
         "model": "enbalde.configuracion",
         "pk": 6,
         "fields": {
-            "nombre": "logo",
-            "valor": "../assets/img/4-svg.png"
+            "nombre": "logoHeader",
+            "valor": "../assets/img/logo_dorado_sin_fondo.png"
+        }
+    },
+    {
+        "model": "enbalde.configuracion",
+        "pk": 7,
+        "fields": {
+            "nombre": "logoFooter",
+            "valor": "../assets/img/3-svg.png"
         }
     }
 ]

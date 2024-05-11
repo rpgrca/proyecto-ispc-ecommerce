@@ -47,7 +47,7 @@ export class HeaderComponent {
         let c: { [id: string] : string } = {};
         configuraciones.forEach((el, index) => c[el.nombre] = el.valor);
 
-        this.itemLogo = c["logo"];
+        this.itemLogo = c["logoHeader"];
       });
   }
 

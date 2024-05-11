@@ -30,7 +30,7 @@ export class FooterComponent {
         this.facebook = c['facebook'];
         this.facebookUrl = `https://www.facebook.com/${this.facebook}`;
         this.whatsapp = c['whatsapp'];
-        this.itemEnbalde = c['logo'];
+        this.itemEnbalde = c['logoFooter'];
       });
   }
 
