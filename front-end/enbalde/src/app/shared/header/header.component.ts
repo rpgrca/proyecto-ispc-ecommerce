@@ -4,21 +4,22 @@ import { Router } from '@angular/router';
 import { ResultadoApi } from 'src/app/models/modelo.resultado';
 import { Usuario, TipoUsuario } from 'src/app/models/modelo.usuario';
 import { AuthService } from 'src/app/services/auth.service';
+import { ConfiguracionesService } from 'src/app/services/configuraciones.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { Configuracion } from 'src/app/models/modelo.configuracion';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  providers: [ ProductosService, UsuariosService ]
+  providers: [ ProductosService, UsuariosService, ConfiguracionesService ]
 })
 
 export class HeaderComponent {
   itemLogo = '../assets/img/logo_dorado_sin_fondo.png';
   itemCarrito = '../assets/img/carrito.png';
   itemLupa = '../assets/img/lupa.png';
-  
 
   @Input() usuario?: Usuario;
 
@@ -27,7 +28,7 @@ export class HeaderComponent {
   showResults: boolean = false;
   isModalOpen: boolean = false;
 
-  constructor (private productosService: ProductosService, private usuariosService: UsuariosService, private authService: AuthService, private router: Router) {
+  constructor (private productosService: ProductosService, private usuariosService: UsuariosService, private configuracionesService: ConfiguracionesService, private authService: AuthService, private router: Router) {
     this.authService.autenticado
       .subscribe((auth: boolean) => {
         if (auth) {
@@ -41,9 +42,15 @@ export class HeaderComponent {
 
   ngOnInit(): void {
     this.usuario = this.authService.obtenerUsuarioSiNoExpiro();
+    this.configuracionesService.obtenerConfiguraciones()
+      .subscribe((configuraciones: Configuracion[]) => {
+        let c: { [id: string] : string } = {};
+        configuraciones.forEach((el, index) => c[el.nombre] = el.valor);
+
+        this.itemLogo = c["logo"];
+      });
   }
 
-  
 
   buscar() {
     this.productosService.buscarProductos(this.buscarTerm)
