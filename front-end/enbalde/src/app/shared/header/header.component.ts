@@ -40,21 +40,14 @@ export class HeaderComponent {
         }
       });
 
-    this.configuracionesService.estado.subscribe(c => {
-        console.log(c);
-        if (c.nombre === "logoHeader") {
-          this.itemLogo = c.valor;
-        }
-      }
-    );
-    /*
-      .pipe(
+    this.configuracionesService.estado
+     .pipe(
         filter((configuracion: Configuracion) => configuracion.nombre === 'logoHeader'),
         map((configuracion: Configuracion) => configuracion.valor)
       )
       .subscribe((logoUrl: string) => {
         this.itemLogo = logoUrl
-      });*/
+      });
   }
 
   ngOnInit(): void {

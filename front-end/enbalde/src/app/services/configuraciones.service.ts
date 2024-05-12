@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from 'src/environment/environment';
 import { Configuracion, ConfiguracionDefault } from '../models/modelo.configuracion';
 
@@ -31,10 +31,10 @@ export class ConfiguracionesService {
   }
 
   modificar(configuracion: Configuracion, nombre: string, valor: string): Observable<Configuracion> {
-    return this.http.put<Configuracion>(`${this.configuracionesUrl}${configuracion.id}/`, { nombre, valor });
-  }
-
-  cambioConfiguracion(configuracion: Configuracion) {
-     this.estado$.next(configuracion);
+    return this.http.put<Configuracion>(`${this.configuracionesUrl}${configuracion.id}/`, { nombre, valor })
+      .pipe(tap((c: Configuracion) =>
+      {
+        this.estado$.next(c);
+      }));
   }
 }

@@ -51,7 +51,6 @@ export class ItemConfiguracionComponent {
       .subscribe((nuevaConfiguracion: Configuracion) => {
         this.editando = undefined;
         this.refrescar.emit();
-        this.configuracionesService.cambioConfiguracion(nuevaConfiguracion);
     });
   }
 

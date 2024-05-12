@@ -1,4 +1,5 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
+import { filter, map } from 'rxjs';
 import { Configuracion } from 'src/app/models/modelo.configuracion';
 import { ConfiguracionesService } from 'src/app/services/configuraciones.service';
 
@@ -7,16 +8,27 @@ import { ConfiguracionesService } from 'src/app/services/configuraciones.service
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']
 })
-export class FooterComponent {
 
-  itemEnbalde = '../assets/img/3-svg.png'
+export class FooterComponent {
+  @Input() itemFooter = '../assets/img/3-svg.png'
   instagram: string = '';
   instagramUrl: string = ''
   facebook: string = '';
   facebookUrl: string = '';
   whatsapp: string = '';
 
-  constructor(private elementRef: ElementRef, private configuracionesService: ConfiguracionesService) {}
+  constructor(private elementRef: ElementRef, private configuracionesService: ConfiguracionesService) {
+     this.configuracionesService.estado
+      .subscribe((c: Configuracion) =>
+      {
+        switch (c.nombre) {
+          case 'logoFooter': this.itemFooter = c.valor; break;
+          case 'instagram': this.instagram = c.valor; break;
+          case 'facebook': this.facebook = c.valor; break;
+          case 'whatsapp': this.whatsapp = c.valor; break;
+        }
+      });
+  }
 
 
   ngOnInit(): void {
@@ -30,7 +42,7 @@ export class FooterComponent {
         this.facebook = c['facebook'];
         this.facebookUrl = `https://www.facebook.com/${this.facebook}`;
         this.whatsapp = c['whatsapp'];
-        this.itemEnbalde = c['logoFooter'];
+        this.itemFooter = c['logoFooter'];
       });
   }
 
