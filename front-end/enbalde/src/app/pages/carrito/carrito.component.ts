@@ -8,6 +8,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FuncionesService } from 'src/app/services/funciones.service';
 import { TipoPago } from 'src/app/models/modelo.venta';
 
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { loadStripe } from '@stripe/stripe-js';
+
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
@@ -19,13 +22,14 @@ export class CarritoComponent  {
   totalCarrito: number = 0;
   envioElegido: Envio;
   pagoElegido: TipoPago;
+  public stripePublicKey: string = 'pk_test_51PFOaeP6TR0oZuswXeinCzPi2FImdnCkwuIRPXz3t1m3LlDDuwJjdVGWW6e6cxWZDIZMIKWLwE2QVh2vdRlqCS3I00Iy7eXhT2'
 
   @Input() carrito: Seleccion[];
   @Input() envios: Envio[];
   @Input() visualEnbaldePago: string;
   @Input() ticket: string;
 
-  constructor(private carritoService : CarritoService, private enviosService : EnviosService, private router: Router, private authService: AuthService, public funcionesService: FuncionesService) {
+  constructor(private carritoService : CarritoService, private enviosService : EnviosService, private router: Router, private authService: AuthService, public funcionesService: FuncionesService, private http: HttpClient) {
     this.envioElegido = {
       id: -1,
       nombre: "Default",
@@ -83,6 +87,17 @@ export class CarritoComponent  {
         });
     }
  }
+
+ pagarStripe() {
+  this.http
+    .post('http://localhost:8000/api/venta/', {
+      items: this.carrito,
+    })
+    .subscribe(async (res: any) => {
+      let stripe = await loadStripe(this.stripePublicKey);
+      stripe?.redirectToCheckout({ sessionId: res.id });
+    });
+}
 
   vaciarCarrito() {
     // vaciar el carrito abandona el carrito, el servidor retornara los productos
