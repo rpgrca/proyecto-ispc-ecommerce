@@ -1,7 +1,21 @@
+
+![70747abe-f397-402e-8f14-fbf12301cf22](https://github.com/enbalde-ispc/enbalde-ispc/assets/90878370/18b9ad44-3ed2-4169-97cb-81def6c67268)
+
+
 # EnBalde - Heladería 🍨
 
 ## Descripción
 EnBalde es una plataforma para la venta de helados en pote de diversos pesos y sabores. El usuario tendrá la posibilidad, mediante un catálogo, de elegir helados por pote de diversos pesos. Habrá variedad de gustos. Cada pote será de sabores fijos. Una vez finalizada la elección la página lo dirigirá a la sección carrito en donde podrá agregar o quitar artículos, decidir la forma de abonar y si solicita delivery o retira en sucursal. Concluida la compra se emitirá un aviso de transacción efectuada y el administrador recibirá el aviso de la compra.
+
+## Nombre de los integrantes: 
+- Pamela Sol Pilotti-GitHub: Pamela198713
+- Leonardo Daniel Vivas-GitHub: LeonardoEC
+- Roberto Alfonso-GitHub: rpgrca
+- Lucia Ailen Leonetti-GitHub: LuciaL152
+- Facundo Manuel Díaz-GitHub: facumd
+- Yuliana Paula Capdevila- GitHub: YuliCap
+- Lidio Guedez- GitHub: lidioguedez
+
 
 ## Emblemas
 [![Contribuidores][contrib-img]][contrib-url]
