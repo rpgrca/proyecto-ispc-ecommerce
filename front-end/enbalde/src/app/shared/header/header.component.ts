@@ -8,7 +8,7 @@ import { ConfiguracionesService } from 'src/app/services/configuraciones.service
 import { ProductosService } from 'src/app/services/productos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Configuracion } from 'src/app/models/modelo.configuracion';
-import { filter, map } from 'rxjs';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-header',
@@ -29,7 +29,7 @@ export class HeaderComponent {
   showResults: boolean = false;
   isModalOpen: boolean = false;
 
-  constructor (private productosService: ProductosService, private configuracionesService: ConfiguracionesService, private authService: AuthService, private router: Router) {
+  constructor (private productosService: ProductosService, private configuracionesService: ConfiguracionesService, private authService: AuthService, private router: Router, private titleService: Title) {
     this.authService.autenticado
       .subscribe((auth: boolean) => {
         if (auth) {
@@ -41,12 +41,11 @@ export class HeaderComponent {
       });
 
     this.configuracionesService.estado
-     .pipe(
-        filter((configuracion: Configuracion) => configuracion.nombre === 'logoHeader'),
-        map((configuracion: Configuracion) => configuracion.valor)
-      )
-      .subscribe((logoUrl: string) => {
-        this.itemLogo = logoUrl
+      .subscribe((c: Configuracion) => {
+        switch (c.nombre) {
+          case 'logoHeader': this.itemLogo = c.valor; break;
+          case 'titulo': this.titleService.setTitle(c.valor); break;
+        }
       });
   }
 
@@ -57,7 +56,13 @@ export class HeaderComponent {
         let c: { [id: string] : string } = {};
         configuraciones.forEach((el, index) => c[el.nombre] = el.valor);
 
-        this.itemLogo = c["logoHeader"];
+        if ('logoHeader' in c) {
+          this.itemLogo = c['logoHeader'];
+        }
+
+        if ('titulo' in c) {
+          this.titleService.setTitle(c['titulo']);
+        }
       });
   }
 

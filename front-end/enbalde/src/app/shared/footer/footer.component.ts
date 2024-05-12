@@ -37,12 +37,20 @@ export class FooterComponent {
         let c: { [id: string] : string } = {};
         configuraciones.forEach((el, index) => c[el.nombre] = el.valor);
 
-        this.instagram = c['instagram'];
-        this.instagramUrl = `https://www.instagram.com/${this.instagram}`;
-        this.facebook = c['facebook'];
-        this.facebookUrl = `https://www.facebook.com/${this.facebook}`;
-        this.whatsapp = c['whatsapp'];
-        this.itemFooter = c['logoFooter'];
+        if ('instagram' in c) {
+          this.instagram = c['instagram'];
+          this.instagramUrl = `https://www.instagram.com/${this.instagram}`;
+        }
+
+        if ('facebook' in c) {
+          this.facebook = c['facebook'];
+          this.facebookUrl = `https://www.facebook.com/${this.facebook}`;
+        }
+
+        if ('whatsapp' in c) {
+          this.whatsapp = c['whatsapp'];
+          this.itemFooter = c['logoFooter'];
+        }
       });
   }
 
