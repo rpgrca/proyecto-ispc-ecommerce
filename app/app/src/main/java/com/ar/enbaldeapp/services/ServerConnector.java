@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class ServerConnector<T> {
+public class ServerConnector<T> implements IServerConnector<T> {
     private final ApiRequest request;
     private URL url;
     private ApiResponse<T> response;
@@ -31,6 +31,7 @@ public class ServerConnector<T> {
         this.request = request;
     }
 
+    @Override
     public boolean connect() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
@@ -50,8 +51,10 @@ public class ServerConnector<T> {
         return result.get();
     }
 
+    @Override
     public ApiResponse<T> getResponse() { return this.response; }
 
+    @Override
     public ApiError getError() { return this.error; }
 
     private boolean load() {
