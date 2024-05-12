@@ -10,6 +10,7 @@ from .models import Usuario
 from .models import Venta
 from .models import Seleccion
 from .models import Carrito
+from .models import Configuracion
 
 
 # Register your models here.
@@ -81,6 +82,10 @@ class CarritoAdmin(admin.ModelAdmin):
         return obj.cliente.first_name
 
 
+class ConfiguracionAdmin(admin.ModelAdmin):
+    list_display = ("nombre", "valor")
+
+
 admin.site.register(Envio, EnvioAdmin)
 admin.site.register(TipoArticulo, TipoArticuloAdmin)
 admin.site.register(Articulo, ArticuloAdmin)
@@ -89,3 +94,4 @@ admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(Venta, VentaAdmin)
 admin.site.register(Seleccion, SeleccionAdmin)
 admin.site.register(Carrito, CarritoAdmin)
+admin.site.register(Configuracion, ConfiguracionAdmin)

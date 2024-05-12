@@ -8,7 +8,8 @@ from .seleccion_serializer import SeleccionSerializer
 from .venta_serializer import VentaSerializer
 from .registro_serializer import RegistroSerializer
 from .envio_serializer import EnvioSerializer
+from .configuracion_serializer import ConfiguracionSerializer
 
 __all__ = ("quitar_clave_de_respuesta", "crear_respuesta", "TipoArticuloSerializer", "OfertaSerializer", "UsuarioSerializer",
            "ArticuloSerializer", "ArticuloIdSerializer", "CarritoSerializer", "SeleccionSerializer", "VentaSerializer",
-           "RegistroSerializer", "EnvioSerializer")
+           "RegistroSerializer", "EnvioSerializer", "ConfiguracionSerializer")
