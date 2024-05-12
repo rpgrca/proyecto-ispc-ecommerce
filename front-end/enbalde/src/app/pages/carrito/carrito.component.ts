@@ -6,7 +6,10 @@ import { EnviosService } from 'src/app/services/envios.service';
 import { CarritoService } from 'src/app/services/carrito.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FuncionesService } from 'src/app/services/funciones.service';
-import { TipoPago } from 'src/app/models/modelo.venta';
+import { TipoPago, Venta } from 'src/app/models/modelo.venta';
+
+import { HttpClient } from '@angular/common/http';
+import { loadStripe } from '@stripe/stripe-js';
 
 @Component({
   selector: 'app-carrito',
@@ -19,13 +22,14 @@ export class CarritoComponent  {
   totalCarrito: number = 0;
   envioElegido: Envio;
   pagoElegido: TipoPago;
+  public stripePublicKey: string = 'pk_test_51PFOaeP6TR0oZuswXeinCzPi2FImdnCkwuIRPXz3t1m3LlDDuwJjdVGWW6e6cxWZDIZMIKWLwE2QVh2vdRlqCS3I00Iy7eXhT2'
 
   @Input() carrito: Seleccion[];
   @Input() envios: Envio[];
   @Input() visualEnbaldePago: string;
   @Input() ticket: string;
 
-  constructor(private carritoService : CarritoService, private enviosService : EnviosService, private router: Router, private authService: AuthService, public funcionesService: FuncionesService) {
+  constructor(private carritoService : CarritoService, private enviosService : EnviosService, private router: Router, private authService: AuthService, public funcionesService: FuncionesService, private http: HttpClient) {
     this.envioElegido = {
       id: -1,
       nombre: "Default",
@@ -83,6 +87,20 @@ export class CarritoComponent  {
         });
     }
  }
+
+ pagarStripe() {
+  this.carritoService.checkoutEnStripe(this.envioElegido)
+    .subscribe((venta: Venta) => {
+      this.ticket = venta.transaccion;
+      this.carritoService.checkout(this.envioElegido, TipoPago.STRIPE_PAGADO, this.ticket)
+        .subscribe(async (venta: Venta) => {
+          this.envolverProductosDelCarrito();
+
+          let stripe = await loadStripe(this.stripePublicKey);
+          stripe?.redirectToCheckout({ sessionId: `${this.ticket}` })
+        })
+    });
+}
 
   vaciarCarrito() {
     // vaciar el carrito abandona el carrito, el servidor retornara los productos

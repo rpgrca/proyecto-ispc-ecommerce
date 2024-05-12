@@ -11,13 +11,15 @@ class Venta(models.Model):
         EFECTIVO_A_PAGAR = 1
         EFECTIVO_PAGADO = 2
         ENBALDE_PAGO = 3
+        STRIPE_PAGO_A_PAGAR = 4
+        STRIPE_PAGADO = 5
 
     id = models.AutoField(primary_key=True)
     numero = models.PositiveIntegerField(blank=False)
     comprobante = models.PositiveIntegerField(blank=False)
     fecha = models.DateTimeField(blank=False, validators=[aceptar_solo_fechas_pasadas])
     total = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10,
-                                validators=[MinValueValidator(Decimal('0.01'))])
+                                validators=[MinValueValidator(Decimal.from_float(0.01))])
     envio = models.ForeignKey(Envio, to_field="id", on_delete=models.CASCADE)
     carrito = models.ForeignKey(Carrito, to_field="id", on_delete=models.CASCADE)
     pago = models.IntegerField(choices=TipoPago.choices, default=TipoPago.EFECTIVO_A_PAGAR, blank=False)

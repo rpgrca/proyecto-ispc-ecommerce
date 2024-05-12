@@ -29,6 +29,8 @@ export class FuncionesService {
       case TipoPago.EFECTIVO_A_PAGAR: return "Efectivo a pagar";
       case TipoPago.EFECTIVO_PAGADO: return "Efectivo pagado";
       case TipoPago.ENBALDE_PAGO: return "Enbalde Pago";
+      case TipoPago.STRIPE_A_PAGAR: return "Stripe a Pagar";
+      case TipoPago.STRIPE_PAGADO: return "Stripe Pago";
       default: return "Desconocido";
     }
   }
