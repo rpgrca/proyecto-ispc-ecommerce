@@ -1,7 +1,8 @@
 from django.urls import path, include
 from rest_framework import routers
 from .views import UnCarrito, Carritos, Compras, ContactoView, LoginView, LogoutView, SignupView, UsuarioViewSet, \
-    ArticuloViewSet, TipoArticuloViewSet, OfertaViewSet, VentaViewSet, EnvioViewSet, UsuarioAdminViewSet
+    ArticuloViewSet, TipoArticuloViewSet, OfertaViewSet, VentaViewSet, EnvioViewSet, UsuarioAdminViewSet, \
+    ConfiguracionViewSet
 
 from django.views.decorators.csrf import csrf_exempt
 
@@ -13,6 +14,7 @@ router.register('ofertas', OfertaViewSet)
 router.register('envios', EnvioViewSet)
 router.register('admins', UsuarioAdminViewSet, basename='admins')
 router.register('usuarios', UsuarioViewSet, basename='usuarios')
+router.register('configuraciones', ConfiguracionViewSet)
 
 
 urlpatterns = [

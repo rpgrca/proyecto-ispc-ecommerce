@@ -26,6 +26,8 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ItemUsuarioComponent } from './item-usuario/item-usuario.component';
 import { EnbaldePagoComponent } from './enbalde-pago/enbalde-pago.component';
 import { ItemVentaComponent } from './item-venta/item-venta.component';
+import { ItemConfiguracionComponent } from './item-configuracion/item-configuracion.component';
+import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { ItemVentaComponent } from './item-venta/item-venta.component';
     UsuariosComponent,
     ItemUsuarioComponent,
     EnbaldePagoComponent,
-    ItemVentaComponent
+    ItemVentaComponent,
+    ConfiguracionesComponent,
+    ItemConfiguracionComponent
   ],
   imports: [
     CommonModule,

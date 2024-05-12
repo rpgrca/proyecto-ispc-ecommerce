@@ -25,7 +25,7 @@ public class ApiResponse<T> {
         }
     }
 
-    public T castResonseAs(Class<T> typeParameterClass)
+    public T castResponseAs(Class<T> typeParameterClass)
     {
         JsonObject object = new Gson().toJsonTree(this.data).getAsJsonObject();
         return new Gson().fromJson(object, typeParameterClass);

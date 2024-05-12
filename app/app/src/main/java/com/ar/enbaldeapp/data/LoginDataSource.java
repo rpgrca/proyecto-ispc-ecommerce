@@ -17,7 +17,7 @@ public class LoginDataSource {
             final Result[] result = new Result[1];
             IApiServices apiServices = new ApiServices();
             apiServices.login(username, password,
-                    (User u) -> result[0] = new Result.Success<>(new LoggedInUser(u)),
+                    u -> result[0] = new Result.Success<>(new LoggedInUser(u.getUser())),
                     e -> result[0] = new Result.Error(new IOException("Could not log in: " + e.getMessage())));
 
             return result[0];

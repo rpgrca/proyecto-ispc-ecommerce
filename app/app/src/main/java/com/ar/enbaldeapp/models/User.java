@@ -5,6 +5,16 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class User implements Serializable {
+    public static final String INVALID_PASSWORD = "La clave es inválida";
+    public static final String INVALID_USERNAME = "El nombre de usuario es inválido";
+    public static final String INVALID_OBSERVATIONS = "Las observaciones son inválidas";
+    public static final String INVALID_PHONE = "El teléfono es inválido";
+    public static final String INVALID_ADDRESS = "La dirección es inválida";
+    public static final String INVALID_EMAIL = "El e-mail es inválido";
+    public static final String INVALID_FIRST_NAME = "El nombre es inválido";
+    public static final String INVALID_LAST_NAME = "El apellido es inválido";
+    public static final String INVALID_ID = "El id es inválido";
+
     private final long id;
     @SerializedName("apellido")
     private final String lastName;
@@ -23,15 +33,15 @@ public class User implements Serializable {
     private final String password;
 
     public User(long id, String lastName, String firstName, String email, String address, String phone, String observations, String username, String password) {
-        if (id <= 0) throw new RuntimeException("El id es inválido");
-        if (lastName == null || lastName.trim().isEmpty()) throw new RuntimeException("El apellido es inválido");
-        if (firstName == null || firstName.trim().isEmpty()) throw new RuntimeException("El nombre es inválido");
-        if (email == null || email.trim().isEmpty()) throw new RuntimeException("El e-mail es inválido"); // TODO: Agregar mejor chequeo de email
-        if (address == null || address.trim().isEmpty()) throw new RuntimeException("La dirección es inválida");
-        if (phone == null) throw new RuntimeException("El teléfono es inválido");
-        if (observations == null) throw new RuntimeException("Las observaciones son inválidas");
-        if (username == null || username.trim().isEmpty()) throw new RuntimeException("El nombre de usuario es inválido");
-        if (password == null || password.trim().isEmpty()) throw new RuntimeException("La clave es inválida");
+        if (id <= 0) throw new RuntimeException(INVALID_ID);
+        if (lastName == null || lastName.trim().isEmpty()) throw new RuntimeException(INVALID_LAST_NAME);
+        if (firstName == null || firstName.trim().isEmpty()) throw new RuntimeException(INVALID_FIRST_NAME);
+        if (email == null || email.trim().isEmpty()) throw new RuntimeException(INVALID_EMAIL); // TODO: Agregar mejor chequeo de email
+        if (address == null || address.trim().isEmpty()) throw new RuntimeException(INVALID_ADDRESS);
+        if (phone == null) throw new RuntimeException(INVALID_PHONE);
+        if (observations == null) throw new RuntimeException(INVALID_OBSERVATIONS);
+        if (username == null || username.trim().isEmpty()) throw new RuntimeException(INVALID_USERNAME);
+        if (password == null || password.trim().isEmpty()) throw new RuntimeException(INVALID_PASSWORD);
 
         this.id = id;
         this.lastName = lastName;
