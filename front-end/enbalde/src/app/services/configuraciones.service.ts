@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environment/environment';
-import { Configuracion } from '../models/modelo.configuracion';
+import { Configuracion, ConfiguracionDefault } from '../models/modelo.configuracion';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,9 @@ import { Configuracion } from '../models/modelo.configuracion';
 export class ConfiguracionesService {
   private API_URL = environment.API_URL;
   private configuracionesUrl: string = `${this.API_URL}/configuraciones/`;
+
+  private estado$: BehaviorSubject<Configuracion> = new BehaviorSubject(new ConfiguracionDefault());
+  public estado: Observable<Configuracion> = this.estado$.asObservable();
 
   constructor(private http: HttpClient) {
   }
@@ -28,7 +31,10 @@ export class ConfiguracionesService {
   }
 
   modificar(configuracion: Configuracion, nombre: string, valor: string): Observable<Configuracion> {
-    return this.http.put<Configuracion>(`${this.configuracionesUrl}${configuracion.id}/`, { nombre, valor })
+    return this.http.put<Configuracion>(`${this.configuracionesUrl}${configuracion.id}/`, { nombre, valor });
   }
 
+  cambioConfiguracion(configuracion: Configuracion) {
+     this.estado$.next(configuracion);
+  }
 }

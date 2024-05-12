@@ -7,8 +7,7 @@ import { ConfiguracionesService } from 'src/app/services/configuraciones.service
 @Component({
   selector: 'app-item-configuracion',
   templateUrl: './item-configuracion.component.html',
-  styleUrls: ['./item-configuracion.component.css'],
-  providers: [ConfiguracionesService]
+  styleUrls: ['./item-configuracion.component.css']
 })
 
 export class ItemConfiguracionComponent {
@@ -52,6 +51,7 @@ export class ItemConfiguracionComponent {
       .subscribe((nuevaConfiguracion: Configuracion) => {
         this.editando = undefined;
         this.refrescar.emit();
+        this.configuracionesService.cambioConfiguracion(nuevaConfiguracion);
     });
   }
 

@@ -8,16 +8,17 @@ import { ConfiguracionesService } from 'src/app/services/configuraciones.service
 import { ProductosService } from 'src/app/services/productos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Configuracion } from 'src/app/models/modelo.configuracion';
+import { filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  providers: [ ProductosService, UsuariosService, ConfiguracionesService ]
+  providers: [ ProductosService, UsuariosService ]
 })
 
 export class HeaderComponent {
-  itemLogo = '../assets/img/logo_dorado_sin_fondo.png';
+  @Input() itemLogo: string = '../assets/img/logo_dorado_sin_fondo.png';
   itemCarrito = '../assets/img/carrito.png';
   itemLupa = '../assets/img/lupa.png';
 
@@ -28,7 +29,7 @@ export class HeaderComponent {
   showResults: boolean = false;
   isModalOpen: boolean = false;
 
-  constructor (private productosService: ProductosService, private usuariosService: UsuariosService, private configuracionesService: ConfiguracionesService, private authService: AuthService, private router: Router) {
+  constructor (private productosService: ProductosService, private configuracionesService: ConfiguracionesService, private authService: AuthService, private router: Router) {
     this.authService.autenticado
       .subscribe((auth: boolean) => {
         if (auth) {
@@ -38,6 +39,22 @@ export class HeaderComponent {
           this.usuario = undefined;
         }
       });
+
+    this.configuracionesService.estado.subscribe(c => {
+        console.log(c);
+        if (c.nombre === "logoHeader") {
+          this.itemLogo = c.valor;
+        }
+      }
+    );
+    /*
+      .pipe(
+        filter((configuracion: Configuracion) => configuracion.nombre === 'logoHeader'),
+        map((configuracion: Configuracion) => configuracion.valor)
+      )
+      .subscribe((logoUrl: string) => {
+        this.itemLogo = logoUrl
+      });*/
   }
 
   ngOnInit(): void {

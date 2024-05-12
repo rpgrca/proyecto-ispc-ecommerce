@@ -7,15 +7,14 @@ import { Configuracion } from 'src/app/models/modelo.configuracion';
 @Component({
   selector: 'app-configuraciones',
   templateUrl: './configuraciones.component.html',
-  styleUrls: ['./configuraciones.component.css'],
-  providers: [ ConfiguracionesService ]
+  styleUrls: ['./configuraciones.component.css']
 })
 
 export class ConfiguracionesComponent {
   readonly constantes = constantes;
   crearConfiguracionForm!: FormGroup;
 
-  @Input() configuraciones: Configuracion[];
+ @Input() configuraciones: Configuracion[];
 
   constructor(private formBuilder: FormBuilder, public configuracionesService : ConfiguracionesService) {
     this.configuraciones = [];
