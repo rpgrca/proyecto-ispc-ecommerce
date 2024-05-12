@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 router = routers.DefaultRouter()
 router.register('tipo_articulos', TipoArticuloViewSet)
 router.register('articulos', ArticuloViewSet)
-router.register('venta', VentaViewSet)
+router.register('ventas', VentaViewSet)
 router.register('ofertas', OfertaViewSet)
 router.register('envios', EnvioViewSet)
 router.register('admins', UsuarioAdminViewSet, basename='admins')
@@ -25,5 +25,5 @@ urlpatterns = [
     path('carritos/', Carritos.as_view()),
     path('compras/<int:pk>', Compras.as_view()),
     path('contacto/', ContactoView.as_view(), name='contacto'),
-    path('venta/', csrf_exempt(VentaViewSet.as_view), name='venta')
+    path('ventas/', csrf_exempt(VentaViewSet.as_view), name='ventas')
 ]
