@@ -2,7 +2,8 @@
 [![Actividad de commits][commit-img]][commit-url]
 [![Discusiones][discuss-img]][discuss-url]
 [![Issues][issues-img]][issues-url]
-[![Paquete Python][pipeline-img]][pipeline-url]
+[![Paquete Python][pipeline-python-img]][pipeline-python-url]
+[![Paquete Angular][pipeline-android-img]][pipeline-android-url]
 
 ![70747abe-f397-402e-8f14-fbf12301cf22](https://github.com/enbalde-ispc/enbalde-ispc/assets/90878370/18b9ad44-3ed2-4169-97cb-81def6c67268)
 
@@ -60,12 +61,14 @@ Acceder al sitio en `http://localhost:4200`.
 
 <!-- Emblemas -->
 [contrib-img]: https://img.shields.io/github/contributors/enbalde-ispc/enbalde-ispc
-[contrib-url]: https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/graphs/contributors
+[contrib-url]: https://github.com/enbalde-ispc/enbalde-ispc/graphs/contributors
 [commit-img]: https://img.shields.io/github/commit-activity/w/enbalde-ispc/enbalde-ispc/dev
 [commit-url]: https://github.com/enbalde-ispc/enbalde-ispc/graphs/code-frequency
 [issues-img]: https://img.shields.io/github/issues/enbalde-ispc/enbalde-ispc
 [issues-url]: https://github.com/enbalde-ispc/enbalde-ispc/issues
 [discuss-img]: https://img.shields.io/github/discussions/enbalde-ispc/enbalde-ispc
 [discuss-url]: https://github.com/enbalde-ispc/enbalde-ispc/discussions
-[pipeline-img]: https://github.com/rpgrca/proyecto-ispc-ecommerce/actions/workflows/python.yml/badge.svg
-[pipeline-url]: https://github.com/rpgrca/proyecto-ispc-ecommerce/actions/workflows/python.yml
+[pipeline-python-img]: https://github.com/enbalde-ispc/enbalde-ispc/actions/workflows/python.yml/badge.svg
+[pipeline-python-url]: https://github.com/enbalde-ispc/enbalde-ispc/actions/workflows/python.yml
+[pipeline-android-img]: https://github.com/enbalde-ispc/enbalde-ispc/actions/workflows/android.yml/badge.svg
+[pipeline-android-url]: https://github.com/enbalde-ispc/enbalde-ispc/actions/workflows/android.yml
