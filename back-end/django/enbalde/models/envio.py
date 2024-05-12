@@ -7,7 +7,7 @@ class Envio(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=40, blank=False)
     monto = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10,
-                                validators=[MinValueValidator(Decimal('0'))])
+                                validators=[MinValueValidator(Decimal(0))])
 
     class Meta:
         db_table = "Envio"
