@@ -1,8 +1,12 @@
+[![Contribuidores][contrib-img]][contrib-url]
+[![Actividad de commits][commit-img]][commit-url]
+[![Discusiones][discuss-img]][discuss-url]
+[![Issues][issues-img]][issues-url]
+[![Paquete Python][pipeline-img]][pipeline-url]
 
 ![70747abe-f397-402e-8f14-fbf12301cf22](https://github.com/enbalde-ispc/enbalde-ispc/assets/90878370/18b9ad44-3ed2-4169-97cb-81def6c67268)
 
-
-# EnBalde - Heladería 🍨
+# EnBalde - Sistema de Heladería 🍨
 
 ## Descripción
 EnBalde es una plataforma para la venta de helados en pote de diversos pesos y sabores. El usuario tendrá la posibilidad, mediante un catálogo, de elegir helados por pote de diversos pesos. Habrá variedad de gustos. Cada pote será de sabores fijos. Una vez finalizada la elección la página lo dirigirá a la sección carrito en donde podrá agregar o quitar artículos, decidir la forma de abonar y si solicita delivery o retira en sucursal. Concluida la compra se emitirá un aviso de transacción efectuada y el administrador recibirá el aviso de la compra.
@@ -16,14 +20,6 @@ EnBalde es una plataforma para la venta de helados en pote de diversos pesos y s
 - Yuliana Paula Capdevila- GitHub: YuliCap
 - Lidio Guedez- GitHub: lidioguedez
 
-
-## Emblemas
-[![Contribuidores][contrib-img]][contrib-url]
-[![Actividad de commits][commit-img]][commit-url]
-[![Discusiones][discuss-img]][discuss-url]
-[![Issues][issues-img]][issues-url]
-[![Paquete Python][pipeline-img]][pipeline-url]
-
 ## Modo de Uso
 
 ### Requisitos
@@ -34,6 +30,8 @@ El proyecto tiene componentes web y móvil, divididos en:
 - **Servicio de Pago Node** (`front-end/enbaldePago`): Corre en el puerto 3000.
 
 ### Instalación y Ejecución
+Para más información leer los README correspondientes a cada proyecto.
+
 1. **Frontend Angular**:
    - `cd front-end/enbalde`
    - `npm install`
@@ -47,6 +45,7 @@ El proyecto tiene componentes web y móvil, divididos en:
    - `pip install -r requirements.txt`
    - Configurar MySQL y ajustes en `server/settings.py`
    - Ejecutar migraciones `python manage.py migrate`
+   - Instalar configuración por defecto `python manage.py loaddata configurations.json`
    - Ejecutar servidor con `python manage.py runserver`
 
 Acceder al sitio en `http://localhost:4200`.
