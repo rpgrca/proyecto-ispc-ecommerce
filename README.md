@@ -10,7 +10,10 @@
 # EnBalde - Sistema de Heladería 🍨
 
 ## Descripción
-EnBalde es una plataforma para la venta de helados en pote de diversos pesos y sabores. El usuario tendrá la posibilidad, mediante un catálogo, de elegir helados por pote de diversos pesos. Habrá variedad de gustos. Cada pote será de sabores fijos. Una vez finalizada la elección la página lo dirigirá a la sección carrito en donde podrá agregar o quitar artículos, decidir la forma de abonar y si solicita delivery o retira en sucursal. Concluida la compra se emitirá un aviso de transacción efectuada y el administrador recibirá el aviso de la compra.
+EnBalde es una plataforma para la venta de helados en pote de diversos pesos y sabores.
+El usuario tendrá la posibilidad, mediante un catálogo, de elegir helados por pote de
+diversos pesos. Habrá variedad de gustos. Cada pote será de sabores fijos. Una vez
+finalizada la elección la página lo dirigirá a la sección carrito en donde podrá agregar o quitar artículos, decidir la forma de abonar y si solicita delivery o retira en sucursal. Concluida la compra se emitirá un aviso de transacción efectuada y el administrador recibirá el aviso de la compra.
 
 ## Nombre de los integrantes: 
 - Pamela Sol Pilotti-GitHub: Pamela198713
@@ -37,10 +40,12 @@ Para más información leer los README correspondientes a cada proyecto.
    - `cd front-end/enbalde`
    - `npm install`
    - `ng serve`
+   
 2. **Servicio de Pago**:
    - `cd front-end/enbaldePago`
    - `npm install`
    - `npm start`
+  
 3. **Backend Django**:
    - `cd back-end/django`
    - `pip install -r requirements.txt`
