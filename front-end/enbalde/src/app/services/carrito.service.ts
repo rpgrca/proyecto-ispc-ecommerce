@@ -41,6 +41,10 @@ export class CarritoService {
     return this.ventasService.anotar(envio, tipoPago, transaccion);
   }
 
+  checkoutEnStripe(envio: Envio): Observable<Venta> {
+    return this.ventasService.anotar(envio, TipoPago.STRIPE_A_PAGAR);
+  }
+
   checkoutEnEnbalde(carrito: Seleccion[], envio: Envio): Observable<string> {
     return this.enbaldePagoService.autorizar(carrito, envio);
   }

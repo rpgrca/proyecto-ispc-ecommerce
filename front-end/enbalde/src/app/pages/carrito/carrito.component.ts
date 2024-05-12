@@ -6,9 +6,9 @@ import { EnviosService } from 'src/app/services/envios.service';
 import { CarritoService } from 'src/app/services/carrito.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FuncionesService } from 'src/app/services/funciones.service';
-import { TipoPago } from 'src/app/models/modelo.venta';
+import { TipoPago, Venta } from 'src/app/models/modelo.venta';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { loadStripe } from '@stripe/stripe-js';
 
 @Component({
@@ -89,13 +89,16 @@ export class CarritoComponent  {
  }
 
  pagarStripe() {
-  this.http
-    .post('http://localhost:8000/api/venta/', {
-      items: this.carrito,
-    })
-    .subscribe(async (res: any) => {
-      let stripe = await loadStripe(this.stripePublicKey);
-      stripe?.redirectToCheckout({ sessionId: res.id });
+  this.carritoService.checkoutEnStripe(this.envioElegido)
+    .subscribe((venta: Venta) => {
+      this.ticket = venta.transaccion;
+      this.carritoService.checkout(this.envioElegido, TipoPago.STRIPE_PAGADO, this.ticket)
+        .subscribe(async (venta: Venta) => {
+          this.envolverProductosDelCarrito();
+
+          let stripe = await loadStripe(this.stripePublicKey);
+          stripe?.redirectToCheckout({ sessionId: `${this.ticket}` })
+        })
     });
 }
 
