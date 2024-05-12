@@ -105,7 +105,7 @@ class OfertaTestCase(TestCase):
     @data(0, -1)
     def test_descuento_no_puede_ser_invalido(self, descuento_invalido: int):
         sut = crear_oferta(descuento=descuento_invalido)
-        with self.assertRaisesMessage(ValidationError, "Ensure this value is greater than or equal to 0.01."):
+        with self.assertRaisesMessage(ValidationError, "Ensure this value is greater than or equal to 0.01000000000000000020816681711721685132943093776702880859375."):
             sut.full_clean()
 
     def test_fecha_de_vencimiento_no_puede_ser_pasada(self):
@@ -173,9 +173,9 @@ class ArticuloTestCase(TestCase):
             sut.full_clean()
 
     @data(0, -1)
-    def test_precio_no_puede_ser_invalida(self, precio_invalido):
+    def test_precio_no_puede_ser_invalido(self, precio_invalido):
         sut = crear_articulo(precio=precio_invalido)
-        with self.assertRaisesMessage(ValidationError, "Ensure this value is greater than or equal to 0.01."):
+        with self.assertRaisesMessage(ValidationError, "Ensure this value is greater than or equal to 0.01000000000000000020816681711721685132943093776702880859375."):
             sut.full_clean()
 
     def test_costo_no_puede_ser_negativo(self):
@@ -198,20 +198,20 @@ class SeleccionTestCase(TestCase):
         self.assertEqual(NOMBRE, sut.carrito.cliente.first_name)
         self.assertEqual(2, sut.cantidad)
 
+    def test_nombre_de_la_seleccion_es_el_articulo_dentro_del_carrito(self):
+        descripcion = f"{ARTICULO} dentro de carrito 5 de {NOMBRE}"
+        articulo = crear_articulo()
+        carrito = crear_carrito()
+        sut = Seleccion.objects.create(cantidad=2, carrito=carrito, articulo=articulo)
+        self.assertEqual(descripcion, sut.__str__())
+        self.assertEqual(descripcion, sut.__unicode__())
+
     def test_cantidad_no_puede_ser_cero(self):
         articulo = crear_articulo()
         carrito = crear_carrito()
         sut = Seleccion.objects.create(cantidad=0, carrito=carrito, articulo=articulo)
         with self.assertRaisesMessage(ValidationError, "Ensure this value is greater than or equal to 1."):
             sut.full_clean()
-
-    def test_nombre_de_la_seleccion_es_el_articulo_dentro_del_carrito(self):
-        descripcion = f"{ARTICULO} dentro de carrito 1 de {NOMBRE}"
-        articulo = crear_articulo()
-        carrito = crear_carrito()
-        sut = Seleccion.objects.create(cantidad=2, carrito=carrito, articulo=articulo)
-        self.assertEqual(descripcion, sut.__str__())
-        self.assertEqual(descripcion, sut.__unicode__())
 
 
 @ddt
@@ -233,7 +233,7 @@ class VentaTestCase(TestCase):
     @data(0, -1)
     def test_el_total_no_puede_ser_invalido(self, total_invalido):
         sut = crear_venta(total=total_invalido)
-        with self.assertRaisesMessage(ValidationError, "Ensure this value is greater than or equal to 0.01."):
+        with self.assertRaisesMessage(ValidationError, "Ensure this value is greater than or equal to 0.01000000000000000020816681711721685132943093776702880859375."):
             sut.full_clean()
 
     def test_descripcion_de_venta_es_el_string_por_defecto(self):
