@@ -17,7 +17,8 @@ Año: 2024
 
 | Fecha | Revisión | Autor | Verificado dep. Calidad
 | - | - | - | - |
-| 2024 | | Pamela Sol Pilotti - Lidio A. Guedez - Yuliana Paula Capdevila - Leonardo Vivas - Lucia Ailen Leonetti - Roberto Alfonso - Facundo M. Díaz C. | |
+| 240427 | | Pamela Sol Pilotti - Lidio A. Guedez - Yuliana Paula Capdevila - Leonardo Vivas - Lucia Ailen Leonetti - Roberto Alfonso - Facundo M. Díaz C. | |
+| 240513 | | Idem | Actualización Sprint 1 |
 
 ---
 
@@ -172,14 +173,23 @@ El sistema Enbalde será un producto diseñado para trabajar tanto en entornos w
 - US/TK’s - Sprint 0
 
   - #US00 Conformar grupo definiendo organización de repositorio en GitHub
-
     - #TK32 Actualizar el documento IEEE830
-
     - #TK33 Organizacion del respositorio y wiki
-
     - #TK34 Definir roles en el equipo
-
     - #TK35 Crear historia de usuarios
+
+- US/TK’s - Sprint 1
+  - #US22 Como cliente quiero poder utilizar un sistema de pagos externo
+    - #TK85 Implementar sistema de pago Stripe
+  - #US23 Como administrador quisiera configurar la aplicación
+    - #TK82 Agregar pantalla de configuración
+  - Arreglos:
+    #TK56 Consolidar look & feel del sitio web
+    #TK57 Subir portada al README
+    #TK59 Crear script de Postman para probar la registración
+    #TK83 Actualizar diagramas
+    #TK84 Actualizar diagrama de entidad relación
+    #TK32 Actualizar el documento IEEE830
 
 ##### 3.1.2 Requerimientos Funcionales
 
@@ -207,7 +217,9 @@ El sistema Enbalde será un producto diseñado para trabajar tanto en entornos w
 
 | Nro de sprint | Calendario | Sprint Backlog | Responsabilidades | Inconvenientes: |
 | - | - | - | - | - |
-| 0 | Fecha de inicio: 11/04/2024 (Aproximadamente) / Fecha Cierre: 28/04/2024 | #US00, #TK32, #TK33, #TK34, #TK33 | - Definir los roles de los miembros del equipo Scrum (Scrum master y Developer team). Documentar en la Wiki del Proyecto - Evaluar el contenido y distribución previa de la tienda para que se adecue al nuevo desarrollo de e-commerce / carrito de compras, analizando los requerimientos necesarios. Lo mismo ocurrirá con la App - Plantear Historias de Usuarios en base a los requerimientos del proyecto teniendo en cuenta una redacción y nomenclatura adecuada, ej “#US01 Como usuario quiero registrarme en el sitio web para comprar uno o varios productos” y su respectivos criterios de aceptación. Pueden utilizar la siguiente plantilla: Plantilla Historias de Usuario - Definir la documentación del proyecto mediante el documento IEEE830 - Crear un proyecto estilo kanban en Github - Definir la estructura de páginas en la Wiki del repositorio en github a fin de poder documentar: Nombre y apellido de los integrantes del equipo como así también los roles de cada quién, registro de ceremonias de scrum: planning, review y retrospective (para esta última es importante publicar además el plan de mejora a ejecutar en la siguiente iteración), documento IEEE830 del proyecto | problemas con la accesibilidad y el funcionamiento de la versión web de del sistema planteado en un principio y la dificultad que supone el mejorar dicho producto, además los reducidos tiempo llevaron a la necesidad de cambiar de dirección y trabajar sobre otra idea que nos permitiera cumplir con los requisitos solicitados por el cliente |
+| 0 | Fecha de inicio: 11/04/2024 (Aproximadamente) / Fecha Cierre: 28/04/2024 | #US00, #TK32, #TK33, #TK34, #TK35 | - Definir los roles de los miembros del equipo Scrum (Scrum master y Developer team). Documentar en la Wiki del Proyecto - Evaluar el contenido y distribución previa de la tienda para que se adecue al nuevo desarrollo de e-commerce / carrito de compras, analizando los requerimientos necesarios. Lo mismo ocurrirá con la App - Plantear Historias de Usuarios en base a los requerimientos del proyecto teniendo en cuenta una redacción y nomenclatura adecuada, ej “#US01 Como usuario quiero registrarme en el sitio web para comprar uno o varios productos” y su respectivos criterios de aceptación. Pueden utilizar la siguiente plantilla: Plantilla Historias de Usuario - Definir la documentación del proyecto mediante el documento IEEE830 - Crear un proyecto estilo kanban en Github - Definir la estructura de páginas en la Wiki del repositorio en github a fin de poder documentar: Nombre y apellido de los integrantes del equipo como así también los roles de cada quién, registro de ceremonias de scrum: planning, review y retrospective (para esta última es importante publicar además el plan de mejora a ejecutar en la siguiente iteración), documento IEEE830 del proyecto | problemas con la accesibilidad y el funcionamiento de la versión web de del sistema planteado en un principio y la dificultad que supone el mejorar dicho producto, además los reducidos tiempo llevaron a la necesidad de cambiar de dirección y trabajar sobre otra idea que nos permitiera cumplir con los requisitos solicitados por el cliente |
+| 1 | Fecha de inicio: 28/04/2024 (Aproximadamente) / Fecha Cierre: 13/05/2024 | #US22, #US23, #TK56, #TK57, #TK59, #TK82, #TK83, #TK84, #TK85 | Se actualiza logo de la aplicación. Crear script de Postman para probar registración. Actualizar script de inicialización de base de datos. Implementar sistema de pago Stripe. Actualizar diagrama de entidad-relación, diagrama relacional y diagrama de clases. Implementación de configuración del sistema. Creación de archivo para pruebas de registración en Postman. | Problemas con la accesibilidad y el funcionamiento de la versión web de del sistema planteado en un principio y la dificultad que supone el mejorar dicho producto. Debido al corto plazo se implementaron únicamente dos mejoras superadoras ya que se tuvo que avanzar con la aplicación mobile al mismo tiempo. |
+
 
 ### 4. Anexo de Bitácora
 
@@ -233,4 +245,5 @@ A su vez, se han actualizado los diagramas y la base de datos para que incluyera
 Se continúa trabajando en el look and feel de la página web, y en cuanto a la versión móvil, se han creado algunas pantallas (login, registro, perfil, catalogo) y se conecta a la base de datos que utiliza el backend de django.
 
 ![image](https://github.com/enbalde-ispc/enbalde-ispc/assets/95236196/d03dea73-c685-4acb-9ea0-daa8d9564387)
+
 ![image](https://github.com/enbalde-ispc/enbalde-ispc/assets/95236196/74c6a0fd-194e-417b-b759-0bed84299796)
