@@ -1,0 +1,373 @@
+{
+	"info": {
+		"_postman_id": "0e2f7206-e61d-4dba-adee-ec5bedd8e12c",
+		"name": "Suite de Pruebas de Enbalde",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6965401"
+	},
+	"item": [
+		{
+			"name": "1 - Registracion",
+			"item": [
+				{
+					"name": "Registración sin datos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"verificar que el codigo de estado sea 400\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.response.to.have.jsonBody()",
+									"jsonData = pm.response.json()",
+									"pm.test(\"verificar que mensaje de error sea correcto\", () => {",
+									"    pm.expect(jsonData.mensaje).to.equal(\"Error registrando usuario\")",
+									"})",
+									"",
+									"pm.test(\"verificar que los campos con error sean indicados\", () => {",
+									"    pm.expect(jsonData.data).to.have.property(\"nombre\");",
+									"    pm.expect(jsonData.data.nombre[0]).to.equal(\"El nombre es requerido.\");",
+									"    pm.expect(jsonData.data).to.have.property(\"apellido\");",
+									"    pm.expect(jsonData.data.apellido[0]).to.equal(\"El apellido es requerido.\");",
+									"    pm.expect(jsonData.data).to.have.property(\"usuario\");",
+									"    pm.expect(jsonData.data.usuario[0]).to.equal(\"El usuario es requerido.\");",
+									"    pm.expect(jsonData.data).to.have.property(\"clave\");",
+									"    pm.expect(jsonData.data.clave[0]).to.equal(\"La clave es requerida.\");",
+									"    pm.expect(jsonData.data).to.have.property(\"direccion\");",
+									"    pm.expect(jsonData.data.direccion[0]).to.equal(\"La dirección es requerida.\");",
+									"    pm.expect(jsonData.data).to.have.property(\"email\");",
+									"    pm.expect(jsonData.data.email[0]).to.equal(\"El e-mail es requerido.\");",
+									"    pm.expect(jsonData.data).to.have.property(\"tipo\");",
+									"    pm.expect(jsonData.data.tipo[0]).to.equal(\"El tipo es requerido.\");",
+									"})",
+									"",
+									"pm.test(\"verificar que campo status sea 400\", () => {",
+									"    pm.expect(jsonData.status).to.equal(400);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:8000/api/auth/signup/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"signup",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Solo nombre",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"verificar que el codigo de estado sea 400\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.response.to.have.jsonBody()",
+									"jsonData = pm.response.json()",
+									"pm.test(\"verificar que mensaje de error sea correcto\", () => {",
+									"    pm.expect(jsonData.mensaje).to.equal(\"Error registrando usuario\")",
+									"})",
+									"",
+									"pm.test(\"verificar que los campos con error sean indicados\", () => {",
+									"    pm.expect(jsonData.data).to.have.property(\"apellido\");",
+									"    pm.expect(jsonData.data).to.have.property(\"usuario\");",
+									"    pm.expect(jsonData.data).to.have.property(\"clave\");",
+									"    pm.expect(jsonData.data).to.have.property(\"direccion\");",
+									"    pm.expect(jsonData.data).to.have.property(\"email\");",
+									"    pm.expect(jsonData.data).to.have.property(\"tipo\");",
+									"})",
+									"",
+									"pm.test(\"verificar que campo status sea 400\", () => {",
+									"    pm.expect(jsonData.status).to.equal(400);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "Carlos",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8000/api/auth/signup/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"signup",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Campos vacíos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"verificar que el codigo de estado sea 400\", () => {",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.response.to.have.jsonBody()",
+									"jsonData = pm.response.json()",
+									"pm.test(\"verificar que mensaje de error sea correcto\", () => {",
+									"    pm.expect(jsonData.mensaje).to.equal(\"Error registrando usuario\")",
+									"})",
+									"",
+									"pm.test(\"verificar que los campos con error sean indicados\", () => {",
+									"    pm.expect(jsonData.data).to.have.property(\"nombre\");",
+									"    pm.expect(jsonData.data.nombre[0]).to.equal(\"El nombre no puede estar vacío.\")",
+									"    pm.expect(jsonData.data).to.have.property(\"apellido\");",
+									"    pm.expect(jsonData.data.apellido[0]).to.equal(\"El apellido no puede estar vacío.\")",
+									"    pm.expect(jsonData.data).to.have.property(\"usuario\");",
+									"    pm.expect(jsonData.data.usuario[0]).to.equal(\"El usuario no puede estar vacío.\")",
+									"    pm.expect(jsonData.data).to.have.property(\"clave\");",
+									"    pm.expect(jsonData.data.clave[0]).to.equal(\"La clave no puede estar vacía.\")",
+									"    pm.expect(jsonData.data).to.have.property(\"direccion\");",
+									"    pm.expect(jsonData.data.direccion[0]).to.equal(\"La dirección no puede estar vacía.\")",
+									"    pm.expect(jsonData.data).to.have.property(\"email\");",
+									"    pm.expect(jsonData.data.email[0]).to.equal(\"El e-mail no puede estar vacío.\")",
+									"    pm.expect(jsonData.data).to.have.property(\"tipo\");",
+									"    pm.expect(jsonData.data.tipo[0]).to.equal(\"Se necesita un tipo válido.\")",
+									"})",
+									"",
+									"pm.test(\"verificar que campo status sea 400\", () => {",
+									"    pm.expect(jsonData.status).to.equal(400);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "apellido",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "usuario",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "clave",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "direccion",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "tipo",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8000/api/auth/signup/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"signup",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registración correcta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"verificar que el codigo de estado sea 201\", () => {",
+									"    pm.response.to.have.status(201)",
+									"})",
+									"",
+									"pm.response.to.have.jsonBody()",
+									"jsonData = pm.response.json()",
+									"pm.test(\"verificar que mensaje sea correcto\", () => {",
+									"    pm.expect(jsonData.mensaje).to.equal(\"Usuario registrado exitosamente\")",
+									"})",
+									"",
+									"var username = pm.variables.get(\"randomUsername\");",
+									"var email = pm.variables.get(\"randomEmail\");",
+									"pm.test(\"verificar que los campos con error sean indicados\", () => {",
+									"    pm.expect(jsonData.data).to.have.property(\"nombre\")",
+									"    pm.expect(jsonData.data.nombre).to.equal(\"Juan\");",
+									"    pm.expect(jsonData.data).to.have.property(\"apellido\");",
+									"    pm.expect(jsonData.data.apellido).to.equal(\"Perez\");",
+									"    pm.expect(jsonData.data).to.have.property(\"usuario\");",
+									"    pm.expect(jsonData.data.usuario).to.equal(username);",
+									"    pm.expect(jsonData.data).to.not.have.property(\"clave\");",
+									"    pm.expect(jsonData.data).to.have.property(\"direccion\");",
+									"    pm.expect(jsonData.data.direccion).to.equal(\"123 Main St Miami FL\");",
+									"    pm.expect(jsonData.data).to.have.property(\"telefono\");",
+									"    pm.expect(jsonData.data.telefono).to.equal(\"1111-2222\");",
+									"    pm.expect(jsonData.data).to.have.property(\"email\");",
+									"    pm.expect(jsonData.data.email).to.equal(email);",
+									"    pm.expect(jsonData.data).to.have.property(\"tipo\");",
+									"    pm.expect(jsonData.data.tipo).to.equal(2);",
+									"    pm.expect(jsonData.data).to.have.property(\"observaciones\");",
+									"    pm.expect(jsonData.data.observaciones).to.equal(\"\");",
+									"})",
+									"",
+									"pm.test(\"verificar que campo status sea 201\", () => {",
+									"    pm.expect(jsonData.status).to.equal(201);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var randomEmail = pm.variables.replaceIn(\"{{$randomEmail}}\");",
+									"var randomUsername = pm.variables.replaceIn(\"{{$randomUserName}}\");",
+									"pm.variables.set(\"randomUsername\", randomUsername);",
+									"pm.variables.set(\"randomEmail\", randomEmail);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "Juan",
+									"type": "text"
+								},
+								{
+									"key": "apellido",
+									"value": "Perez",
+									"type": "text"
+								},
+								{
+									"key": "direccion",
+									"value": "123 Main St Miami FL",
+									"type": "text"
+								},
+								{
+									"key": "usuario",
+									"value": "{{randomUsername}}",
+									"type": "text"
+								},
+								{
+									"key": "clave",
+									"value": "12345678",
+									"type": "text"
+								},
+								{
+									"key": "telefono",
+									"value": "1111-2222",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{randomEmail}}",
+									"type": "text"
+								},
+								{
+									"key": "tipo",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8000/api/auth/signup/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"signup",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "usuarioAlAzar",
+			"value": "$randomPassword"
+		}
+	]
+}
