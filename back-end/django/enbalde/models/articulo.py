@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 from .tipo_articulo import TipoArticulo
+from decimal import Decimal
 
 
 class Articulo(models.Model):
@@ -8,8 +9,8 @@ class Articulo(models.Model):
     nombre = models.CharField(max_length=200, blank=False)
     descripcion = models.CharField(max_length=200, blank=False)
     precio = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10,
-                                 validators=[MinValueValidator(0.01)])
-    costo = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10, validators=[MinValueValidator(0)])
+                                 validators=[MinValueValidator(Decimal.from_float(0.01))])
+    costo = models.DecimalField(max_length=10, blank=False, decimal_places=2, max_digits=10, validators=[MinValueValidator(Decimal(0))])
     imagen = models.ImageField('imagen', upload_to='images', null=True)
     cantidad = models.IntegerField(blank=False, default=0, validators=[MinValueValidator(0)])
     tipo = models.ForeignKey(TipoArticulo, to_field="id", on_delete=models.CASCADE)

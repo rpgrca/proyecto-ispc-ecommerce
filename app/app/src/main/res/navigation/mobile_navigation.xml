@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.ar.enbaldeapp.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_catalogue"
+        android:name="com.ar.enbaldeapp.ui.catalogue.CatalogueFragment"
+        android:label="@string/title_catalogue"
+        tools:layout="@layout/fragment_catalogue" />
+
+    <fragment
+        android:id="@+id/navigation_cart"
+        android:name="com.ar.enbaldeapp.ui.cart.CartFragment"
+        android:label="@string/title_cart"
+        tools:layout="@layout/fragment_cart" />
+
+    <!-- label es Login para que por defecto el toolbar diga login -->
+    <fragment
+        android:id="@+id/navigation_user"
+        android:name="com.ar.enbaldeapp.ui.user.UserFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_user" />
+
+    <!--
+        <fragment
+            android:id="@+id/navigation_profile"
+            android:name="com.ar.enbaldeapp.ui.profile.ProfileFragment"
+            android:label="Profile"
+            tools:layout="@layout/fragment_profile" />
+
+        <fragment
+            android:id="@+id/navigation_login"
+            android:name="com.ar.enbaldeapp.ui.login.LoginFragment"
+            android:label="Login"
+            tools:layout="@layout/fragment_login" />
+        -->
+</navigation>

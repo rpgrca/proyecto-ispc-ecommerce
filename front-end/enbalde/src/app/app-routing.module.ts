@@ -18,6 +18,7 @@ import { OfertasComponent } from './pages/ofertas/ofertas.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { AuthGuard } from './services/auth.guard';
 import { TipoUsuario } from './models/modelo.usuario';
+import { ConfiguracionesComponent } from './pages/configuraciones/configuraciones.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'ofertas', component: OfertasComponent, canActivate: [AuthGuard], data: { rol: [ TipoUsuario.Administrador ] } },
   { path: 'usuarios', component: UsuariosComponent, canActivate: [AuthGuard], data: { rol: [ TipoUsuario.Administrador ] } },
   { path: 'compras', component: ComprasComponent, canActivate: [AuthGuard], data: { rol: [ TipoUsuario.Cliente ] } },
+  { path: 'configuraciones', component: ConfiguracionesComponent, canActivate: [AuthGuard],data: { rol: [ TipoUsuario.Administrador ]} },
   { path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];
 
