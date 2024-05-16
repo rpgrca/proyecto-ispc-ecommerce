@@ -1,7 +1,11 @@
 package com.ar.enbaldeapp.services;
 
+import android.hardware.ConsumerIrManager;
+
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.UserToken;
+import com.ar.enbaldeapp.models.utilities.HttpUtilities;
+import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
 
 import java.util.function.Consumer;
 
@@ -23,9 +27,6 @@ public class ApiServices implements IApiServices {
         if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
         if (onError == null) throw new RuntimeException("El callback por fallo es inválido");
 
-        /*User user = new User(1, "Perez", "Juan", "juan.perez@gmail.com", "123 Main St Miami FL", "1234-5678", "Good client", "juan", "12345678");
-        onSuccess.accept(user);*/
-
         ApiRequest request = new ApiRequest.Builder()
                 .addContentDisposition("usuario", username)
                 .addContentDisposition("clave", password)
@@ -44,10 +45,21 @@ public class ApiServices implements IApiServices {
     }
 
     @Override
-    public void logout(Runnable onSuccess, Consumer<ApiError> onError)
+    public void logout(Consumer<String> onSuccess, Consumer<ApiError> onError)
     {
-        // TODO: Llamar al servidor
-        onSuccess.run();
+        IServerConnector<Boolean> connector = disconnectFrom(ServerUrl + "/api/auth/logout/");
+        boolean result = false;
+
+        if (connector.connect()) {
+            result = HttpUtilities.isSuccessful(connector.getResponse().getStatus());
+        }
+
+        if (result) {
+            onSuccess.accept(connector.getResponse().getMessage());
+        }
+        else {
+            onError.accept(connector.getError());
+        }
     }
 
     @Override
@@ -86,10 +98,14 @@ public class ApiServices implements IApiServices {
     }
 
     protected IServerConnector<User> getUserFrom(String url, ApiRequest request) {
-        return new ServerConnector<>(url, request);
+        return new ServerConnector<>(url, new PostRequest(request));
     }
 
     protected IServerConnector<UserToken> getUserTokenFrom(String url, ApiRequest request) {
-        return new ServerConnector<>(url, request);
+        return new ServerConnector<>(url, new PostRequest(request));
+    }
+
+    protected IServerConnector<Boolean> disconnectFrom(String url) {
+        return new ServerConnector<>(url, new NoBody());
     }
 }

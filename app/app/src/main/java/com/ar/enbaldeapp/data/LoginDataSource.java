@@ -17,7 +17,7 @@ public class LoginDataSource {
             final Result[] result = new Result[1];
             IApiServices apiServices = new ApiServices();
             apiServices.login(username, password,
-                    u -> result[0] = new Result.Success<>(new LoggedInUser(u.getUser())),
+                    u -> result[0] = new Result.Success<>(new LoggedInUser(u.getUser(), u.getCartId(), u.getResponse())),
                     e -> result[0] = new Result.Error(new IOException("Could not log in: " + e.getMessage())));
 
             return result[0];
@@ -26,12 +26,13 @@ public class LoginDataSource {
         }
     }
 
+    // TODO: Consolidar logout de data source con logout de Profile fragment
     public Result<String> logout() {
         try {
             final Result[] result = new Result[1];
             IApiServices apiServices = new ApiServices();
             apiServices.logout(
-                    () -> new Result.Success<String>("Logout successful!"),
+                    Result.Success::new,
                     e -> new Result.Error(new IOException("Could not log out: " + e.getMessage())));
 
             return result[0];

@@ -19,16 +19,16 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ServerConnector<T> implements IServerConnector<T> {
-    private final ApiRequest request;
     private URL url;
     private ApiResponse<T> response;
     private ApiError error;
+    private final IRequester requester;
 
-    public ServerConnector(String urlString, ApiRequest request) {
+    public ServerConnector(String urlString, IRequester requester) {
         if (!StringToUrl(urlString)) {
             throw new RuntimeException("Invalid url " + urlString);
         }
-        this.request = request;
+        this.requester = requester;
     }
 
     @Override
@@ -67,12 +67,10 @@ public class ServerConnector<T> implements IServerConnector<T> {
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + request.getBoundary());
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + requester.getBoundary());
             connection.setRequestProperty("Accept", "application/json");
 
-            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-            out.write(this.request.getData());
-            out.close();
+            this.requester.sendRequestTo(connection);
 
             InputStream inputStream;
             if (connection.getResponseCode() >= HttpURLConnection.HTTP_OK && connection.getResponseCode() <= 299) {

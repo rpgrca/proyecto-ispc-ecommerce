@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.ar.enbaldeapp.R;
+import com.ar.enbaldeapp.data.LoginDataSource;
+import com.ar.enbaldeapp.data.Result;
 import com.ar.enbaldeapp.databinding.FragmentProfileBinding;
 import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
 import com.ar.enbaldeapp.services.ApiServices;
@@ -47,8 +49,9 @@ public class ProfileFragment extends Fragment {
 
     public void onLogout(View view) {
         Context context = getContext();
+
         IApiServices apiServices = new ApiServices();
-        apiServices.logout(() ->
+        apiServices.logout((String message) ->
                 {
                     SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(context);
                     sharedPreferencesManager.deleteCurrentUser();
@@ -57,7 +60,9 @@ public class ProfileFragment extends Fragment {
                     Utilities.changeToolbarTitleToLogin(getActivity());
                     Utilities.changeBottomMenuToLogin(getView());
                     Utilities.hideCartMenuItem(getView());
+
+                    Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).show();
                 },
-                e -> Snackbar.make(getView(), "Error trying to log out, please try again.", Snackbar.LENGTH_SHORT).show());
+                e -> Snackbar.make(getView(), e.getMessage(), Snackbar.LENGTH_SHORT).show());
     }
 }
