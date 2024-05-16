@@ -1,19 +1,17 @@
 package com.ar.enbaldeapp.services;
 
 import com.ar.enbaldeapp.models.utilities.JsonUtilities;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.ToNumberPolicy;
+import com.google.gson.internal.LinkedTreeMap;
 
 public class ApiResponse<T> {
     private final String message;
-    private final T data;
+    private final LinkedTreeMap<String, Object> data;
     private final int status;
 
     public ApiResponse(String jsonText, boolean isJson) {
         if (isJson) {
-            ServerApiResponse<T> response = JsonUtilities.getConfiguredGson().fromJson(jsonText, ServerApiResponse.class);
+            ServerApiResponse response = JsonUtilities.getConfiguredGson().fromJson(jsonText, ServerApiResponse.class);
             this.message = response.getMessage();
             this.data = response.getData();
             this.status = response.getStatus();
@@ -27,8 +25,8 @@ public class ApiResponse<T> {
 
     public T castResponseAs(Class<T> typeParameterClass)
     {
-        JsonObject object = new Gson().toJsonTree(this.data).getAsJsonObject();
-        return new Gson().fromJson(object, typeParameterClass);
+        JsonObject object = JsonUtilities.getConfiguredGson().toJsonTree(this.data).getAsJsonObject();
+        return JsonUtilities.getConfiguredGson().fromJson(object, typeParameterClass);
     }
 
     public String getMessage() { return message; }
