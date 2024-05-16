@@ -25,6 +25,7 @@ public class Constants {
     public static final String OBSERVATIONS = "Good client";
     public static final String USERNAME = "luis";
     public static final String PASSWORD = "12345678";
+    public static final int TYPE = User.Client;
 
     public static final long PRODUCT_TYPE_ID = 1;
     public static final String PRODUCT_TYPE_NAME = "Balde";
@@ -63,7 +64,7 @@ public class Constants {
     public static final double SELECTION_TOTAL = 8700;
 
     public static final long SALE_ID = 1;
-    public static final User SALE_USER = new User(USER_ID, LAST_NAME, FIRST_NAME, EMAIL, ADDRESS, PHONE, OBSERVATIONS, USERNAME, PASSWORD);
+    public static final User SALE_USER = new User(USER_ID, LAST_NAME, FIRST_NAME, EMAIL, ADDRESS, PHONE, OBSERVATIONS, USERNAME, PASSWORD, TYPE);
     public static final Date SALE_DATE = DateUtils.date(2024, 5, 2);
     public static final List<Selection> SALE_SELECTIONS = new ArrayList<>(Arrays.asList(new Selection(SELECTION_ID, SELECTION_PRODUCT, SELECTION_QUANTITY, SELECTION_OFFERS, SELECTION_DISCOUNT, SELECTION_TOTAL)));
     public static final double SALE_TOTAL = 10000;

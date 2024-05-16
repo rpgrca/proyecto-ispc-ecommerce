@@ -53,7 +53,7 @@ public class ApiServices implements IApiServices {
     @Override
     public void register(String firstName, String lastName, String email, String address, String phoneNumber, String username, String password, Consumer<User> onSuccess, Consumer<ApiError> onError) {
         try {
-            new User(1, lastName, firstName, email, address, phoneNumber, "", username, password);
+            new User(1, lastName, firstName, email, address, phoneNumber, "", username, password, User.Client);
         }
         catch (Exception ex) {
             onError.accept(new ApiError(ex.getMessage()));
@@ -71,7 +71,7 @@ public class ApiServices implements IApiServices {
                 .addContentDisposition("telefono", phoneNumber)
                 .addContentDisposition("usuario", username)
                 .addContentDisposition("clave", password)
-                .addContentDisposition("tipo", "2")
+                .addContentDisposition("tipo", User.Client)
                 .addContentDisposition("observaciones", "")
                 .Build();
 

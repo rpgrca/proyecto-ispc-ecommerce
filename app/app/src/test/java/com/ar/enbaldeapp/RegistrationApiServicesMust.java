@@ -145,5 +145,6 @@ public class RegistrationApiServicesMust {
         assertEquals("11112222", user.getPhone());
         assertEquals("juan.perez@gmail.com", user.getEmail());
         assertEquals("", user.getObservations());
+        assertEquals(User.Client, user.getType());
     }
 }
