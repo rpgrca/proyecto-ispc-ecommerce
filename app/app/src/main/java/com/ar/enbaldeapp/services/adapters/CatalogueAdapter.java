@@ -1,5 +1,6 @@
-package com.ar.enbaldeapp.services;
+package com.ar.enbaldeapp.services.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.models.Product;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class CatalogueAdapter extends RecyclerView.Adapter<CatalogueAdapter.ViewHolder> {
+    private final Activity activityContext;
     private CatalogueAdapter.OnClickListener onProductClickListener;
     private final List<Product> products;
 
-    public CatalogueAdapter(List<Product> products) {
+    public CatalogueAdapter(Activity context, List<Product> products) {
+        this.activityContext = context;
         this.products = products;
     }
 
@@ -34,7 +38,10 @@ public class CatalogueAdapter extends RecyclerView.Adapter<CatalogueAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)  {
         Product product = products.get(position);
 
-        holder.productImageView.setImageResource(getImageResourceByName(product.getImage(), holder.itemView.getContext()));
+        holder.bindContent(product);
+
+        getImageFromInternet(product.getImage(), holder.productImageView);
+        //holder.productImageView.setImageResource(getImageResourceByName(product.getImage(), holder.productImageView));
         holder.productImageView.setOnClickListener(v -> {
             if (onProductClickListener != null) {
                 onProductClickListener.onClick(position, product);
@@ -54,6 +61,11 @@ public class CatalogueAdapter extends RecyclerView.Adapter<CatalogueAdapter.View
                 onProductClickListener.onClick(position, product);
             }
         });
+
+
+    }
+
+    private void getImageFromInternet(String imageUrl, ImageView productImageView) {
     }
 
     public interface OnClickListener {
@@ -80,9 +92,9 @@ public class CatalogueAdapter extends RecyclerView.Adapter<CatalogueAdapter.View
             productNameTextView = itemView.findViewById(R.id.productNameTextView);
             productDescriptionTextView = itemView.findViewById(R.id.productDescriptionTextView);
         }
-    }
 
-    private int getImageResourceByName(String imageName, Context context) {
-        return R.drawable.baseline_icecream_24;
+        public void bindContent(Product product) {
+            Picasso.with(activityContext).load(product.getImage()).into(productImageView);
+        }
     }
 }

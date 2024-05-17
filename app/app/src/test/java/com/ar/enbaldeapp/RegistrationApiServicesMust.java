@@ -135,7 +135,7 @@ public class RegistrationApiServicesMust {
     public void deserializeServerReplyCorrectly() {
         AtomicReference<User> atomicUser = new AtomicReference<>();
         ApiServices sut = new ApiServicesRegistrationStub(true);
-        sut.register(FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, PHONE, USERNAME, PASSWORD, u -> atomicUser.set(u), e -> {});
+        sut.register(FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, PHONE, USERNAME, PASSWORD, atomicUser::set, e -> {});
 
         User user = atomicUser.get();
         assertEquals("Juan", user.getFirstName());
@@ -145,5 +145,6 @@ public class RegistrationApiServicesMust {
         assertEquals("11112222", user.getPhone());
         assertEquals("juan.perez@gmail.com", user.getEmail());
         assertEquals("", user.getObservations());
+        assertEquals(User.Client, user.getType());
     }
 }

@@ -1,11 +1,12 @@
 package com.ar.enbaldeapp.services;
 
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.internal.LinkedTreeMap;
 
-public class ServerApiResponse<T> {
+public class ServerApiResponse {
     @SerializedName("mensaje")
     private String message;
-    private T data;
+    private Object data;
     private int status;
 
     public void setMessage(String message) {
@@ -16,11 +17,11 @@ public class ServerApiResponse<T> {
         return message;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
     }
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 

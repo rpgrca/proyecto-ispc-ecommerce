@@ -3,13 +3,13 @@ package com.ar.enbaldeapp.services;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.ar.enbaldeapp.services.requesters.IRequester;
 import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,16 +19,16 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ServerConnector<T> implements IServerConnector<T> {
-    private final ApiRequest request;
     private URL url;
     private ApiResponse<T> response;
     private ApiError error;
+    private final IRequester requester;
 
-    public ServerConnector(String urlString, ApiRequest request) {
+    public ServerConnector(String urlString, IRequester requester) {
         if (!StringToUrl(urlString)) {
             throw new RuntimeException("Invalid url " + urlString);
         }
-        this.request = request;
+        this.requester = requester;
     }
 
     @Override
@@ -64,15 +64,7 @@ public class ServerConnector<T> implements IServerConnector<T> {
 
         try {
             connection = (HttpURLConnection)url.openConnection();
-            connection.setDoOutput(true);
-            connection.setDoInput(true);
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + request.getBoundary());
-            connection.setRequestProperty("Accept", "application/json");
-
-            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-            out.write(this.request.getData());
-            out.close();
+            this.requester.sendRequestTo(connection);
 
             InputStream inputStream;
             if (connection.getResponseCode() >= HttpURLConnection.HTTP_OK && connection.getResponseCode() <= 299) {
@@ -93,13 +85,13 @@ public class ServerConnector<T> implements IServerConnector<T> {
             }
 
             inputStream.close();
-            jsonText = stringBuilder.toString();
+            jsonText = this.requester.preprocessResponse(stringBuilder.toString());
 
             if (isError) {
                 this.error = new ApiError(JsonParser.parseString(jsonText).getAsJsonObject());
             }
             else {
-                this.response = new ApiResponse(jsonText, true);
+                this.response = new ApiResponse<T>(jsonText, true);
                 return true;
             }
         } catch (IOException ex) {

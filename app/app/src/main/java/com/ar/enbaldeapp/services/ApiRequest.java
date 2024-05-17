@@ -32,6 +32,13 @@ public class ApiRequest {
             return this;
         }
 
+        public Builder addContentDisposition(String key, int value) {
+            addSeparator();
+            stringBuilder.append("Content-Disposition: form-data; name=" + "\"" + key + "\"\r\n\r\n");
+            stringBuilder.append(value + "\r\n");
+            return this;
+        }
+
         private void addSeparator() {
             stringBuilder.append("--" + this.boundary + "\r\n");
         }

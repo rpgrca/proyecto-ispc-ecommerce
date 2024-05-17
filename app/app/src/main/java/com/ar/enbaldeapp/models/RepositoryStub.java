@@ -22,9 +22,9 @@ public class RepositoryStub implements IRepository {
                 3, new ProductType(3, "Tacita"));
 
         catalog = new ArrayList<>(List.of(
-                new Product(1, "Helado de chocolate", "Un helado de chocolate Aguila", 3500, 10, "images/helado-chocolate.png", productTypes.get(1)),
-                new Product(2, "Helado de frutilla", "Helado de frutilla con trozos de fruta natural", 5500, 6, "images/helado-frutilla.png", productTypes.get(2)),
-                new Product(3, "Helado granizado", "Helado de dulce de leche con chips de chocolate", 1500, 20, "images/helado-granizado.png", productTypes.get(2))
+                new Product(1, "Helado de chocolate", "Un helado de chocolate Aguila", 3500, 10, "images/helado-chocolate.png", 1),
+                new Product(2, "Helado de frutilla", "Helado de frutilla con trozos de fruta natural", 5500, 6, "images/helado-frutilla.png", 2),
+                new Product(3, "Helado granizado", "Helado de dulce de leche con chips de chocolate", 1500, 20, "images/helado-granizado.png", 2)
                 ));
 
         shippingMethods = new ArrayList<>(List.of(
@@ -75,7 +75,7 @@ public class RepositoryStub implements IRepository {
     @Override
     public User login(String username, String password) {
         if (this.loggedUser == null) {
-            this.loggedUser = new User(1, "Perez", "Juan", "juan.perez@gmail.com", "123 Main St Miami FL", "1234-5678", "Good client", username, password);
+            this.loggedUser = new User(1, "Perez", "Juan", "juan.perez@gmail.com", "123 Main St Miami FL", "1234-5678", "Good client", username, password, User.Client);
         }
 
         return this.loggedUser;

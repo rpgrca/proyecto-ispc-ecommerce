@@ -1,4 +1,4 @@
-package com.ar.enbaldeapp.services;
+package com.ar.enbaldeapp.services.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
