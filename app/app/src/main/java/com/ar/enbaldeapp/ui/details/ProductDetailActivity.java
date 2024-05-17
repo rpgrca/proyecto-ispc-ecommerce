@@ -10,24 +10,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.models.User;
+import com.squareup.picasso.Picasso;
 
 public class ProductDetailActivity extends AppCompatActivity {
-    private Product product;
-    private User currentUser;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
 
         Intent intent = getIntent();
-        product = (Product)intent.getSerializableExtra(PRODUCT_FOR_DETAIL);
-        currentUser = (User)intent.getSerializableExtra(CURRENT_USER_FOR_DETAIL);
+        Product product = (Product)intent.getSerializableExtra(PRODUCT_FOR_DETAIL);
+        User currentUser = (User)intent.getSerializableExtra(CURRENT_USER_FOR_DETAIL);
+
+        ImageView imageView = this.findViewById(R.id.imageViewDetail);
+        Picasso.with(getApplicationContext()).load(product.getImage()).into(imageView);
 
         ((TextView)this.findViewById(R.id.textViewDetailName)).setText(product.getName());
         ((TextView)this.findViewById(R.id.textViewDetailDescription)).setText(product.getDescription());
