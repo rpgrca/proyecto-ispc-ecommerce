@@ -22,9 +22,9 @@ public class RepositoryStub implements IRepository {
                 3, new ProductType(3, "Tacita"));
 
         catalog = new ArrayList<>(List.of(
-                new Product(1, "Helado de chocolate", "Un helado de chocolate Aguila", 3500, 10, "images/helado-chocolate.png", productTypes.get(1)),
-                new Product(2, "Helado de frutilla", "Helado de frutilla con trozos de fruta natural", 5500, 6, "images/helado-frutilla.png", productTypes.get(2)),
-                new Product(3, "Helado granizado", "Helado de dulce de leche con chips de chocolate", 1500, 20, "images/helado-granizado.png", productTypes.get(2))
+                new Product(1, "Helado de chocolate", "Un helado de chocolate Aguila", 3500, 10, "images/helado-chocolate.png", 1),
+                new Product(2, "Helado de frutilla", "Helado de frutilla con trozos de fruta natural", 5500, 6, "images/helado-frutilla.png", 2),
+                new Product(3, "Helado granizado", "Helado de dulce de leche con chips de chocolate", 1500, 20, "images/helado-granizado.png", 2)
                 ));
 
         shippingMethods = new ArrayList<>(List.of(
