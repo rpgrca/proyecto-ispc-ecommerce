@@ -6,7 +6,7 @@ import com.google.gson.internal.LinkedTreeMap;
 public class ServerApiResponse {
     @SerializedName("mensaje")
     private String message;
-    private LinkedTreeMap<String, Object> data;
+    private Object data;
     private int status;
 
     public void setMessage(String message) {
@@ -17,11 +17,11 @@ public class ServerApiResponse {
         return message;
     }
 
-    public void setData(LinkedTreeMap<String, Object> data) {
+    public void setData(Object data) {
         this.data = data;
     }
 
-    public LinkedTreeMap<String, Object> getData() {
+    public Object getData() {
         return data;
     }
 

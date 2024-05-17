@@ -1,12 +1,17 @@
 package com.ar.enbaldeapp.services;
 
-import android.hardware.ConsumerIrManager;
-
+import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.UserToken;
 import com.ar.enbaldeapp.models.utilities.HttpUtilities;
-import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
+import com.ar.enbaldeapp.services.requesters.GetRequester;
+import com.ar.enbaldeapp.services.requesters.NoBodyRequester;
+import com.ar.enbaldeapp.services.requesters.PostRequester;
+import com.ar.enbaldeapp.services.wrappers.ApiResponseWrapper;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class ApiServices implements IApiServices {
@@ -97,15 +102,36 @@ public class ApiServices implements IApiServices {
         }
     }
 
+    @Override
+    public void getCatalogue(Consumer<List<Product>> onSuccess, Consumer<ApiError> onError) {
+        if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
+        if (onError == null) throw new RuntimeException("El callback por fallo es inválido");
+
+        IServerConnector<Product> connector = getCatalogueFrom(ServerUrl + "/api/articulos");
+        if (connector.connect()) {
+            Type listType = new TypeToken<List<Product>>() {}.getType();
+            List<Product> products = connector.getResponse().castResponseAsListOf(listType);
+            onSuccess.accept(products);
+        }
+        else {
+            onError.accept(connector.getError());
+        }
+    }
+
     protected IServerConnector<User> getUserFrom(String url, ApiRequest request) {
-        return new ServerConnector<>(url, new PostRequest(request));
+        return new ServerConnector<>(url, new PostRequester(request));
     }
 
     protected IServerConnector<UserToken> getUserTokenFrom(String url, ApiRequest request) {
-        return new ServerConnector<>(url, new PostRequest(request));
+        return new ServerConnector<>(url, new PostRequester(request));
     }
 
     protected IServerConnector<Boolean> disconnectFrom(String url) {
-        return new ServerConnector<>(url, new NoBody());
+        return new ServerConnector<>(url, new NoBodyRequester());
+    }
+
+    protected IServerConnector<Product> getCatalogueFrom(String url) {
+        return new ServerConnector<>(url, new GetRequester(new ApiResponseWrapper()));
     }
 }
+

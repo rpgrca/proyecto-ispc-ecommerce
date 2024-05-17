@@ -1,6 +1,6 @@
 package com.ar.enbaldeapp.services.requesters;
 
-import com.ar.enbaldeapp.services.IResponseWrapper;
+import com.ar.enbaldeapp.services.wrappers.IResponseWrapper;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

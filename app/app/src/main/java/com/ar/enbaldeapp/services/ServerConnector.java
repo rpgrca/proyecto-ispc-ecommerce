@@ -3,13 +3,13 @@ package com.ar.enbaldeapp.services;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.ar.enbaldeapp.services.requesters.IRequester;
 import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -64,12 +64,6 @@ public class ServerConnector<T> implements IServerConnector<T> {
 
         try {
             connection = (HttpURLConnection)url.openConnection();
-            connection.setDoOutput(true);
-            connection.setDoInput(true);
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + requester.getBoundary());
-            connection.setRequestProperty("Accept", "application/json");
-
             this.requester.sendRequestTo(connection);
 
             InputStream inputStream;
@@ -91,13 +85,13 @@ public class ServerConnector<T> implements IServerConnector<T> {
             }
 
             inputStream.close();
-            jsonText = stringBuilder.toString();
+            jsonText = this.requester.preprocessResponse(stringBuilder.toString());
 
             if (isError) {
                 this.error = new ApiError(JsonParser.parseString(jsonText).getAsJsonObject());
             }
             else {
-                this.response = new ApiResponse(jsonText, true);
+                this.response = new ApiResponse<T>(jsonText, true);
                 return true;
             }
         } catch (IOException ex) {
