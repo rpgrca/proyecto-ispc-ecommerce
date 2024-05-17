@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class ApiServices implements IApiServices {
+    // 10.0.2.2 es la ip de la maquina local corriendo el emulador de Android
     private static String ServerUrl = "http://10.0.2.2:8000";
 
     @Override

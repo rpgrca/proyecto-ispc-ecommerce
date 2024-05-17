@@ -42,7 +42,7 @@ public class CatalogueFragment extends Fragment {
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerViewCatalogue);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        CatalogueAdapter adapter = new CatalogueAdapter(getCatalogue());
+        CatalogueAdapter adapter = new CatalogueAdapter(getActivity(), getCatalogue());
         recyclerView.setAdapter(adapter);
 
         adapter.setOnClickListeners((position, product) -> {
