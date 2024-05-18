@@ -4,7 +4,6 @@ import static com.ar.enbaldeapp.support.Constants.*;
 
 import static org.junit.Assert.*;
 
-import com.ar.enbaldeapp.models.User;
 import com.google.gson.Gson;
 
 import org.junit.Test;

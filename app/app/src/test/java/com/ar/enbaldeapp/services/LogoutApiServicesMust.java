@@ -1,12 +1,8 @@
 package com.ar.enbaldeapp.services;
 
 import static com.ar.enbaldeapp.support.Constants.ACCESS_STRING;
-import static com.ar.enbaldeapp.support.Constants.PASSWORD;
-import static com.ar.enbaldeapp.support.Constants.USERNAME;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-
-import com.ar.enbaldeapp.support.ApiServicesRegistrationSpy;
 
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;

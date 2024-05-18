@@ -6,8 +6,6 @@ import static com.ar.enbaldeapp.support.Constants.SHIPPING_METHOD_NAME;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
-import com.ar.enbaldeapp.models.ShippingMethod;
-
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.FromDataPoints;

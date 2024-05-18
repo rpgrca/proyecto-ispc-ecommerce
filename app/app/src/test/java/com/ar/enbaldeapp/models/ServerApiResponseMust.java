@@ -6,7 +6,6 @@ import static org.junit.Assert.assertEquals;
 
 import com.ar.enbaldeapp.models.utilities.JsonUtilities;
 import com.ar.enbaldeapp.services.ServerApiResponse;
-import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 
 import org.junit.Test;

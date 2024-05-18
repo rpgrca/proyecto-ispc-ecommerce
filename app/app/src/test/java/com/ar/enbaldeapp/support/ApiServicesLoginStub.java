@@ -1,9 +1,7 @@
 package com.ar.enbaldeapp.support;
 
 import static com.ar.enbaldeapp.support.Constants.LOGIN_OK_JSON;
-import static com.ar.enbaldeapp.support.Constants.REGISTRATION_OK_JSON;
 
-import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.UserToken;
 import com.ar.enbaldeapp.services.ApiError;
 import com.ar.enbaldeapp.services.ApiRequest;

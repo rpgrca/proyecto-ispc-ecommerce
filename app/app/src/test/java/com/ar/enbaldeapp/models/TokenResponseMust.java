@@ -5,11 +5,8 @@ import static com.ar.enbaldeapp.support.Constants.REFRESH_STRING;
 import static com.ar.enbaldeapp.support.Constants.TOKEN_REFRESH_JSON;
 import static org.junit.Assert.assertEquals;
 
-import com.ar.enbaldeapp.models.TokenResponse;
 import com.google.gson.Gson;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 public class TokenResponseMust {

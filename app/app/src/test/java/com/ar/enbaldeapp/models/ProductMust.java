@@ -12,7 +12,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 
-import com.ar.enbaldeapp.models.Product;
 import com.google.gson.Gson;
 
 import org.junit.Test;
