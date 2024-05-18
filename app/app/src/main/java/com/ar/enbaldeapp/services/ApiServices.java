@@ -51,8 +51,10 @@ public class ApiServices implements IApiServices {
     }
 
     @Override
-    public void logout(Consumer<String> onSuccess, Consumer<ApiError> onError)
-    {
+    public void logout(Consumer<String> onSuccess, Consumer<ApiError> onError) {
+        if (onSuccess == null) { throw new RuntimeException("El callback por éxito es inválido"); }
+        if (onError == null) { throw new RuntimeException("El callback por fallo es inválido"); }
+
         IServerConnector<Boolean> connector = disconnectFrom(ServerUrl + "/api/auth/logout/");
         boolean result = false;
 
