@@ -1,8 +1,10 @@
 package com.ar.enbaldeapp.support;
 
+import static com.ar.enbaldeapp.support.Constants.LOGIN_OK_JSON;
 import static com.ar.enbaldeapp.support.Constants.REGISTRATION_OK_JSON;
 
 import com.ar.enbaldeapp.models.User;
+import com.ar.enbaldeapp.models.UserToken;
 import com.ar.enbaldeapp.services.ApiError;
 import com.ar.enbaldeapp.services.ApiRequest;
 import com.ar.enbaldeapp.services.ApiResponse;
@@ -16,7 +18,7 @@ public class ApiServicesLoginStub extends ApiServices {
         this.connectReturnValue = connectReturnValue;
     }
 
-    private static class ServerConnectorLoginStub implements IServerConnector<User> {
+    private static class ServerConnectorLoginStub implements IServerConnector<UserToken> {
         private final boolean connectReturnValue;
 
         public ServerConnectorLoginStub(boolean connectReturnValue) {
@@ -29,8 +31,8 @@ public class ApiServicesLoginStub extends ApiServices {
         }
 
         @Override
-        public ApiResponse<User> getResponse() {
-            return new ApiResponse<>(REGISTRATION_OK_JSON, true);
+        public ApiResponse<UserToken> getResponse() {
+            return new ApiResponse<>(LOGIN_OK_JSON, true);
         }
 
         @Override
@@ -40,7 +42,7 @@ public class ApiServicesLoginStub extends ApiServices {
     }
 
     @Override
-    protected IServerConnector<User> getUserFrom(String url, ApiRequest request) {
+    protected IServerConnector<UserToken> getUserTokenFrom(String url, ApiRequest request) {
         return new ServerConnectorLoginStub(this.connectReturnValue);
     }
 }

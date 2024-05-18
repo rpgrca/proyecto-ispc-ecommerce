@@ -1,4 +1,4 @@
-package com.ar.enbaldeapp;
+package com.ar.enbaldeapp.models;
 
 import static com.ar.enbaldeapp.support.Constants.SELECTION_DISCOUNT;
 import static com.ar.enbaldeapp.support.Constants.SELECTION_ID;

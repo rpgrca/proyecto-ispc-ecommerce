@@ -1,4 +1,4 @@
-package com.ar.enbaldeapp;
+package com.ar.enbaldeapp.models;
 
 import static com.ar.enbaldeapp.support.Constants.FIRST_NAME;
 import static com.ar.enbaldeapp.support.Constants.LAST_NAME;

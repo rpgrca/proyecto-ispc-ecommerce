@@ -1,4 +1,4 @@
-package com.ar.enbaldeapp;
+package com.ar.enbaldeapp.models;
 
 import static com.ar.enbaldeapp.support.Constants.PRODUCT_TYPE_ID;
 import static com.ar.enbaldeapp.support.Constants.PRODUCT_TYPE_NAME;

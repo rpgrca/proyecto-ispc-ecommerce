@@ -1,4 +1,4 @@
-package com.ar.enbaldeapp;
+package com.ar.enbaldeapp.models;
 
 import static com.ar.enbaldeapp.support.Constants.OFFER_DISCOUNT;
 import static com.ar.enbaldeapp.support.Constants.OFFER_EXPIRATION_DATE;

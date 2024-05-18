@@ -1,4 +1,4 @@
-package com.ar.enbaldeapp;
+package com.ar.enbaldeapp.models;
 
 import static com.ar.enbaldeapp.support.Constants.SHIPPING_METHOD_COST;
 import static com.ar.enbaldeapp.support.Constants.SHIPPING_METHOD_ID;
