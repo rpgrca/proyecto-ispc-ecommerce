@@ -40,9 +40,6 @@ public class TokenResponseMust {
         sut.setRefresh(REFRESH_STRING);
         sut.setAccess(ACCESS_STRING);
         String result = new Gson().toJson(sut);
-        MatcherAssert.assertThat(result, CoreMatchers.containsString(REFRESH_STRING));
-        MatcherAssert.assertThat(result, CoreMatchers.containsString("refresco"));
-        MatcherAssert.assertThat(result, CoreMatchers.containsString(ACCESS_STRING));
-        MatcherAssert.assertThat(result, CoreMatchers.containsString("acceso"));
+        assertEquals(TOKEN_REFRESH_JSON, result);
     }
 }
