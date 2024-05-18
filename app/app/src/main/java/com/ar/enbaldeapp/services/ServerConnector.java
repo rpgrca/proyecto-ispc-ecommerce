@@ -4,13 +4,8 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.ar.enbaldeapp.services.requesters.IRequester;
-import com.google.gson.JsonParser;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.Callable;
@@ -18,16 +13,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.Function;
 
 public class ServerConnector<T> implements IServerConnector<T> {
     private URL url;
     private ApiResponse<T> response;
     private ApiError error;
-    private final IRequester requester;
-    private Callable<IHttpUrlConnectionWrapper> connectionCreator;
+    private final IRequester<T> requester;
+    private final Callable<IHttpUrlConnectionWrapper> connectionCreator;
 
-    public ServerConnector(String urlString, IRequester requester, Callable<IHttpUrlConnectionWrapper> connectionCreator) {
+    public ServerConnector(String urlString, IRequester<T> requester, Callable<IHttpUrlConnectionWrapper> connectionCreator) {
         if (!StringToUrl(urlString)) {
             throw new RuntimeException("Invalid url " + urlString);
         }
@@ -63,46 +57,23 @@ public class ServerConnector<T> implements IServerConnector<T> {
     public ApiError getError() { return this.error; }
 
     private boolean load() {
-        String jsonText = "";
-        boolean isError = false;
         IHttpUrlConnectionWrapper connection = null;
 
         try {
-            connection = new HttpUrlConnectionWrapper();
+            connection = this.connectionCreator.call();
             connection.openFrom(url);
 
             this.requester.sendRequestTo(connection);
+            IServerReply<T> serverReply = this.requester.getReplyFromServer(connection);
 
-            InputStream inputStream;
-            if (connection.getResponseCode() >= HttpURLConnection.HTTP_OK && connection.getResponseCode() <= 299) {
-                inputStream = connection.getInputStream();
-                isError = false;
-            }
-            else {
-                inputStream = connection.getErrorStream();
-                isError = true;
-            }
+            this.error = serverReply.getError();
+            this.response = serverReply.getResponse();
 
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            String line;
-            StringBuilder stringBuilder = new StringBuilder();
-
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-
-            inputStream.close();
-            jsonText = this.requester.preprocessResponse(stringBuilder.toString());
-
-            if (isError) {
-                this.error = new ApiError(JsonParser.parseString(jsonText).getAsJsonObject());
-            }
-            else {
-                this.response = new ApiResponse<T>(jsonText, true);
-                return true;
-            }
+            return serverReply.getReturnValue();
         } catch (IOException ex) {
             error = new ApiError(ex.getMessage());
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.getMessage());
         } finally {
             if (connection != null) {
                 connection.disconnect();

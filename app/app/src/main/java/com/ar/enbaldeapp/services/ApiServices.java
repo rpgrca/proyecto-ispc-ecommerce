@@ -4,6 +4,7 @@ import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.UserToken;
 import com.ar.enbaldeapp.models.utilities.HttpUtilities;
+import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
 import com.ar.enbaldeapp.services.requesters.GetRequester;
 import com.ar.enbaldeapp.services.requesters.NoBodyRequester;
 import com.ar.enbaldeapp.services.requesters.PostRequester;
@@ -49,11 +50,12 @@ public class ApiServices implements IApiServices {
     }
 
     @Override
-    public void logout(Consumer<String> onSuccess, Consumer<ApiError> onError) {
+    public void logout(String accessToken, Consumer<String> onSuccess, Consumer<ApiError> onError) {
+        if (accessToken == null || accessToken.trim().isEmpty()) { throw new RuntimeException("El access token es inválido"); }
         if (onSuccess == null) { throw new RuntimeException("El callback por éxito es inválido"); }
         if (onError == null) { throw new RuntimeException("El callback por fallo es inválido"); }
 
-        IServerConnector<Boolean> connector = disconnectFrom(ServerUrl + "/api/auth/logout/");
+        IServerConnector<Boolean> connector = disconnectFrom(ServerUrl + "/api/auth/logout/", accessToken);
         boolean result = false;
 
         if (connector.connect()) {
@@ -120,18 +122,18 @@ public class ApiServices implements IApiServices {
     }
 
     protected IServerConnector<User> getUserFrom(String url, ApiRequest request) {
-        return new ServerConnector<>(url, new PostRequester(request), HttpUrlConnectionWrapper::new);
+        return new ServerConnector<>(url, new PostRequester<>(request), HttpUrlConnectionWrapper::new);
     }
 
     protected IServerConnector<UserToken> getUserTokenFrom(String url, ApiRequest request) {
-        return new ServerConnector<>(url, new PostRequester(request), HttpUrlConnectionWrapper::new);
+        return new ServerConnector<>(url, new PostRequester<>(request), HttpUrlConnectionWrapper::new);
     }
 
-    protected IServerConnector<Boolean> disconnectFrom(String url) {
-        return new ServerConnector<>(url, new NoBodyRequester(), HttpUrlConnectionWrapper::new);
+    protected IServerConnector<Boolean> disconnectFrom(String url, String accessToken) {
+        return new ServerConnector<>(url, new NoBodyRequester<>(accessToken), HttpUrlConnectionWrapper::new);
     }
 
     protected IServerConnector<Product> getCatalogueFrom(String url) {
-        return new ServerConnector<>(url, new GetRequester(new ApiResponseWrapper()), HttpUrlConnectionWrapper::new);
+        return new ServerConnector<>(url, new GetRequester<>(new ApiResponseWrapper()), HttpUrlConnectionWrapper::new);
     }
 }

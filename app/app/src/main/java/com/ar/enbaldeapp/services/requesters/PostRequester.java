@@ -6,7 +6,7 @@ import com.ar.enbaldeapp.services.IHttpUrlConnectionWrapper;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-public class PostRequester implements IRequester {
+public class PostRequester<T> extends Requester<T> {
     private final ApiRequest request;
 
     public PostRequester(ApiRequest request) {

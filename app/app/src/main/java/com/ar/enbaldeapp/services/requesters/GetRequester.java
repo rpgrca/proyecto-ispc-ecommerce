@@ -4,9 +4,8 @@ import com.ar.enbaldeapp.services.IHttpUrlConnectionWrapper;
 import com.ar.enbaldeapp.services.wrappers.IResponseWrapper;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 
-public class GetRequester implements IRequester {
+public class GetRequester<T> extends Requester<T> {
     private final IResponseWrapper wrapper;
 
     public GetRequester(IResponseWrapper wrapper) {
