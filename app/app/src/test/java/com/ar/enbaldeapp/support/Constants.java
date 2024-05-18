@@ -38,6 +38,7 @@ public class Constants {
     public static final int PRODUCT_QUANTITY = 13;
     public static final String PRODUCT_IMAGE = "http://localhost:4200/enbalde/assets/chocolate.png";
     public static final ProductType PRODUCT_TYPE = new ProductType(PRODUCT_TYPE_ID, PRODUCT_TYPE_NAME);
+    public static final String PRODUCT_JSON = "{\"id\":1,\"nombre\":\"Helado de chocolate\",\"descripcion\":\"Un helado muy rico de chocolate con chips\",\"precio\":1100.0,\"cantidad\":13,\"imagen\":\"http://localhost:4200/enbalde/assets/chocolate.png\",\"tipo\":1}";
 
     public static final long SHIPPING_METHOD_ID = 1;
     public static final String SHIPPING_METHOD_NAME = "Hasta 3km de distancia";
