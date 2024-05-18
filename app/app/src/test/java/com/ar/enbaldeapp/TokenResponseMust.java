@@ -8,6 +8,8 @@ import static org.junit.Assert.assertEquals;
 import com.ar.enbaldeapp.models.TokenResponse;
 import com.google.gson.Gson;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 public class TokenResponseMust {
@@ -30,5 +32,17 @@ public class TokenResponseMust {
         TokenResponse sut = new Gson().fromJson(TOKEN_REFRESH_JSON, TokenResponse.class);
         assertEquals(REFRESH_STRING, sut.getRefresh());
         assertEquals(ACCESS_STRING, sut.getAccess());
+    }
+
+    @Test
+    public void serializeTokenCorrectly() {
+        TokenResponse sut = new TokenResponse();
+        sut.setRefresh(REFRESH_STRING);
+        sut.setAccess(ACCESS_STRING);
+        String result = new Gson().toJson(sut);
+        MatcherAssert.assertThat(result, CoreMatchers.containsString(REFRESH_STRING));
+        MatcherAssert.assertThat(result, CoreMatchers.containsString("refresco"));
+        MatcherAssert.assertThat(result, CoreMatchers.containsString(ACCESS_STRING));
+        MatcherAssert.assertThat(result, CoreMatchers.containsString("acceso"));
     }
 }
