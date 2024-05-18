@@ -1,4 +1,4 @@
-package com.ar.enbaldeapp.services;
+package com.ar.enbaldeapp.services.connection;
 
 import java.io.IOException;
 import java.io.InputStream;

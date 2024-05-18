@@ -4,7 +4,7 @@ import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.UserToken;
 import com.ar.enbaldeapp.models.utilities.HttpUtilities;
-import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
+import com.ar.enbaldeapp.services.connection.HttpUrlConnectionWrapper;
 import com.ar.enbaldeapp.services.requesters.GetRequester;
 import com.ar.enbaldeapp.services.requesters.NoBodyRequester;
 import com.ar.enbaldeapp.services.requesters.PostRequester;

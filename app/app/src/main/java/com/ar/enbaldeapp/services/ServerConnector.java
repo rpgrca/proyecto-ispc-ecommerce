@@ -3,6 +3,8 @@ package com.ar.enbaldeapp.services;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.ar.enbaldeapp.services.connection.IHttpUrlConnectionWrapper;
+import com.ar.enbaldeapp.services.reply.IServerReply;
 import com.ar.enbaldeapp.services.requesters.IRequester;
 
 import java.io.IOException;

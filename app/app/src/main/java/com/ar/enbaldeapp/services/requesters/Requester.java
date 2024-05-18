@@ -1,9 +1,9 @@
 package com.ar.enbaldeapp.services.requesters;
 
-import com.ar.enbaldeapp.services.ErrorServerReply;
-import com.ar.enbaldeapp.services.IHttpUrlConnectionWrapper;
-import com.ar.enbaldeapp.services.IServerReply;
-import com.ar.enbaldeapp.services.OkServerReply;
+import com.ar.enbaldeapp.services.reply.ErrorServerReply;
+import com.ar.enbaldeapp.services.connection.IHttpUrlConnectionWrapper;
+import com.ar.enbaldeapp.services.reply.IServerReply;
+import com.ar.enbaldeapp.services.reply.OkServerReply;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

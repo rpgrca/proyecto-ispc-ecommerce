@@ -1,7 +1,7 @@
 package com.ar.enbaldeapp.services.requesters;
 
 import com.ar.enbaldeapp.services.ApiRequest;
-import com.ar.enbaldeapp.services.IHttpUrlConnectionWrapper;
+import com.ar.enbaldeapp.services.connection.IHttpUrlConnectionWrapper;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
