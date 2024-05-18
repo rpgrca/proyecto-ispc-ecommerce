@@ -46,8 +46,6 @@ public class ApiServices implements IApiServices {
         else {
             onError.accept(connector.getError());
         }
-
-
     }
 
     @Override
