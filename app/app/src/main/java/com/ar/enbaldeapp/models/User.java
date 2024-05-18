@@ -34,7 +34,7 @@ public class User implements Serializable {
     @SerializedName("usuario")
     private final String username;
     @SerializedName("clave")
-    private final String password;
+    private final String password;  // TODO: el password no se envia desde el servidor, quitarlo
     @SerializedName("tipo")
     private final int type;
 

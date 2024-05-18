@@ -26,6 +26,7 @@ public class Constants {
     public static final String USERNAME = "luis";
     public static final String PASSWORD = "12345678";
     public static final int TYPE = User.Client;
+    public static final String USER_JSON = "{\"id\":1,\"apellido\":\"Agote\",\"nombre\":\"Luis\",\"email\":\"luis.agote@gmail.com\",\"direccion\":\"123 Main St Miami, FL\",\"telefono\":\"1234-5678\",\"observaciones\":\"Good client\",\"usuario\":\"luis\",\"clave\":\"12345678\",\"tipo\":2}";
 
     public static final long PRODUCT_TYPE_ID = 1;
     public static final String PRODUCT_TYPE_NAME = "Balde";

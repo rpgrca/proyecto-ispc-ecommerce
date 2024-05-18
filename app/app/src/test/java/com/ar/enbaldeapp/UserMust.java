@@ -5,6 +5,7 @@ import static com.ar.enbaldeapp.support.Constants.*;
 import static org.junit.Assert.*;
 
 import com.ar.enbaldeapp.models.User;
+import com.google.gson.Gson;
 
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
@@ -19,7 +20,7 @@ public class UserMust {
     public void beCreatedCorrectly_whenInformationIsCorrect() {
         User sut = new User(USER_ID, LAST_NAME, FIRST_NAME, EMAIL, ADDRESS, PHONE, OBSERVATIONS, USERNAME, PASSWORD, TYPE);
 
-        assertEquals(USER_ID, sut.getId()); // TODO: el id no se envia desde el servidor, quitarlo?
+        assertEquals(USER_ID, sut.getId());
         assertEquals(LAST_NAME, sut.getLastName());
         assertEquals(FIRST_NAME, sut.getFirstName());
         assertEquals(EMAIL, sut.getEmail());
@@ -27,7 +28,7 @@ public class UserMust {
         assertEquals(PHONE, sut.getPhone());
         assertEquals(OBSERVATIONS, sut.getObservations());
         assertEquals(USERNAME, sut.getUsername());
-        assertEquals(PASSWORD, sut.getPassword()); // TODO: el password no se envia desde el servidor, quitarlo
+        assertEquals(PASSWORD, sut.getPassword());
         assertEquals(TYPE, sut.getType());
     }
 
@@ -92,5 +93,29 @@ public class UserMust {
     public void throwException_whenUsernameIsInvalid(@FromDataPoints("invalid strings") String invalidUsername) {
         Exception exception = assertThrows(RuntimeException.class, () -> new User(USER_ID, LAST_NAME, FIRST_NAME, EMAIL, ADDRESS, PHONE, OBSERVATIONS, invalidUsername, PASSWORD, TYPE));
         assertEquals("El nombre de usuario es inválido", exception.getMessage());
+    }
+
+    @Test
+    public void serializeCorrectly() {
+        User sut = new User(USER_ID, LAST_NAME, FIRST_NAME, EMAIL, ADDRESS, PHONE, OBSERVATIONS, USERNAME, PASSWORD, TYPE);
+
+        String result = new Gson().toJson(sut);
+        assertEquals(USER_JSON, result);
+    }
+
+    @Test
+    public void deserializeCorrectly() {
+        User sut = new Gson().fromJson(USER_JSON, User.class);
+
+        assertEquals(USER_ID, sut.getId());
+        assertEquals(LAST_NAME, sut.getLastName());
+        assertEquals(FIRST_NAME, sut.getFirstName());
+        assertEquals(EMAIL, sut.getEmail());
+        assertEquals(ADDRESS, sut.getAddress());
+        assertEquals(PHONE, sut.getPhone());
+        assertEquals(OBSERVATIONS, sut.getObservations());
+        assertEquals(USERNAME, sut.getUsername());
+        assertEquals(PASSWORD, sut.getPassword());
+        assertEquals(TYPE, sut.getType());
     }
 }
