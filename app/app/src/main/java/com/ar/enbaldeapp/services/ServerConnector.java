@@ -13,21 +13,26 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Function;
 
 public class ServerConnector<T> implements IServerConnector<T> {
     private URL url;
     private ApiResponse<T> response;
     private ApiError error;
     private final IRequester requester;
+    private Callable<IHttpUrlConnectionWrapper> connectionCreator;
 
-    public ServerConnector(String urlString, IRequester requester) {
+    public ServerConnector(String urlString, IRequester requester, Callable<IHttpUrlConnectionWrapper> connectionCreator) {
         if (!StringToUrl(urlString)) {
             throw new RuntimeException("Invalid url " + urlString);
         }
+
+        this.connectionCreator = connectionCreator;
         this.requester = requester;
     }
 
@@ -60,10 +65,12 @@ public class ServerConnector<T> implements IServerConnector<T> {
     private boolean load() {
         String jsonText = "";
         boolean isError = false;
-        HttpURLConnection connection = null;
+        IHttpUrlConnectionWrapper connection = null;
 
         try {
-            connection = (HttpURLConnection)url.openConnection();
+            connection = new HttpUrlConnectionWrapper();
+            connection.openFrom(url);
+
             this.requester.sendRequestTo(connection);
 
             InputStream inputStream;

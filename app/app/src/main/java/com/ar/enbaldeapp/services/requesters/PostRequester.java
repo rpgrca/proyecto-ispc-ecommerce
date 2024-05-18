@@ -1,10 +1,10 @@
 package com.ar.enbaldeapp.services.requesters;
 
 import com.ar.enbaldeapp.services.ApiRequest;
+import com.ar.enbaldeapp.services.IHttpUrlConnectionWrapper;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
 
 public class PostRequester implements IRequester {
     private final ApiRequest request;
@@ -14,7 +14,7 @@ public class PostRequester implements IRequester {
     }
 
     @Override
-    public void sendRequestTo(HttpURLConnection connection) throws IOException {
+    public void sendRequestTo(IHttpUrlConnectionWrapper connection) throws IOException {
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.setRequestMethod("POST");

@@ -1,10 +1,12 @@
 package com.ar.enbaldeapp.services.requesters;
 
+import com.ar.enbaldeapp.services.IHttpUrlConnectionWrapper;
+
 import java.net.HttpURLConnection;
 
 public class NoBodyRequester implements IRequester {
     @Override
-    public void sendRequestTo(HttpURLConnection connection) {
+    public void sendRequestTo(IHttpUrlConnectionWrapper connection) {
     }
 
     @Override

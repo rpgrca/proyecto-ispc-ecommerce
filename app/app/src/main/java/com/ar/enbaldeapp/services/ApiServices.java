@@ -120,19 +120,18 @@ public class ApiServices implements IApiServices {
     }
 
     protected IServerConnector<User> getUserFrom(String url, ApiRequest request) {
-        return new ServerConnector<>(url, new PostRequester(request));
+        return new ServerConnector<>(url, new PostRequester(request), HttpUrlConnectionWrapper::new);
     }
 
     protected IServerConnector<UserToken> getUserTokenFrom(String url, ApiRequest request) {
-        return new ServerConnector<>(url, new PostRequester(request));
+        return new ServerConnector<>(url, new PostRequester(request), HttpUrlConnectionWrapper::new);
     }
 
     protected IServerConnector<Boolean> disconnectFrom(String url) {
-        return new ServerConnector<>(url, new NoBodyRequester());
+        return new ServerConnector<>(url, new NoBodyRequester(), HttpUrlConnectionWrapper::new);
     }
 
     protected IServerConnector<Product> getCatalogueFrom(String url) {
-        return new ServerConnector<>(url, new GetRequester(new ApiResponseWrapper()));
+        return new ServerConnector<>(url, new GetRequester(new ApiResponseWrapper()), HttpUrlConnectionWrapper::new);
     }
 }
-

@@ -1,5 +1,6 @@
 package com.ar.enbaldeapp.services.requesters;
 
+import com.ar.enbaldeapp.services.IHttpUrlConnectionWrapper;
 import com.ar.enbaldeapp.services.wrappers.IResponseWrapper;
 
 import java.io.IOException;
@@ -13,7 +14,7 @@ public class GetRequester implements IRequester {
     }
 
     @Override
-    public void sendRequestTo(HttpURLConnection connection) throws IOException {
+    public void sendRequestTo(IHttpUrlConnectionWrapper connection) throws IOException {
         connection.setRequestMethod("GET");
     }
 
