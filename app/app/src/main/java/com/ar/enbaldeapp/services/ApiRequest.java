@@ -1,5 +1,7 @@
 package com.ar.enbaldeapp.services;
 
+import com.ar.enbaldeapp.models.utilities.JsonUtilities;
+
 import java.util.Random;
 
 public class ApiRequest {
@@ -8,6 +10,7 @@ public class ApiRequest {
         private final StringBuilder stringBuilder;
         private String boundary;
         private String newBoundary;
+        private Object body;
 
         public Builder() {
             stringBuilder = new StringBuilder();
@@ -42,6 +45,11 @@ public class ApiRequest {
             return this;
         }
 
+        public Builder addBody(Object body) {
+            this.body = body;
+            return this;
+        }
+
         public Builder addContentDisposition(String key, int value) {
             addSeparator();
             stringBuilder
@@ -60,7 +68,7 @@ public class ApiRequest {
                     .append("\r\n");
         }
 
-        private void addFinalSeparator() {
+        public void addFinalSeparator() {
             stringBuilder
                     .append("--")
                     .append(this.boundary)
@@ -80,10 +88,15 @@ public class ApiRequest {
             return result;
         }
 
-        public ApiRequest Build() {
+        public ApiRequest buildAsUrlEncodedData() {
             addFinalSeparator();
             String result = popContentData();
             return new ApiRequest(result, boundary);
+        }
+
+        public ApiRequest buildAsBody() {
+            String result = JsonUtilities.getConfiguredGson().toJson(this.body);
+            return new ApiRequest(result, null);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.ar.enbaldeapp.services;
 
+import com.ar.enbaldeapp.models.Cart;
 import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.UserToken;
@@ -49,7 +50,7 @@ public class ApiServices implements IApiServices {
         ApiRequest request = new ApiRequest.Builder()
                 .addContentDisposition("usuario", username)
                 .addContentDisposition("clave", password)
-                .Build();
+                .buildAsUrlEncodedData();
 
         IServerConnector<UserToken> connector = getUserTokenFrom(ServerUrl + "/api/auth/login/", request);
         if (connector.connect()) {
@@ -105,7 +106,7 @@ public class ApiServices implements IApiServices {
                 .addContentDisposition("clave", password)
                 .addContentDisposition("tipo", User.Client)
                 .addContentDisposition("observaciones", "")
-                .Build();
+                .buildAsUrlEncodedData();
 
         IServerConnector<User> connector = getUserFrom(ServerUrl + "/api/auth/signup/", request);
         if (connector.connect()) {
@@ -133,6 +134,32 @@ public class ApiServices implements IApiServices {
         }
     }
 
+    @Override
+    public void addToCart(String accessToken, Product product, Consumer<Cart> onSuccess, Consumer<ApiError> onFailure) {
+        if (accessToken == null || accessToken.trim().isEmpty()) throw new RuntimeException("El access token es inválido");
+        if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
+        if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
+
+        CartModificationRequest cartModificationRequest = new CartModificationRequest(product, 1);
+        ApiRequest apiRequest = new ApiRequest.Builder()
+                .addBody(cartModificationRequest)
+                .buildAsBody();
+        IServerConnector<Cart> connector = getModifiedCartFrom(ServerUrl + "/api/carritos", apiRequest);
+        if (connector.connect()) {
+            //Type listType = new TypeToken<List<Product>>() {}.getType();
+            //List<Product> products = connector.getResponse().castResponseAsListOf(listType);
+            //onSuccess.accept(products);
+            onSuccess.accept(connector.getResponse().castResponseAs(Cart.class));
+        }
+        else {
+            onFailure.accept(connector.getError());
+        }
+    }
+
+    protected IServerConnector<Cart> getModifiedCartFrom(String url, ApiRequest request) {
+        return new ServerConnector<>(url, new PostRequester<>(request), this.connectionFactory);
+    }
+
     protected IServerConnector<User> getUserFrom(String url, ApiRequest request) {
         return new ServerConnector<>(url, new PostRequester<>(request), this.connectionFactory);
     }
@@ -148,4 +175,6 @@ public class ApiServices implements IApiServices {
     protected IServerConnector<Product> getCatalogueFrom(String url) {
         return new ServerConnector<>(url, new GetRequester<>(new ApiResponseWrapper()), this.connectionFactory);
     }
+
 }
+

@@ -25,9 +25,4 @@ public class PostRequester<T> extends Requester<T> {
         out.write(this.request.getData());
         out.close();
     }
-
-    @Override
-    public String preprocessResponse(String response) {
-        return response;
-    }
 }
