@@ -59,7 +59,7 @@ public class LoginApiServicesMust {
     @Test
     public void callFailureCallback_whenConnectFails() {
         AtomicBoolean errorCalled = new AtomicBoolean(false);
-        ApiServices sut = new ApiServicesStub.Builder()
+        IApiServices sut = new ApiServicesStub.Builder()
                 .withGetUserTokenFromCallback((u, s) -> new ServerConnectorStub.Builder<UserToken>()
                         .withConnectReturning(false)
                         .build()
@@ -73,7 +73,7 @@ public class LoginApiServicesMust {
     @Test
     public void callSuccessCallback_whenConnectIsOk() {
         AtomicBoolean successCalled = new AtomicBoolean(false);
-        ApiServices sut = new ApiServicesStub.Builder()
+        IApiServices sut = new ApiServicesStub.Builder()
                 .withGetUserTokenFromCallback((u, s) -> new ServerConnectorStub.Builder<UserToken>()
                         .withConnectReturning(true)
                         .withResponse(new ApiResponse<>(LOGIN_OK_JSON))

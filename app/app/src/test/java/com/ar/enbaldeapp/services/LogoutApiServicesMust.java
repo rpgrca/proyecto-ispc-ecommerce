@@ -47,7 +47,7 @@ public class LogoutApiServicesMust {
     @Test
     public void callSuccess_whenLoggedOutCorrectly() {
         AtomicBoolean called = new AtomicBoolean(false);
-        ApiServices sut = new ApiServicesStub.Builder()
+        IApiServices sut = new ApiServicesStub.Builder()
                 .withDisconnectFromCallback((u, s) -> new ServerConnectorStub.Builder<Boolean>()
                         .withConnectReturning(true)
                         .withResponse(new ApiResponse<>(LOGOUT_OK_JSON))
@@ -62,7 +62,7 @@ public class LogoutApiServicesMust {
     @Test
     public void callFailure_whenLoggedOutWithError() {
         AtomicBoolean called = new AtomicBoolean(false);
-        ApiServices sut = new ApiServicesStub.Builder()
+        IApiServices sut = new ApiServicesStub.Builder()
                 .withDisconnectFromCallback((u, s) -> new ServerConnectorStub.Builder<Boolean>()
                         .withConnectReturning(true)
                         .withResponse(new ApiResponse<>(LOGOUT_ERROR_JSON))

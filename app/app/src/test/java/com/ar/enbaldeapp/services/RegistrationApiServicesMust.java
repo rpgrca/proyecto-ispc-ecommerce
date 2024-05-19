@@ -14,7 +14,6 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import com.ar.enbaldeapp.models.User;
-import com.ar.enbaldeapp.support.ApiServicesRegistrationSpy;
 import com.ar.enbaldeapp.support.ApiServicesStub;
 
 import org.hamcrest.CoreMatchers;
@@ -33,14 +32,14 @@ import java.util.concurrent.atomic.AtomicReference;
 public class RegistrationApiServicesMust {
     @Test
     public void throwException_whenSuccessCallbackIsInvalid() {
-        ApiServicesRegistrationSpy sut = new ApiServicesRegistrationSpy();
+        IApiServices sut = new ApiServices();
         Exception exception = assertThrows(RuntimeException.class, () -> sut.register(FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, PHONE, USERNAME, PASSWORD, null, e -> {}));
         assertEquals("El callback por éxito es inválido", exception.getMessage());
     }
 
     @Test
     public void throwException_whenFailureCallbackIsInvalid() {
-        ApiServicesRegistrationSpy sut = new ApiServicesRegistrationSpy();
+        IApiServices sut = new ApiServices();
         Exception exception = assertThrows(RuntimeException.class, () -> sut.register(FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, PHONE, USERNAME, PASSWORD, u -> {}, null));
         assertEquals("El callback por fallo es inválido", exception.getMessage());
     }
@@ -48,7 +47,7 @@ public class RegistrationApiServicesMust {
     @Test
     public void callFailureCallback_whenConnectFails() {
         AtomicBoolean errorCalled = new AtomicBoolean(false);
-        ApiServices sut = new ApiServicesStub.Builder()
+        IApiServices sut = new ApiServicesStub.Builder()
                 .withGetUserFromCallback((s, r) -> new ServerConnectorStub.Builder<User>()
                         .withConnectReturning(false)
                         .build())
@@ -61,7 +60,7 @@ public class RegistrationApiServicesMust {
     @Test
     public void callSuccessCallback_whenConnectWorks() {
         AtomicBoolean successCalled = new AtomicBoolean(false);
-        ApiServices sut = new ApiServicesStub.Builder()
+        IApiServices sut = new ApiServicesStub.Builder()
                 .withGetUserFromCallback((s, r) -> new ServerConnectorStub.Builder<User>()
                         .withConnectReturning(true)
                         .withResponse(new ApiResponse<>(REGISTRATION_OK_JSON))
@@ -74,17 +73,20 @@ public class RegistrationApiServicesMust {
 
     @Test
     public void sendCorrectInformationToServer() {
-        ApiServicesRegistrationSpy sut = new ApiServicesRegistrationSpy();
+        AtomicReference<String> data = new AtomicReference<>();
+        IApiServices sut = new ApiServicesStub.Builder()
+                .withGetUserFromCallback((s, r) -> {
+                    data.set(r.getData());
+                    return new ServerConnectorStub.Builder<User>()
+                            .withConnectReturning(false)
+                            .build();
+                    })
+                .build();
 
         sut.register(FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, PHONE, USERNAME, PASSWORD, u -> {}, e -> {});
 
-        MatcherAssert.assertThat(sut.getRequest().getData(), CoreMatchers.containsString(FIRST_NAME));
-        MatcherAssert.assertThat(sut.getRequest().getData(), CoreMatchers.containsString(LAST_NAME));
-        MatcherAssert.assertThat(sut.getRequest().getData(), CoreMatchers.containsString(EMAIL));
-        MatcherAssert.assertThat(sut.getRequest().getData(), CoreMatchers.containsString(ADDRESS));
-        MatcherAssert.assertThat(sut.getRequest().getData(), CoreMatchers.containsString(PHONE));
-        MatcherAssert.assertThat(sut.getRequest().getData(), CoreMatchers.containsString(USERNAME));
-        MatcherAssert.assertThat(sut.getRequest().getData(), CoreMatchers.containsString(PASSWORD));
+        MatcherAssert.assertThat(data.get(), CoreMatchers.containsString(USERNAME));
+        MatcherAssert.assertThat(data.get(), CoreMatchers.containsString(PASSWORD));
     }
 
     @DataPoints("invalid strings")
@@ -94,56 +96,73 @@ public class RegistrationApiServicesMust {
 
     @Theory
     public void doNotContactServer_whenFirstNameIsInvalid(@FromDataPoints("invalid strings") String invalidName) {
-        ApiServicesRegistrationSpy sut = new ApiServicesRegistrationSpy();
-        sut.register(invalidName, LAST_NAME, EMAIL, ADDRESS, PHONE, USERNAME, PASSWORD, u -> {}, e -> {});
+        AtomicReference<ApiRequest> request = new AtomicReference<>();
+        IApiServices sut = getServicesCapturingRequest(request);
 
-        assertNull(sut.getRequest());
+        sut.register(invalidName, LAST_NAME, EMAIL, ADDRESS, PHONE, USERNAME, PASSWORD, u -> {}, e -> {});
+        assertNull(request.get());
+    }
+
+    private static IApiServices getServicesCapturingRequest(AtomicReference<ApiRequest> request) {
+        return new ApiServicesStub.Builder()
+                .withGetUserFromCallback((s, r) -> {
+                    request.set(r);
+                    return new ServerConnectorStub.Builder<User>()
+                            .withConnectReturning(false)
+                            .build();
+                })
+                .build();
     }
 
     @Theory
     public void doNotContactServer_whenLastNameIsInvalid(@FromDataPoints("invalid strings") String invalidName) {
-        ApiServicesRegistrationSpy sut = new ApiServicesRegistrationSpy();
-        sut.register(FIRST_NAME, invalidName, EMAIL, ADDRESS, PHONE, USERNAME, PASSWORD, u -> {}, e -> {});
+        AtomicReference<ApiRequest> request = new AtomicReference<>();
+        IApiServices sut = getServicesCapturingRequest(request);
 
-        assertNull(sut.getRequest());
+        sut.register(FIRST_NAME, invalidName, EMAIL, ADDRESS, PHONE, USERNAME, PASSWORD, u -> {}, e -> {});
+        assertNull(request.get());
     }
 
     @Theory
     public void doNotContactServer_whenEmailIsInvalid(@FromDataPoints("invalid strings") String invalidEmail) {
-        ApiServicesRegistrationSpy sut = new ApiServicesRegistrationSpy();
-        sut.register(FIRST_NAME, LAST_NAME, invalidEmail, ADDRESS, PHONE, USERNAME, PASSWORD, u -> {}, e -> {});
+        AtomicReference<ApiRequest> request = new AtomicReference<>();
+        IApiServices sut = getServicesCapturingRequest(request);
 
-        assertNull(sut.getRequest());
+        sut.register(FIRST_NAME, LAST_NAME, invalidEmail, ADDRESS, PHONE, USERNAME, PASSWORD, u -> {}, e -> {});
+        assertNull(request.get());
     }
 
     @Theory
     public void doNotContactServer_whenAddressIsInvalid(@FromDataPoints("invalid strings") String invalidAddress) {
-        ApiServicesRegistrationSpy sut = new ApiServicesRegistrationSpy();
-        sut.register(FIRST_NAME, LAST_NAME, EMAIL, invalidAddress, PHONE, USERNAME, PASSWORD, u -> {}, e -> {});
+        AtomicReference<ApiRequest> request = new AtomicReference<>();
+        IApiServices sut = getServicesCapturingRequest(request);
 
-        assertNull(sut.getRequest());
+        sut.register(FIRST_NAME, LAST_NAME, EMAIL, invalidAddress, PHONE, USERNAME, PASSWORD, u -> {}, e -> {});
+        assertNull(request.get());
     }
 
     @Theory
     public void doNotContactServer_whenUsernameIsInvalid(@FromDataPoints("invalid strings") String invalidUsername) {
-        ApiServicesRegistrationSpy sut = new ApiServicesRegistrationSpy();
-        sut.register(FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, PHONE, invalidUsername, PASSWORD, u -> {}, e -> {});
+        AtomicReference<ApiRequest> request = new AtomicReference<>();
+        IApiServices sut = getServicesCapturingRequest(request);
 
-        assertNull(sut.getRequest());
+        sut.register(FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, PHONE, invalidUsername, PASSWORD, u -> {}, e -> {});
+        assertNull(request.get());
     }
 
     @Theory
     public void doNotContactServer_whenPasswordIsInvalid(@FromDataPoints("invalid strings") String invalidPassword) {
-        ApiServicesRegistrationSpy sut = new ApiServicesRegistrationSpy();
-        sut.register(FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, PHONE, USERNAME, invalidPassword, u -> {}, e -> {});
+        AtomicReference<ApiRequest> request = new AtomicReference<>();
+        IApiServices sut = getServicesCapturingRequest(request);
 
-        assertNull(sut.getRequest());
+        sut.register(FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, PHONE, USERNAME, invalidPassword, u -> {}, e -> {});
+        assertNull(request.get());
     }
 
     @Test
     public void deserializeServerReplyCorrectly() {
         AtomicReference<User> atomicUser = new AtomicReference<>();
-        ApiServices sut = new ApiServicesStub.Builder()
+        IApiServices sut = new ApiServicesStub.Builder()
                 .withGetUserFromCallback((s, r) -> new ServerConnectorStub.Builder<User>()
                         .withConnectReturning(true)
                         .withResponse(new ApiResponse<>(REGISTRATION_OK_JSON))

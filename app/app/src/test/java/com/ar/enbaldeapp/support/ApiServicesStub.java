@@ -4,6 +4,7 @@ import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.UserToken;
 import com.ar.enbaldeapp.services.ApiRequest;
 import com.ar.enbaldeapp.services.ApiServices;
+import com.ar.enbaldeapp.services.IApiServices;
 import com.ar.enbaldeapp.services.IServerConnector;
 
 import java.util.function.BiFunction;
@@ -28,7 +29,7 @@ public class ApiServicesStub extends ApiServices {
             return this;
         }
 
-        public ApiServices build() {
+        public IApiServices build() {
             return new ApiServicesStub(this.getUserFromCallback, this.disconnectFromCallback, this.getUserTokenFromCallback);
         }
 
