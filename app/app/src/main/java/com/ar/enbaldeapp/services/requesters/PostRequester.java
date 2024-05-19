@@ -18,8 +18,8 @@ public class PostRequester<T> extends Requester<T> {
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + this.request.getBoundary());
         connection.setRequestProperty("Accept", "application/json");
+        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + this.request.getBoundary());
 
         OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
         out.write(this.request.getData());

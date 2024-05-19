@@ -1,7 +1,5 @@
 package com.ar.enbaldeapp.services.reply;
 
-import com.ar.enbaldeapp.services.reply.IServerReply;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
