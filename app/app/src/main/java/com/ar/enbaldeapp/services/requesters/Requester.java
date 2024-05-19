@@ -8,7 +8,7 @@ import com.ar.enbaldeapp.services.reply.OkServerReply;
 
 import java.io.IOException;
 
-public abstract class Requester<T> implements IRequester<T> {
+abstract class Requester<T> implements IRequester<T> {
     @Override
     public IServerReply<T> getReplyFromServer(IHttpUrlConnectionWrapper connection) throws IOException {
         return HttpUtilities.isSuccessful(connection.getResponseCode())
