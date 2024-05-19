@@ -1,9 +1,12 @@
 package com.ar.enbaldeapp.services.requesters;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
+import com.ar.enbaldeapp.services.connection.IHttpUrlConnectionWrapper;
+import com.ar.enbaldeapp.services.reply.IServerReply;
 
-public interface IRequester {
-    void sendRequestTo(HttpURLConnection connection) throws IOException;
+import java.io.IOException;
+
+public interface IRequester<T> {
+    void sendRequestTo(IHttpUrlConnectionWrapper connection) throws IOException;
     String preprocessResponse(String response);
+    IServerReply<T> getReplyFromServer(IHttpUrlConnectionWrapper connection) throws IOException;
 }

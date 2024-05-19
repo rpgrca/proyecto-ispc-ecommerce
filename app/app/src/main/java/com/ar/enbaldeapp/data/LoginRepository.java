@@ -40,11 +40,11 @@ public class LoginRepository {
     }
 
     public void logout() {
+        dataSource.logout(access);
         user = null;
         access = null;
         refresh = null;
         cartId = -1;
-        dataSource.logout();
     }
 
     private void setLoggedInUser(User user, Context context) {

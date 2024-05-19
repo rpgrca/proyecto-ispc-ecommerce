@@ -18,6 +18,7 @@ import com.ar.enbaldeapp.data.LoginDataSource;
 import com.ar.enbaldeapp.data.Result;
 import com.ar.enbaldeapp.databinding.FragmentProfileBinding;
 import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
+import com.ar.enbaldeapp.services.ApiError;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.ar.enbaldeapp.services.IApiServices;
 import com.ar.enbaldeapp.ui.Utilities;
@@ -49,20 +50,24 @@ public class ProfileFragment extends Fragment {
 
     public void onLogout(View view) {
         Context context = getContext();
+        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(context);
+        String accessToken = sharedPreferencesManager.getAccessToken();
 
         IApiServices apiServices = new ApiServices();
-        apiServices.logout((String message) ->
-                {
-                    SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(context);
-                    sharedPreferencesManager.deleteCurrentUser();
+        apiServices.logout(accessToken,
+                (String message) -> doLogout(context, message),
+                (ApiError e) -> doLogout(context, e.getMessage()));
+    }
 
-                    Navigation.findNavController(getView()).navigate(R.id.action_profileFragment_to_loginFragment);
-                    Utilities.changeToolbarTitleToLogin(getActivity());
-                    Utilities.changeBottomMenuToLogin(getView());
-                    Utilities.hideCartMenuItem(getView());
+    private void doLogout(Context context, String message) {
+        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(context);
+        sharedPreferencesManager.deleteCurrentUser();
 
-                    Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).show();
-                },
-                e -> Snackbar.make(getView(), e.getMessage(), Snackbar.LENGTH_SHORT).show());
+        Navigation.findNavController(getView()).navigate(R.id.action_profileFragment_to_loginFragment);
+        Utilities.changeToolbarTitleToLogin(getActivity());
+        Utilities.changeBottomMenuToLogin(getView());
+        Utilities.hideCartMenuItem(getView());
+
+        Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).show();
     }
 }

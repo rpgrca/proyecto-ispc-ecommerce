@@ -1,7 +1,6 @@
 package com.ar.enbaldeapp.services;
 
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.internal.LinkedTreeMap;
 
 public class ServerApiResponse {
     @SerializedName("mensaje")

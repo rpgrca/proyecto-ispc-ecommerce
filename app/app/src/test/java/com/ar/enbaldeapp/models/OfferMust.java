@@ -1,4 +1,4 @@
-package com.ar.enbaldeapp;
+package com.ar.enbaldeapp.models;
 
 import static com.ar.enbaldeapp.support.Constants.OFFER_DISCOUNT;
 import static com.ar.enbaldeapp.support.Constants.OFFER_EXPIRATION_DATE;
@@ -6,8 +6,6 @@ import static com.ar.enbaldeapp.support.Constants.OFFER_ID;
 import static com.ar.enbaldeapp.support.Constants.OFFER_NAME;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-
-import com.ar.enbaldeapp.models.Offer;
 
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;

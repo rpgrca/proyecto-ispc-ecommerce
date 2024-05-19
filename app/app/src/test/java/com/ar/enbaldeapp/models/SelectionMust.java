@@ -1,4 +1,4 @@
-package com.ar.enbaldeapp;
+package com.ar.enbaldeapp.models;
 
 import static com.ar.enbaldeapp.support.Constants.SELECTION_DISCOUNT;
 import static com.ar.enbaldeapp.support.Constants.SELECTION_ID;
@@ -10,8 +10,6 @@ import static com.ar.enbaldeapp.support.Constants.SELECTION_TOTAL;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
-
-import com.ar.enbaldeapp.models.Selection;
 
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
