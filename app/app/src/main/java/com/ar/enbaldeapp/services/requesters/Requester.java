@@ -15,4 +15,9 @@ abstract class Requester<T> implements IRequester<T> {
                 ? new OkServerReply<T>(connection.getInputStream(), this)
                 : new ErrorServerReply<T>(connection.getErrorStream(), this);
     }
+
+    @Override
+    public String preprocessResponse(String response) {
+        return response;
+    }
 }
