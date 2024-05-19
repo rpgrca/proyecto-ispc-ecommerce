@@ -32,19 +32,19 @@ public class ApiServices implements IApiServices {
     }
 
     @Override
-    public void login(String username, String password, Consumer<UserToken> onSuccess, Consumer<ApiError> onError) {
+    public void login(String username, String password, Consumer<UserToken> onSuccess, Consumer<ApiError> onFailure) {
         if (username == null || username.trim().isEmpty()) {
-            onError.accept(new ApiError(User.INVALID_USERNAME));
+            onFailure.accept(new ApiError(User.INVALID_USERNAME));
             return;
         }
 
         if (password == null || password.trim().isEmpty()) {
-            onError.accept(new ApiError(User.INVALID_PASSWORD));
+            onFailure.accept(new ApiError(User.INVALID_PASSWORD));
             return;
         }
 
         if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
-        if (onError == null) throw new RuntimeException("El callback por fallo es inválido");
+        if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
 
         ApiRequest request = new ApiRequest.Builder()
                 .addContentDisposition("usuario", username)
@@ -57,15 +57,15 @@ public class ApiServices implements IApiServices {
             onSuccess.accept(userToken);
         }
         else {
-            onError.accept(connector.getError());
+            onFailure.accept(connector.getError());
         }
     }
 
     @Override
-    public void logout(String accessToken, Consumer<String> onSuccess, Consumer<ApiError> onError) {
+    public void logout(String accessToken, Consumer<String> onSuccess, Consumer<ApiError> onFailure) {
         if (accessToken == null || accessToken.trim().isEmpty()) { throw new RuntimeException("El access token es inválido"); }
         if (onSuccess == null) { throw new RuntimeException("El callback por éxito es inválido"); }
-        if (onError == null) { throw new RuntimeException("El callback por fallo es inválido"); }
+        if (onFailure == null) { throw new RuntimeException("El callback por fallo es inválido"); }
 
         IServerConnector<Boolean> connector = disconnectFrom(ServerUrl + "/api/auth/logout/", accessToken);
         boolean result = false;
@@ -78,22 +78,22 @@ public class ApiServices implements IApiServices {
             onSuccess.accept(connector.getResponse().getMessage());
         }
         else {
-            onError.accept(connector.getError());
+            onFailure.accept(connector.getError());
         }
     }
 
     @Override
-    public void register(String firstName, String lastName, String email, String address, String phoneNumber, String username, String password, Consumer<User> onSuccess, Consumer<ApiError> onError) {
+    public void register(String firstName, String lastName, String email, String address, String phoneNumber, String username, String password, Consumer<User> onSuccess, Consumer<ApiError> onFailure) {
         try {
             new User(1, lastName, firstName, email, address, phoneNumber, "", username, password, User.Client);
         }
         catch (Exception ex) {
-            onError.accept(new ApiError(ex.getMessage()));
+            onFailure.accept(new ApiError(ex.getMessage()));
             return;
         }
 
         if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
-        if (onError == null) throw new RuntimeException("El callback por fallo es inválido");
+        if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
 
         ApiRequest request = new ApiRequest.Builder()
                 .addContentDisposition("nombre", firstName)
@@ -113,14 +113,14 @@ public class ApiServices implements IApiServices {
             onSuccess.accept(user);
         }
         else {
-            onError.accept(connector.getError());
+            onFailure.accept(connector.getError());
         }
     }
 
     @Override
-    public void getCatalogue(Consumer<List<Product>> onSuccess, Consumer<ApiError> onError) {
+    public void getCatalogue(Consumer<List<Product>> onSuccess, Consumer<ApiError> onFailure) {
         if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
-        if (onError == null) throw new RuntimeException("El callback por fallo es inválido");
+        if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
 
         IServerConnector<Product> connector = getCatalogueFrom(ServerUrl + "/api/articulos");
         if (connector.connect()) {
@@ -129,7 +129,7 @@ public class ApiServices implements IApiServices {
             onSuccess.accept(products);
         }
         else {
-            onError.accept(connector.getError());
+            onFailure.accept(connector.getError());
         }
     }
 

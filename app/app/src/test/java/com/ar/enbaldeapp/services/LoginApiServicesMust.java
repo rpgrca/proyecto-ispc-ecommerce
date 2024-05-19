@@ -1,17 +1,13 @@
 package com.ar.enbaldeapp.services;
 
-import static com.ar.enbaldeapp.support.Constants.ACCESS_STRING;
 import static com.ar.enbaldeapp.support.Constants.LOGIN_OK_JSON;
-import static com.ar.enbaldeapp.support.Constants.LOGOUT_ERROR_JSON;
 import static com.ar.enbaldeapp.support.Constants.PASSWORD;
 import static com.ar.enbaldeapp.support.Constants.USERNAME;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
-import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.UserToken;
-import com.ar.enbaldeapp.support.ApiServicesLoginStub;
 import com.ar.enbaldeapp.support.ApiServicesStub;
 
 import org.junit.Test;
@@ -61,6 +57,20 @@ public class LoginApiServicesMust {
     }
 
     @Test
+    public void callFailureCallback_whenConnectFails() {
+        AtomicBoolean errorCalled = new AtomicBoolean(false);
+        ApiServices sut = new ApiServicesStub.Builder()
+                .withGetUserTokenFromCallback((u, s) -> new ServerConnectorStub.Builder<UserToken>()
+                        .withConnectReturning(false)
+                        .build()
+                )
+                .build();
+
+        sut.login(USERNAME, PASSWORD, u -> {}, e -> errorCalled.set(true));
+        assertTrue(errorCalled.get());
+    }
+
+    @Test
     public void callSuccessCallback_whenConnectIsOk() {
         AtomicBoolean successCalled = new AtomicBoolean(false);
         ApiServices sut = new ApiServicesStub.Builder()
@@ -74,30 +84,4 @@ public class LoginApiServicesMust {
         sut.login(USERNAME, PASSWORD, u -> successCalled.set(true), e -> {});
         assertTrue(successCalled.get());
     }
-
-
-    @Test
-    public void callErrorCallback_whenConnectFails() {
-        AtomicBoolean errorCalled = new AtomicBoolean(false);
-        ApiServices sut = new ApiServicesStub.Builder()
-                .withGetUserTokenFromCallback((u, s) -> new ServerConnectorStub.Builder<UserToken>()
-                        .withConnectReturning(false)
-                        .build()
-                )
-                .build();
-
-        sut.login(USERNAME, PASSWORD, u -> {}, e -> errorCalled.set(true));
-        assertTrue(errorCalled.get());
-    }
-
-
-/*
-    @Test
-    public void callSuccessCallback_whenConnectWorks() {
-        AtomicBoolean successCalled = new AtomicBoolean(false);
-        ApiServices sut = new ApiServicesLoginStub(true);
-
-        sut.login(USERNAME, PASSWORD, u -> successCalled.set(true), e -> {});
-        assertTrue(successCalled.get());
-    }*/
 }
