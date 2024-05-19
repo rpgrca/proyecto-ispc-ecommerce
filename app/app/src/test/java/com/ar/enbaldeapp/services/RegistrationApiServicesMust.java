@@ -6,6 +6,7 @@ import static com.ar.enbaldeapp.support.Constants.FIRST_NAME;
 import static com.ar.enbaldeapp.support.Constants.LAST_NAME;
 import static com.ar.enbaldeapp.support.Constants.PASSWORD;
 import static com.ar.enbaldeapp.support.Constants.PHONE;
+import static com.ar.enbaldeapp.support.Constants.REGISTRATION_OK_JSON;
 import static com.ar.enbaldeapp.support.Constants.USERNAME;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -14,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.support.ApiServicesRegistrationSpy;
-import com.ar.enbaldeapp.support.ApiServicesRegistrationStub;
+import com.ar.enbaldeapp.support.ApiServicesStub;
 
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
@@ -31,9 +32,27 @@ import java.util.concurrent.atomic.AtomicReference;
 @RunWith(Theories.class)
 public class RegistrationApiServicesMust {
     @Test
-    public void callErrorCallback_whenConnectFails() {
+    public void throwException_whenSuccessCallbackIsInvalid() {
+        ApiServicesRegistrationSpy sut = new ApiServicesRegistrationSpy();
+        Exception exception = assertThrows(RuntimeException.class, () -> sut.register(FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, PHONE, USERNAME, PASSWORD, null, e -> {}));
+        assertEquals("El callback por éxito es inválido", exception.getMessage());
+    }
+
+    @Test
+    public void throwException_whenFailureCallbackIsInvalid() {
+        ApiServicesRegistrationSpy sut = new ApiServicesRegistrationSpy();
+        Exception exception = assertThrows(RuntimeException.class, () -> sut.register(FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, PHONE, USERNAME, PASSWORD, u -> {}, null));
+        assertEquals("El callback por fallo es inválido", exception.getMessage());
+    }
+
+    @Test
+    public void callFailureCallback_whenConnectFails() {
         AtomicBoolean errorCalled = new AtomicBoolean(false);
-        ApiServices sut = new ApiServicesRegistrationStub(false);
+        ApiServices sut = new ApiServicesStub.Builder()
+                .withGetUserFromCallback((s, r) -> new ServerConnectorStub.Builder<User>()
+                        .withConnectReturning(false)
+                        .build())
+                .build();
 
         sut.register(FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, PHONE, USERNAME, PASSWORD, u -> {}, e -> errorCalled.set(true));
         assertTrue(errorCalled.get());
@@ -42,7 +61,12 @@ public class RegistrationApiServicesMust {
     @Test
     public void callSuccessCallback_whenConnectWorks() {
         AtomicBoolean successCalled = new AtomicBoolean(false);
-        ApiServices sut = new ApiServicesRegistrationStub(true);
+        ApiServices sut = new ApiServicesStub.Builder()
+                .withGetUserFromCallback((s, r) -> new ServerConnectorStub.Builder<User>()
+                        .withConnectReturning(true)
+                        .withResponse(new ApiResponse<>(REGISTRATION_OK_JSON))
+                        .build())
+                .build();
 
         sut.register(FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, PHONE, USERNAME, PASSWORD, u -> successCalled.set(true), e -> {});
         assertTrue(successCalled.get());
@@ -117,23 +141,15 @@ public class RegistrationApiServicesMust {
     }
 
     @Test
-    public void throwException_whenSuccessCallbackIsInvalid() {
-        ApiServicesRegistrationSpy sut = new ApiServicesRegistrationSpy();
-        Exception exception = assertThrows(RuntimeException.class, () -> sut.register(FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, PHONE, USERNAME, PASSWORD, null, e -> {}));
-        assertEquals("El callback por éxito es inválido", exception.getMessage());
-    }
-
-    @Test
-    public void throwException_whenFailureCallbackIsInvalid() {
-        ApiServicesRegistrationSpy sut = new ApiServicesRegistrationSpy();
-        Exception exception = assertThrows(RuntimeException.class, () -> sut.register(FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, PHONE, USERNAME, PASSWORD, u -> {}, null));
-        assertEquals("El callback por fallo es inválido", exception.getMessage());
-    }
-
-    @Test
     public void deserializeServerReplyCorrectly() {
         AtomicReference<User> atomicUser = new AtomicReference<>();
-        ApiServices sut = new ApiServicesRegistrationStub(true);
+        ApiServices sut = new ApiServicesStub.Builder()
+                .withGetUserFromCallback((s, r) -> new ServerConnectorStub.Builder<User>()
+                        .withConnectReturning(true)
+                        .withResponse(new ApiResponse<>(REGISTRATION_OK_JSON))
+                        .build())
+                .build();
+
         sut.register(FIRST_NAME, LAST_NAME, EMAIL, ADDRESS, PHONE, USERNAME, PASSWORD, atomicUser::set, e -> {});
 
         User user = atomicUser.get();
