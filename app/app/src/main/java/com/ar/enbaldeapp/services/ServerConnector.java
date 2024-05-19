@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class ServerConnector<T> implements IServerConnector<T> {
+class ServerConnector<T> implements IServerConnector<T> {
     private URL url;
     private ApiResponse<T> response;
     private ApiError error;
