@@ -1,4 +1,8 @@
-package com.ar.enbaldeapp.services;
+package com.ar.enbaldeapp.support;
+
+import com.ar.enbaldeapp.services.ApiError;
+import com.ar.enbaldeapp.services.ApiResponse;
+import com.ar.enbaldeapp.services.IServerConnector;
 
 public class ServerConnectorStub<T> implements IServerConnector<T> {
     private boolean connect;

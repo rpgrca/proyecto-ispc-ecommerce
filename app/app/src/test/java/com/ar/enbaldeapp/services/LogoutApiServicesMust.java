@@ -4,11 +4,11 @@ import static com.ar.enbaldeapp.support.Constants.ACCESS_STRING;
 import static com.ar.enbaldeapp.support.Constants.LOGOUT_ERROR_JSON;
 import static com.ar.enbaldeapp.support.Constants.LOGOUT_OK_JSON;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import com.ar.enbaldeapp.support.ApiServicesStub;
+import com.ar.enbaldeapp.support.ServerConnectorStub;
 
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
@@ -74,5 +74,3 @@ public class LogoutApiServicesMust {
         assertTrue(called.get());
     }
 }
-
-

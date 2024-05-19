@@ -15,6 +15,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.support.ApiServicesStub;
+import com.ar.enbaldeapp.support.ServerConnectorStub;
 
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;

@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.ar.enbaldeapp.models.UserToken;
 import com.ar.enbaldeapp.support.ApiServicesStub;
+import com.ar.enbaldeapp.support.ServerConnectorStub;
 
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
