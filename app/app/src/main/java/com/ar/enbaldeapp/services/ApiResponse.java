@@ -12,18 +12,11 @@ public class ApiResponse<T> {
     private final Object data;
     private final int status;
 
-    public ApiResponse(String jsonText, boolean isJson) {
-        if (isJson) {
-            ServerApiResponse response = JsonUtilities.getConfiguredGson().fromJson(jsonText, ServerApiResponse.class);
-            this.message = response.getMessage();
-            this.data = response.getData();
-            this.status = response.getStatus();
-        }
-        else {
-            this.message = jsonText;
-            this.data = null;
-            this.status = 0;
-        }
+    public ApiResponse(String jsonText) {
+        ServerApiResponse response = JsonUtilities.getConfiguredGson().fromJson(jsonText, ServerApiResponse.class);
+        this.message = response.getMessage();
+        this.data = response.getData();
+        this.status = response.getStatus();
     }
 
     public T castResponseAs(Class<T> typeParameterClass) {

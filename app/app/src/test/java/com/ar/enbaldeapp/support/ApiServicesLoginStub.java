@@ -30,7 +30,7 @@ public class ApiServicesLoginStub extends ApiServices {
 
         @Override
         public ApiResponse<UserToken> getResponse() {
-            return new ApiResponse<>(LOGIN_OK_JSON, true);
+            return new ApiResponse<>(LOGIN_OK_JSON);
         }
 
         @Override

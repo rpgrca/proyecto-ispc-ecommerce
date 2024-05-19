@@ -5,6 +5,7 @@ import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.UserToken;
 import com.ar.enbaldeapp.models.utilities.HttpUtilities;
 import com.ar.enbaldeapp.services.connection.HttpUrlConnectionWrapper;
+import com.ar.enbaldeapp.services.connection.IHttpUrlConnectionWrapper;
 import com.ar.enbaldeapp.services.requesters.GetRequester;
 import com.ar.enbaldeapp.services.requesters.NoBodyRequester;
 import com.ar.enbaldeapp.services.requesters.PostRequester;
@@ -13,11 +14,22 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 
 public class ApiServices implements IApiServices {
     // 10.0.2.2 es la ip de la maquina local corriendo el emulador de Android
     private static String ServerUrl = "http://10.0.2.2:8000";
+
+    private final Callable<IHttpUrlConnectionWrapper> connectionFactory;
+
+    public ApiServices() {
+        this.connectionFactory = HttpUrlConnectionWrapper::new;
+    }
+
+    public ApiServices(Callable<IHttpUrlConnectionWrapper> connectionFactory) {
+        this.connectionFactory = connectionFactory;
+    }
 
     @Override
     public void login(String username, String password, Consumer<UserToken> onSuccess, Consumer<ApiError> onError) {
@@ -122,18 +134,18 @@ public class ApiServices implements IApiServices {
     }
 
     protected IServerConnector<User> getUserFrom(String url, ApiRequest request) {
-        return new ServerConnector<>(url, new PostRequester<>(request), HttpUrlConnectionWrapper::new);
+        return new ServerConnector<>(url, new PostRequester<>(request), this.connectionFactory);
     }
 
     protected IServerConnector<UserToken> getUserTokenFrom(String url, ApiRequest request) {
-        return new ServerConnector<>(url, new PostRequester<>(request), HttpUrlConnectionWrapper::new);
+        return new ServerConnector<>(url, new PostRequester<>(request), this.connectionFactory);
     }
 
     protected IServerConnector<Boolean> disconnectFrom(String url, String accessToken) {
-        return new ServerConnector<>(url, new NoBodyRequester<>(accessToken), HttpUrlConnectionWrapper::new);
+        return new ServerConnector<>(url, new NoBodyRequester<>(accessToken), this.connectionFactory);
     }
 
     protected IServerConnector<Product> getCatalogueFrom(String url) {
-        return new ServerConnector<>(url, new GetRequester<>(new ApiResponseWrapper()), HttpUrlConnectionWrapper::new);
+        return new ServerConnector<>(url, new GetRequester<>(new ApiResponseWrapper()), this.connectionFactory);
     }
 }

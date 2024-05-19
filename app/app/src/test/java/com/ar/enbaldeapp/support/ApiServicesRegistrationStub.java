@@ -30,7 +30,7 @@ public class ApiServicesRegistrationStub extends ApiServices {
 
         @Override
         public ApiResponse<User> getResponse() {
-            return new ApiResponse<>(REGISTRATION_OK_JSON, true);
+            return new ApiResponse<>(REGISTRATION_OK_JSON);
         }
 
         @Override

@@ -21,7 +21,7 @@ public class OkServerReply<T> extends ServerReply<T> {
         String jsonText = this.loadInputFrom(this.inputStream);
         jsonText = this.requester.preprocessResponse(jsonText);
 
-        return new ApiResponse<T>(jsonText, true);
+        return new ApiResponse<T>(jsonText);
     }
 
     @Override
