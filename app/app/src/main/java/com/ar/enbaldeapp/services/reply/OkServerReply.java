@@ -12,6 +12,14 @@ public class OkServerReply<T> extends ServerReply<T> {
     private final IRequester<T> requester;
 
     public OkServerReply(InputStream inputStream, IRequester<T> requester) {
+        if (inputStream == null) {
+            throw new RuntimeException("El input stream es inválido");
+        }
+
+        if (requester == null) {
+            throw new RuntimeException("El requester es inválido");
+        }
+
         this.inputStream = inputStream;
         this.requester = requester;
     }
