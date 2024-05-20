@@ -1,5 +1,7 @@
 package com.ar.enbaldeapp.ui.catalogue;
 
+import static com.ar.enbaldeapp.ui.IntentConstants.ACCESS_TOKEN_FOR_DETAIL;
+import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_ACCESS;
 import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_USER_FOR_DETAIL;
 import static com.ar.enbaldeapp.ui.IntentConstants.PRODUCT_FOR_DETAIL;
 
@@ -47,11 +49,13 @@ public class CatalogueFragment extends Fragment {
 
         adapter.setOnClickListeners((position, product) -> {
             Context context = getActivity();
+            SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(context);
+            User user = sharedPreferencesManager.loadCurrentUser();
+
             Intent intent = new Intent(context, ProductDetailActivity.class);
             intent.putExtra(PRODUCT_FOR_DETAIL, product);
-
-            User user = new SharedPreferencesManager(context).loadCurrentUser();
             intent.putExtra(CURRENT_USER_FOR_DETAIL, user);
+            intent.putExtra(ACCESS_TOKEN_FOR_DETAIL, sharedPreferencesManager.getAccessToken());
             startActivity(intent);
         });
 

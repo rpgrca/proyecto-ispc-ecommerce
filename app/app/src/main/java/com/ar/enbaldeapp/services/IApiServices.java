@@ -13,5 +13,5 @@ public interface IApiServices {
     void logout(String accessToken, Consumer<String> onSuccess, Consumer<ApiError> onFailure);
     void register(String firstName, String lastName, String email, String address, String phoneNumber, String username, String password, Consumer<User> onSuccess, Consumer<ApiError> onFailure);
     void getCatalogue(Consumer<List<Product>> onSuccess, Consumer<ApiError> onFailure);
-    void addToCart(String accessToken, Product product, Consumer<Cart> onSuccess, Consumer<ApiError> onFailure);
+    void addToCart(String accessToken, Product product, int amount, Consumer<Cart> onSuccess, Consumer<ApiError> onFailure);
 }

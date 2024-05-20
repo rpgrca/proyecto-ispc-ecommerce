@@ -6,10 +6,10 @@ import com.ar.enbaldeapp.services.connection.IHttpUrlConnectionWrapper;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-public class PostRequester<T> extends Requester<T> {
+public class PostFormDataRequester<T> extends Requester<T> {
     private final ApiRequest request;
 
-    public PostRequester(ApiRequest request) {
+    public PostFormDataRequester(ApiRequest request) {
         this.request = request;
     }
 
