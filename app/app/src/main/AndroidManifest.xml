@@ -19,8 +19,10 @@
         <activity
             android:name=".ui.details.ProductDetailActivity"
             android:parentActivityName=".MainActivity"
-            android:launchMode="singleInstancePerTask"
+            android:launchMode="singleTop"
+            android:excludeFromRecents="true"
             android:windowSoftInputMode="adjustPan"
+            android:noHistory="true"
             android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

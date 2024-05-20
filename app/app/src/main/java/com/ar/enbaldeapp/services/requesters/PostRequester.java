@@ -6,10 +6,10 @@ import com.ar.enbaldeapp.services.connection.IHttpUrlConnectionWrapper;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-public class PostFormDataRequester<T> extends Requester<T> {
+public class PostRequester<T> extends Requester<T> {
     private final ApiRequest request;
 
-    public PostFormDataRequester(ApiRequest request) {
+    public PostRequester(ApiRequest request) {
         this.request = request;
     }
 
@@ -19,11 +19,10 @@ public class PostFormDataRequester<T> extends Requester<T> {
         connection.setDoInput(true);
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Accept", "application/json");
-        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + this.request.getBoundary());
+        connection.setRequestProperty("Content-Type", "application/json");
 
         OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
         out.write(this.request.getData());
         out.close();
     }
 }
-

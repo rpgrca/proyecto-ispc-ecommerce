@@ -14,11 +14,19 @@ public class ApiError {
         this.data = null;
     }
 
-    public ApiError(JsonObject json) {
+    public ApiError(JsonObject json, int status) {
         ServerApiResponse error = JsonUtilities.getConfiguredGson().fromJson(json, ServerApiResponse.class);
-        this.message = error.getMessage();
-        this.status = error.getStatus();
-        this.data = error.getData();
+        if (this.getMessage() != null) {
+            this.message = error.getMessage();
+            this.status = error.getStatus();
+            this.data = error.getData();
+        }
+        else {
+            DjangoApiResponse djangoError = JsonUtilities.getConfiguredGson().fromJson(json, DjangoApiResponse.class);
+            this.message = djangoError.getMessage();
+            this.status = status;
+            this.data = null;
+        }
     }
 
     public String getMessage() { return message; }

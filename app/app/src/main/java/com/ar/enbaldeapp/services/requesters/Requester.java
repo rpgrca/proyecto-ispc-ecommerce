@@ -12,8 +12,8 @@ abstract class Requester<T> implements IRequester<T> {
     @Override
     public IServerReply<T> getReplyFromServer(IHttpUrlConnectionWrapper connection) throws IOException {
         return HttpUtilities.isSuccessful(connection.getResponseCode())
-                ? new OkServerReply<T>(connection.getInputStream(), this)
-                : new ErrorServerReply<T>(connection.getErrorStream(), this);
+                ? new OkServerReply<T>(connection.getInputStream(), connection.getResponseCode(), this)
+                : new ErrorServerReply<T>(connection.getErrorStream(), connection.getResponseCode(), this);
     }
 
     @Override

@@ -3,8 +3,10 @@ package com.ar.enbaldeapp.ui.catalogue;
 import static com.ar.enbaldeapp.ui.IntentConstants.ACCESS_TOKEN_FOR_DETAIL;
 import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_ACCESS;
 import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_USER_FOR_DETAIL;
+import static com.ar.enbaldeapp.ui.IntentConstants.DETAIL_MESSAGE_FOR_CATALOGUE;
 import static com.ar.enbaldeapp.ui.IntentConstants.PRODUCT_FOR_DETAIL;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +41,14 @@ import java.util.concurrent.atomic.AtomicReference;
 public class CatalogueFragment extends Fragment {
 
     private FragmentCatalogueBinding binding;
+    private final ActivityResultLauncher<Intent> intentLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            o -> {
+                if (o.getResultCode() == Activity.RESULT_OK) {
+                    String message = o.getData().getStringExtra(DETAIL_MESSAGE_FOR_CATALOGUE);
+                    Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).show();
+                }
+            });
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -56,7 +71,8 @@ public class CatalogueFragment extends Fragment {
             intent.putExtra(PRODUCT_FOR_DETAIL, product);
             intent.putExtra(CURRENT_USER_FOR_DETAIL, user);
             intent.putExtra(ACCESS_TOKEN_FOR_DETAIL, sharedPreferencesManager.getAccessToken());
-            startActivity(intent);
+
+            intentLauncher.launch(intent);
         });
 
         return root;

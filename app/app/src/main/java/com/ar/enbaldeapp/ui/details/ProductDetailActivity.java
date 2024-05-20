@@ -2,10 +2,12 @@ package com.ar.enbaldeapp.ui.details;
 
 import static com.ar.enbaldeapp.ui.IntentConstants.ACCESS_TOKEN_FOR_DETAIL;
 import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_USER_FOR_DETAIL;
+import static com.ar.enbaldeapp.ui.IntentConstants.DETAIL_MESSAGE_FOR_CATALOGUE;
 import static com.ar.enbaldeapp.ui.IntentConstants.PRODUCT_FOR_DETAIL;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +21,8 @@ import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.squareup.picasso.Picasso;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ProductDetailActivity extends AppCompatActivity {
     private Product product;
@@ -45,15 +49,17 @@ public class ProductDetailActivity extends AppCompatActivity {
         editText = this.findViewById(R.id.editNumberDetailAmount);
 
         this.findViewById(R.id.buttonDetailAdd).setOnClickListener(v -> {
+            Intent result = new Intent();
             ApiServices apiServices = new ApiServices();
             apiServices.addToCart(accessToken, product, Integer.parseInt(editText.getText().toString()),
                     c -> {
-                        setResult(1);
+                        result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product added correctly");
                     },
                     e -> {
-                        setResult(0);
+                        result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, e.getMessage());
                     });
 
+            setResult(Activity.RESULT_OK, result);
             finish();
         });
 

@@ -10,6 +10,7 @@ import com.ar.enbaldeapp.services.connection.IHttpUrlConnectionWrapper;
 import com.ar.enbaldeapp.services.requesters.GetRequester;
 import com.ar.enbaldeapp.services.requesters.NoBodyRequester;
 import com.ar.enbaldeapp.services.requesters.PostFormDataRequester;
+import com.ar.enbaldeapp.services.requesters.PostRequester;
 import com.ar.enbaldeapp.services.wrappers.ApiResponseWrapper;
 import com.google.gson.reflect.TypeToken;
 
@@ -157,7 +158,7 @@ public class ApiServices implements IApiServices {
     }
 
     protected IServerConnector<Cart> getModifiedCartFrom(String url, ApiRequest request) {
-        return new ServerConnector<>(url, new PostFormDataRequester<>(request), this.connectionFactory);
+        return new ServerConnector<>(url, new PostRequester<>(request), this.connectionFactory);
     }
 
     protected IServerConnector<User> getUserFrom(String url, ApiRequest request) {

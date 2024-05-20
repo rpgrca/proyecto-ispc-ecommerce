@@ -8,4 +8,5 @@ public class IntentConstants {
     public static final String CURRENT_REFRESH = "current-refresh";
     public static final String CURRENT_ACCESS = "current-access";
     public static final String CURRENT_CART_ID = "current-cart-id";
+    public static final String DETAIL_MESSAGE_FOR_CATALOGUE = "detail-message-for-catalogue";
 }

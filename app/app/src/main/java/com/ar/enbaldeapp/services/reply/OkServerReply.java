@@ -10,8 +10,9 @@ import java.io.InputStream;
 public class OkServerReply<T> extends ServerReply<T> {
     private final InputStream inputStream;
     private final IRequester<T> requester;
+    private final int status;
 
-    public OkServerReply(InputStream inputStream, IRequester<T> requester) {
+    public OkServerReply(InputStream inputStream, int status, IRequester<T> requester) {
         if (inputStream == null) {
             throw new RuntimeException("El input stream es inválido");
         }
@@ -22,6 +23,7 @@ public class OkServerReply<T> extends ServerReply<T> {
 
         this.inputStream = inputStream;
         this.requester = requester;
+        this.status = status;
     }
 
     @Override
