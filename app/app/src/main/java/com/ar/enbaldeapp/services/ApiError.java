@@ -1,6 +1,6 @@
 package com.ar.enbaldeapp.services;
 
-import com.google.gson.Gson;
+import com.ar.enbaldeapp.models.utilities.JsonUtilities;
 import com.google.gson.JsonObject;
 
 public class ApiError {
@@ -11,7 +11,7 @@ public class ApiError {
     }
 
     public ApiError(JsonObject json) {
-        ServerApiResponse error = new Gson().fromJson(json, ServerApiResponse.class);
+        ServerApiResponse error = JsonUtilities.getConfiguredGson().fromJson(json, ServerApiResponse.class);
         this.message = error.getMessage();
     }
 

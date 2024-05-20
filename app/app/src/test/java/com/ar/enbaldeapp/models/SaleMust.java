@@ -1,4 +1,4 @@
-package com.ar.enbaldeapp;
+package com.ar.enbaldeapp.models;
 
 import static com.ar.enbaldeapp.support.Constants.FIRST_NAME;
 import static com.ar.enbaldeapp.support.Constants.LAST_NAME;
@@ -15,8 +15,6 @@ import static com.ar.enbaldeapp.support.Constants.SHIPPING_METHOD_NAME;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-
-import com.ar.enbaldeapp.models.Sale;
 
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;

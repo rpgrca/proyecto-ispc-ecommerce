@@ -1,7 +1,6 @@
 package com.ar.enbaldeapp.services.adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +40,6 @@ public class CatalogueAdapter extends RecyclerView.Adapter<CatalogueAdapter.View
         holder.bindContent(product);
 
         getImageFromInternet(product.getImage(), holder.productImageView);
-        //holder.productImageView.setImageResource(getImageResourceByName(product.getImage(), holder.productImageView));
         holder.productImageView.setOnClickListener(v -> {
             if (onProductClickListener != null) {
                 onProductClickListener.onClick(position, product);

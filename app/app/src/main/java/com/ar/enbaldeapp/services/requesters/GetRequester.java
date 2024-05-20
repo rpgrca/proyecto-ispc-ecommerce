@@ -1,11 +1,11 @@
 package com.ar.enbaldeapp.services.requesters;
 
+import com.ar.enbaldeapp.services.connection.IHttpUrlConnectionWrapper;
 import com.ar.enbaldeapp.services.wrappers.IResponseWrapper;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 
-public class GetRequester implements IRequester {
+public class GetRequester<T> extends Requester<T> {
     private final IResponseWrapper wrapper;
 
     public GetRequester(IResponseWrapper wrapper) {
@@ -13,7 +13,7 @@ public class GetRequester implements IRequester {
     }
 
     @Override
-    public void sendRequestTo(HttpURLConnection connection) throws IOException {
+    public void sendRequestTo(IHttpUrlConnectionWrapper connection) throws IOException {
         connection.setRequestMethod("GET");
     }
 

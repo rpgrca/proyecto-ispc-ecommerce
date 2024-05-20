@@ -51,4 +51,8 @@ public class SharedPreferencesManager {
     public void saveCurrentCartId(long cartId) {
         sharedPreferences.edit().putLong(CURRENT_CART_ID, cartId).apply();
     }
+
+    public String getAccessToken() {
+        return sharedPreferences.getString(CURRENT_ACCESS, null);
+    }
 }
