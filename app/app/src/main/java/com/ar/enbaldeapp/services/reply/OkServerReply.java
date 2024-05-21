@@ -28,7 +28,7 @@ public class OkServerReply<T> extends ServerReply<T> {
     }
 
     @Override
-    public ApiResponse<T> getResponse(IResponseCreator responseCreator) throws IOException {
+    public ApiResponse<T> getResponse() throws IOException {
         String jsonText = this.loadInputFrom(this.inputStream);
         jsonText = this.requester.preprocessResponse(jsonText);
 

@@ -29,7 +29,7 @@ public class ErrorServerReply<T> extends ServerReply<T> {
     }
 
     @Override
-    public ApiResponse<T> getResponse(IResponseCreator responseCreator) throws IOException {
+    public ApiResponse<T> getResponse() throws IOException {
         return null;
     }
 

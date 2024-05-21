@@ -23,7 +23,6 @@ class ServerConnector<T> implements IServerConnector<T> {
     private ApiError error;
     private final IRequester<T> requester;
     private final Callable<IHttpUrlConnectionWrapper> connectionCreator;
-    private final IResponseCreator responseCreator;
 
     public ServerConnector(String urlString, IRequester<T> requester, Callable<IHttpUrlConnectionWrapper> connectionCreator) {
         if (!StringToUrl(urlString)) {
@@ -32,7 +31,6 @@ class ServerConnector<T> implements IServerConnector<T> {
 
         this.connectionCreator = connectionCreator;
         this.requester = requester;
-        this.responseCreator = null;
     }
 
     @Override
@@ -72,7 +70,7 @@ class ServerConnector<T> implements IServerConnector<T> {
             IServerReply<T> serverReply = this.requester.getReplyFromServer(connection);
 
             this.error = serverReply.getError();
-            this.response = serverReply.getResponse(this.responseCreator);
+            this.response = serverReply.getResponse();
 
             return serverReply.getReturnValue();
         } catch (IOException ex) {
