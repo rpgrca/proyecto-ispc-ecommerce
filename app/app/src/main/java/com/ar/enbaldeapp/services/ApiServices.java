@@ -155,7 +155,7 @@ public class ApiServices implements IApiServices {
     }
 
     @Override
-    public void addToCart(String accessToken, Cart cart, Product product, int amount, Consumer<Cart> onSuccess, Consumer<ApiError> onFailure) {
+    public void addToCart(String accessToken, Cart cart, Product product, int amount, Consumer<Selection> onSuccess, Consumer<ApiError> onFailure) {
         if (accessToken == null || accessToken.trim().isEmpty()) throw new RuntimeException("El access token es inválido");
         if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
         if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
@@ -165,20 +165,18 @@ public class ApiServices implements IApiServices {
                 .addBody(cartModificationRequest)
                 .addAccessToken(accessToken)
                 .buildAsBody();
-        IServerConnector<Cart> connector = getModifiedCartFrom(ServerUrl + "/api/carritos/" + cart.getId(), apiRequest);
+        IServerConnector<Selection> connector = getModifiedCartFrom(ServerUrl + "/api/carritos/" + cart.getId(), apiRequest);
         if (connector.connect()) {
-            //Type listType = new TypeToken<List<Product>>() {}.getType();
-            //List<Product> products = connector.getResponse().castResponseAsListOf(listType);
-            //onSuccess.accept(products);
-            onSuccess.accept(connector.getResponse().castResponseAs(Cart.class));
+            Selection selection = connector.getResponse().castResponseAs(Selection.class);
+            onSuccess.accept(selection);
         }
         else {
             onFailure.accept(connector.getError());
         }
     }
 
-    protected IServerConnector<Cart> getModifiedCartFrom(String url, ApiRequest request) {
-        return new ServerConnector<>(url, new PutRequester<>(request), this.connectionFactory);
+    protected IServerConnector<Selection> getModifiedCartFrom(String url, ApiRequest request) {
+        return new ServerConnector<>(url, new PutRequester<>(request, new ApiResponseWrapper()), this.connectionFactory);
     }
 
     protected IServerConnector<User> getUserFrom(String url, ApiRequest request) {

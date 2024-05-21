@@ -22,4 +22,3 @@ public class GetRequester<T> extends Requester<T> {
         return wrapper.preprocessResponse(response);
     }
 }
-
