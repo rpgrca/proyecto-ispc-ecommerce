@@ -27,14 +27,14 @@ import java.nio.charset.StandardCharsets;
 public class OkServerReplyMust {
     @Test
     public void throwException_whenInputStreamIsInvalid() {
-        Exception exception = assertThrows(RuntimeException.class, () -> new OkServerReply<>(null, new DummyRequester<>()));
+        Exception exception = assertThrows(RuntimeException.class, () -> new OkServerReply<>(null, 200, new DummyRequester<>()));
         assertEquals("El input stream es inválido", exception.getMessage());
     }
 
     @Test
     public void throwException_whenRequesterIsInvalid() {
         try (InputStream input = new ByteArrayInputStream(LOGOUT_ERROR_JSON.getBytes(StandardCharsets.UTF_8))) {
-            Exception exception = assertThrows(RuntimeException.class, () -> new OkServerReply<>(input, null));
+            Exception exception = assertThrows(RuntimeException.class, () -> new OkServerReply<>(input, 200, null));
             assertEquals("El requester es inválido", exception.getMessage());
         } catch (IOException e) {
             fail();
@@ -44,7 +44,7 @@ public class OkServerReplyMust {
     @Test
     public void alwaysReturnNullError() throws IOException {
         try (InputStream input = new ByteArrayInputStream(LOGIN_OK_JSON.getBytes(StandardCharsets.UTF_8))) {
-            OkServerReply<User> sut = new OkServerReply<>(input, new DummyRequester<>());
+            OkServerReply<User> sut = new OkServerReply<>(input, 200, new DummyRequester<>());
             assertNull(sut.getError());
         }
     }
@@ -52,7 +52,7 @@ public class OkServerReplyMust {
     @Test
     public void alwaysReturnTrue() {
         try (InputStream input = new ByteArrayInputStream(LOGIN_OK_JSON.getBytes(StandardCharsets.UTF_8))) {
-            OkServerReply<User> sut = new OkServerReply<>(input, new DummyRequester<>());
+            OkServerReply<User> sut = new OkServerReply<>(input, 200, new DummyRequester<>());
             assertTrue(sut.getReturnValue());
         } catch (IOException e) {
             fail();
@@ -62,7 +62,7 @@ public class OkServerReplyMust {
     @Test
     public void generateApiErrorCorrectly() {
         try (InputStream input = new ByteArrayInputStream(LOGIN_OK_JSON.getBytes(StandardCharsets.UTF_8))) {
-            OkServerReply<User> sut = new OkServerReply<>(input, new DummyRequester<>());
+            OkServerReply<User> sut = new OkServerReply<>(input, 200, new DummyRequester<>());
 
             ApiResponse<User> result = sut.getResponse();
             assertEquals("Inicio de sesión exitoso", result.getMessage());
