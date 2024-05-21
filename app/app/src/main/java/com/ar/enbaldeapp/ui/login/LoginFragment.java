@@ -100,12 +100,7 @@ public class LoginFragment extends Fragment {
                     showLoginFailed(loginResult.getError());
                 }
                 if (loginResult.getSuccess() != null) {
-                    if (loginResult.getSuccess().getModel().getType() == 1) {
-                        showLoginFailed(R.string.admin_login_not_allowed);
-                        return;
-                    } else {
-                        updateUiWithUser(loginResult.getSuccess());
-                    }
+                    updateUiWithUser(loginResult.getSuccess());
                 }
             }
         });
