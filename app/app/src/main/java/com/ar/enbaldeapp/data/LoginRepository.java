@@ -58,6 +58,12 @@ public class LoginRepository {
     public Result<LoggedInUser> login(String username, String password, Context context) {
         Result<LoggedInUser> result = dataSource.login(username, password);
         if (result instanceof Result.Success) {
+            LoggedInUser loggedInUser = ((Result.Success<LoggedInUser>) result).getData();
+
+            if(loggedInUser.getModel().getType() == 1) {
+                return result = new Result.Error<>("admin not allowed");
+            }
+
             Result.Success<LoggedInUser> success = (Result.Success<LoggedInUser>)result;
             setLoggedInUser(success.getData().getModel(), context);
             setRefresh(success.getData().getRefresh(), context);
