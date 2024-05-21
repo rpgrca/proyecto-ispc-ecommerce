@@ -59,8 +59,6 @@ public class CatalogueAdapter extends RecyclerView.Adapter<CatalogueAdapter.View
                 onProductClickListener.onClick(position, product);
             }
         });
-
-
     }
 
     private void getImageFromInternet(String imageUrl, ImageView productImageView) {

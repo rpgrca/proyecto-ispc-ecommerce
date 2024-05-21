@@ -33,6 +33,7 @@ import com.ar.enbaldeapp.services.IApiServices;
 import com.ar.enbaldeapp.ui.details.ProductDetailActivity;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -89,11 +90,13 @@ public class CatalogueFragment extends Fragment {
     private List<Product> getCatalogue() {
         AtomicReference<List<Product>> result = new AtomicReference<>();
 
-        View view = getView();
         IApiServices apiServices = new ApiServices();
         apiServices.getCatalogue(
                 result::set,
-                e -> Snackbar.make(view, "Error obtaining catalogue: " + e.getMessage(), Snackbar.LENGTH_SHORT).show()
+                e -> {
+                    result.set(new ArrayList<>());
+                    Snackbar.make(getParentFragment().getView(), "Error obtaining catalogue: " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
+                }
         );
 
         return result.get();
