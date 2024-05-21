@@ -15,4 +15,8 @@ public class Cart implements Serializable {
     public long getId() {
         return id;
     }
+
+    public List<Selection> getSelections() {
+        return this.selections;
+    }
 }
