@@ -2,6 +2,7 @@ package com.ar.enbaldeapp.services.reply;
 
 import com.ar.enbaldeapp.services.ApiError;
 import com.ar.enbaldeapp.services.ApiResponse;
+import com.ar.enbaldeapp.services.IResponseCreator;
 import com.ar.enbaldeapp.services.requesters.IRequester;
 
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class OkServerReply<T> extends ServerReply<T> {
     }
 
     @Override
-    public ApiResponse<T> getResponse() throws IOException {
+    public ApiResponse<T> getResponse(IResponseCreator responseCreator) throws IOException {
         String jsonText = this.loadInputFrom(this.inputStream);
         jsonText = this.requester.preprocessResponse(jsonText);
 

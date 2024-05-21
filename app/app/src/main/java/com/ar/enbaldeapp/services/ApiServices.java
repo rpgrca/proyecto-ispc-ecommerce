@@ -2,15 +2,17 @@ package com.ar.enbaldeapp.services;
 
 import com.ar.enbaldeapp.models.Cart;
 import com.ar.enbaldeapp.models.Product;
+import com.ar.enbaldeapp.models.Selection;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.UserToken;
 import com.ar.enbaldeapp.models.utilities.HttpUtilities;
 import com.ar.enbaldeapp.services.connection.HttpUrlConnectionWrapper;
 import com.ar.enbaldeapp.services.connection.IHttpUrlConnectionWrapper;
+import com.ar.enbaldeapp.services.requesters.AuthenticatedGetRequester;
 import com.ar.enbaldeapp.services.requesters.GetRequester;
 import com.ar.enbaldeapp.services.requesters.NoBodyRequester;
 import com.ar.enbaldeapp.services.requesters.PostFormDataRequester;
-import com.ar.enbaldeapp.services.requesters.PostRequester;
+import com.ar.enbaldeapp.services.requesters.PutRequester;
 import com.ar.enbaldeapp.services.wrappers.ApiResponseWrapper;
 import com.google.gson.reflect.TypeToken;
 
@@ -136,7 +138,24 @@ public class ApiServices implements IApiServices {
     }
 
     @Override
-    public void addToCart(String accessToken, Product product, int amount, Consumer<Cart> onSuccess, Consumer<ApiError> onFailure) {
+    public void getCart(String accessToken, long cartId, Consumer<Cart> onSuccess, Consumer<ApiError> onFailure) {
+        if (accessToken == null || accessToken.trim().isEmpty()) throw new RuntimeException("El access token es inválido");
+        if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
+        if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
+
+        IServerConnector<Selection> connector = getCart(ServerUrl + "/api/carritos/" + cartId, accessToken);
+        if (connector.connect()) {
+            Type listType = new TypeToken<List<Selection>>() {}.getType();
+            List<Selection> selections = connector.getResponse().castResponseAsListOf(listType);
+            onSuccess.accept(new Cart(cartId, selections));
+        }
+        else {
+            onFailure.accept(connector.getError());
+        }
+    }
+
+    @Override
+    public void addToCart(String accessToken, Cart cart, Product product, int amount, Consumer<Cart> onSuccess, Consumer<ApiError> onFailure) {
         if (accessToken == null || accessToken.trim().isEmpty()) throw new RuntimeException("El access token es inválido");
         if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
         if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
@@ -144,8 +163,9 @@ public class ApiServices implements IApiServices {
         CartModificationRequest cartModificationRequest = new CartModificationRequest(product, amount);
         ApiRequest apiRequest = new ApiRequest.Builder()
                 .addBody(cartModificationRequest)
+                .addAccessToken(accessToken)
                 .buildAsBody();
-        IServerConnector<Cart> connector = getModifiedCartFrom(ServerUrl + "/api/carritos/", apiRequest);
+        IServerConnector<Cart> connector = getModifiedCartFrom(ServerUrl + "/api/carritos/" + cart.getId(), apiRequest);
         if (connector.connect()) {
             //Type listType = new TypeToken<List<Product>>() {}.getType();
             //List<Product> products = connector.getResponse().castResponseAsListOf(listType);
@@ -158,7 +178,7 @@ public class ApiServices implements IApiServices {
     }
 
     protected IServerConnector<Cart> getModifiedCartFrom(String url, ApiRequest request) {
-        return new ServerConnector<>(url, new PostRequester<>(request), this.connectionFactory);
+        return new ServerConnector<>(url, new PutRequester<>(request), this.connectionFactory);
     }
 
     protected IServerConnector<User> getUserFrom(String url, ApiRequest request) {
@@ -177,5 +197,7 @@ public class ApiServices implements IApiServices {
         return new ServerConnector<>(url, new GetRequester<>(new ApiResponseWrapper()), this.connectionFactory);
     }
 
+    protected IServerConnector<Selection> getCart(String url, String accessToken) {
+        return new ServerConnector<>(url, new AuthenticatedGetRequester<>(new ApiResponseWrapper(), accessToken), this.connectionFactory);
+    }
 }
-

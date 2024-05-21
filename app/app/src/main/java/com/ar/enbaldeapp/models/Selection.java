@@ -1,8 +1,9 @@
 package com.ar.enbaldeapp.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Selection {
+public class Selection implements Serializable {
     private final long id;
     private final Product product;
     private final int quantity;

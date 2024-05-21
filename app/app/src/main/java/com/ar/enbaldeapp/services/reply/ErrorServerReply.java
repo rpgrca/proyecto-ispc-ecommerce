@@ -2,6 +2,7 @@ package com.ar.enbaldeapp.services.reply;
 
 import com.ar.enbaldeapp.services.ApiError;
 import com.ar.enbaldeapp.services.ApiResponse;
+import com.ar.enbaldeapp.services.IResponseCreator;
 import com.ar.enbaldeapp.services.requesters.IRequester;
 import com.google.gson.JsonParser;
 
@@ -28,7 +29,7 @@ public class ErrorServerReply<T> extends ServerReply<T> {
     }
 
     @Override
-    public ApiResponse<T> getResponse() throws IOException {
+    public ApiResponse<T> getResponse(IResponseCreator responseCreator) throws IOException {
         return null;
     }
 

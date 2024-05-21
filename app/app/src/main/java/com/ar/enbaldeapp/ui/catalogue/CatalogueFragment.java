@@ -1,7 +1,7 @@
 package com.ar.enbaldeapp.ui.catalogue;
 
 import static com.ar.enbaldeapp.ui.IntentConstants.ACCESS_TOKEN_FOR_DETAIL;
-import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_ACCESS;
+import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_CART_FOR_DETAIL;
 import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_USER_FOR_DETAIL;
 import static com.ar.enbaldeapp.ui.IntentConstants.DETAIL_MESSAGE_FOR_CATALOGUE;
 import static com.ar.enbaldeapp.ui.IntentConstants.PRODUCT_FOR_DETAIL;
@@ -14,18 +14,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.databinding.FragmentCatalogueBinding;
+import com.ar.enbaldeapp.models.Cart;
 import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
@@ -64,15 +62,25 @@ public class CatalogueFragment extends Fragment {
 
         adapter.setOnClickListeners((position, product) -> {
             Context context = getActivity();
+
             SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(context);
             User user = sharedPreferencesManager.loadCurrentUser();
+            long cartId = sharedPreferencesManager.getCurrentCartId();
+            String accessToken = sharedPreferencesManager.getAccessToken();
 
-            Intent intent = new Intent(context, ProductDetailActivity.class);
-            intent.putExtra(PRODUCT_FOR_DETAIL, product);
-            intent.putExtra(CURRENT_USER_FOR_DETAIL, user);
-            intent.putExtra(ACCESS_TOKEN_FOR_DETAIL, sharedPreferencesManager.getAccessToken());
+            new ApiServices().getCart(accessToken, cartId,
+                    c -> {
+                        Intent intent = new Intent(context, ProductDetailActivity.class);
+                        intent.putExtra(PRODUCT_FOR_DETAIL, product);
+                        intent.putExtra(CURRENT_USER_FOR_DETAIL, user);
+                        intent.putExtra(CURRENT_CART_FOR_DETAIL, c);
+                        intent.putExtra(ACCESS_TOKEN_FOR_DETAIL, accessToken);
 
-            intentLauncher.launch(intent);
+                        intentLauncher.launch(intent);
+                    },
+                    e -> {
+                        Snackbar.make(getView(), "Error retrieving cart from server: " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
+                    });
         });
 
         return root;
@@ -81,10 +89,11 @@ public class CatalogueFragment extends Fragment {
     private List<Product> getCatalogue() {
         AtomicReference<List<Product>> result = new AtomicReference<>();
 
+        View view = getView();
         IApiServices apiServices = new ApiServices();
         apiServices.getCatalogue(
                 result::set,
-                e -> Snackbar.make(getView(), "Error obtaining catalogue: " + e.getMessage(), Snackbar.LENGTH_SHORT).show()
+                e -> Snackbar.make(view, "Error obtaining catalogue: " + e.getMessage(), Snackbar.LENGTH_SHORT).show()
         );
 
         return result.get();

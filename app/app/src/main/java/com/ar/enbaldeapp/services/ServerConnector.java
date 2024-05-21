@@ -15,6 +15,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Function;
 
 class ServerConnector<T> implements IServerConnector<T> {
     private URL url;
@@ -22,6 +23,7 @@ class ServerConnector<T> implements IServerConnector<T> {
     private ApiError error;
     private final IRequester<T> requester;
     private final Callable<IHttpUrlConnectionWrapper> connectionCreator;
+    private final IResponseCreator responseCreator;
 
     public ServerConnector(String urlString, IRequester<T> requester, Callable<IHttpUrlConnectionWrapper> connectionCreator) {
         if (!StringToUrl(urlString)) {
@@ -30,6 +32,7 @@ class ServerConnector<T> implements IServerConnector<T> {
 
         this.connectionCreator = connectionCreator;
         this.requester = requester;
+        this.responseCreator = null;
     }
 
     @Override
@@ -69,7 +72,7 @@ class ServerConnector<T> implements IServerConnector<T> {
             IServerReply<T> serverReply = this.requester.getReplyFromServer(connection);
 
             this.error = serverReply.getError();
-            this.response = serverReply.getResponse();
+            this.response = serverReply.getResponse(this.responseCreator);
 
             return serverReply.getReturnValue();
         } catch (IOException ex) {
@@ -96,3 +99,4 @@ class ServerConnector<T> implements IServerConnector<T> {
         return false;
     }
 }
+
