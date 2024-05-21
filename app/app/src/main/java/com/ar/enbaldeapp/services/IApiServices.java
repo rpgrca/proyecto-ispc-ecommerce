@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public interface IApiServices {
+    String getUrl();
     void login(String username, String password, Consumer<UserToken> onSuccess, Consumer<ApiError> onFailure);
     void logout(String accessToken, Consumer<String> onSuccess, Consumer<ApiError> onFailure);
     void register(String firstName, String lastName, String email, String address, String phoneNumber, String username, String password, Consumer<User> onSuccess, Consumer<ApiError> onFailure);

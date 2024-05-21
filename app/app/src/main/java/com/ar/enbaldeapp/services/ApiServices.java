@@ -36,6 +36,11 @@ public class ApiServices implements IApiServices {
     }
 
     @Override
+    public String getUrl() {
+        return ServerUrl;
+    }
+
+    @Override
     public void login(String username, String password, Consumer<UserToken> onSuccess, Consumer<ApiError> onFailure) {
         if (username == null || username.trim().isEmpty()) {
             onFailure.accept(new ApiError(User.INVALID_USERNAME));
@@ -55,7 +60,7 @@ public class ApiServices implements IApiServices {
                 .addContentDisposition("clave", password)
                 .buildAsUrlEncodedData();
 
-        IServerConnector<UserToken> connector = getUserTokenFrom(ServerUrl + "/api/auth/login/", request);
+        IServerConnector<UserToken> connector = getUserTokenFrom(getUrl() + "/api/auth/login/", request);
         if (connector.connect()) {
             UserToken userToken = connector.getResponse().castResponseAs(UserToken.class);
             onSuccess.accept(userToken);
@@ -71,7 +76,7 @@ public class ApiServices implements IApiServices {
         if (onSuccess == null) { throw new RuntimeException("El callback por éxito es inválido"); }
         if (onFailure == null) { throw new RuntimeException("El callback por fallo es inválido"); }
 
-        IServerConnector<Boolean> connector = disconnectFrom(ServerUrl + "/api/auth/logout/", accessToken);
+        IServerConnector<Boolean> connector = disconnectFrom(getUrl() + "/api/auth/logout/", accessToken);
         boolean result = false;
 
         if (connector.connect()) {
@@ -111,7 +116,7 @@ public class ApiServices implements IApiServices {
                 .addContentDisposition("observaciones", "")
                 .buildAsUrlEncodedData();
 
-        IServerConnector<User> connector = getUserFrom(ServerUrl + "/api/auth/signup/", request);
+        IServerConnector<User> connector = getUserFrom(getUrl() + "/api/auth/signup/", request);
         if (connector.connect()) {
             User user = connector.getResponse().castResponseAs(User.class);
             onSuccess.accept(user);
@@ -126,7 +131,7 @@ public class ApiServices implements IApiServices {
         if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
         if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
 
-        IServerConnector<Product> connector = getCatalogueFrom(ServerUrl + "/api/articulos");
+        IServerConnector<Product> connector = getCatalogueFrom(getUrl() + "/api/articulos");
         if (connector.connect()) {
             Type listType = new TypeToken<List<Product>>() {}.getType();
             List<Product> products = connector.getResponse().castResponseAsListOf(listType);
@@ -143,7 +148,7 @@ public class ApiServices implements IApiServices {
         if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
         if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
 
-        IServerConnector<Selection> connector = getCart(ServerUrl + "/api/carritos/" + cartId, accessToken);
+        IServerConnector<Selection> connector = getCart(getUrl() + "/api/carritos/" + cartId, accessToken);
         if (connector.connect()) {
             Type listType = new TypeToken<List<Selection>>() {}.getType();
             List<Selection> selections = connector.getResponse().castResponseAsListOf(listType);
@@ -165,7 +170,7 @@ public class ApiServices implements IApiServices {
                 .addBody(cartModificationRequest)
                 .addAccessToken(accessToken)
                 .buildAsBody();
-        IServerConnector<Selection> connector = getModifiedCartFrom(ServerUrl + "/api/carritos/" + cart.getId(), apiRequest);
+        IServerConnector<Selection> connector = getModifiedCartFrom(getUrl() + "/api/carritos/" + cart.getId(), apiRequest);
         if (connector.connect()) {
             Selection selection = connector.getResponse().castResponseAs(Selection.class);
             onSuccess.accept(selection);

@@ -1,6 +1,6 @@
 package com.ar.enbaldeapp.services.adapters;
 
-import android.content.Context;
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.models.Selection;
+import com.ar.enbaldeapp.services.ApiServices;
+import com.ar.enbaldeapp.services.IApiServices;
 import com.ar.enbaldeapp.ui.cart.CartViewModel;
+import com.squareup.picasso.Picasso;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
+    private final Activity activityContext;
     private CartAdapter.OnClickListener onSelectionClickListener;
     private final CartViewModel cart;
 
-    public CartAdapter(CartViewModel cart) {
+    public CartAdapter(Activity activity, CartViewModel cart) {
+        this.activityContext = activity;
         this.cart = cart;
     }
 
@@ -33,7 +38,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)  {
         Selection selection = cart.getSelections().getValue().get(position);
 
-        holder.cartProductImageView.setImageResource(getImageResourceByName(selection.getProduct().getImage(), holder.itemView.getContext()));
+        holder.bindContent(selection);
+
         holder.cartProductImageView.setOnClickListener(v -> {
             if (onSelectionClickListener != null) {
                 onSelectionClickListener.onClick(position, selection);
@@ -47,8 +53,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             }
         });
 
-        holder.cartProductDescriptionTextView.setText(selection.getProduct().getDescription());
-        holder.cartProductDescriptionTextView.setOnClickListener(v -> {
+        holder.cartProductQuantityTextView.setText("Cantidad: " + selection.getQuantity());
+        holder.cartProductQuantityTextView.setOnClickListener(v -> {
+            if (onSelectionClickListener != null) {
+                onSelectionClickListener.onClick(position, selection);
+            }
+        });
+
+        holder.cartProductSubTotalTextView.setText("Subtotal: " + selection.getTotal());
+        holder.cartProductSubTotalTextView.setOnClickListener(v -> {
             if (onSelectionClickListener != null) {
                 onSelectionClickListener.onClick(position, selection);
             }
@@ -71,17 +84,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView cartProductImageView;
         TextView cartProductNameTextView;
-        TextView cartProductDescriptionTextView;
+        TextView cartProductQuantityTextView;
+        TextView cartProductSubTotalTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cartProductImageView = itemView.findViewById(R.id.cartProductImage);
             cartProductNameTextView = itemView.findViewById(R.id.cartProductName);
-            cartProductDescriptionTextView = itemView.findViewById(R.id.cartProductDescription);
+            cartProductQuantityTextView = itemView.findViewById(R.id.cartQuantity);
+            cartProductSubTotalTextView = itemView.findViewById(R.id.cartSubtotal);
         }
-    }
 
-    private int getImageResourceByName(String imageName, Context context) {
-        return R.drawable.baseline_icecream_24;
+        public void bindContent(Selection selection) {
+            IApiServices apiServices = new ApiServices();
+            Picasso.with(activityContext).load(apiServices.getUrl() + selection.getProduct().getImage()).into(cartProductImageView);
+        }
     }
 }

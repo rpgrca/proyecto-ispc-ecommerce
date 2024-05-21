@@ -7,13 +7,20 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.databinding.FragmentCartBinding;
+import com.ar.enbaldeapp.models.Cart;
+import com.ar.enbaldeapp.models.User;
+import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
+import com.ar.enbaldeapp.services.ApiServices;
+import com.ar.enbaldeapp.services.IApiServices;
 import com.ar.enbaldeapp.services.adapters.CartAdapter;
+
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class CartFragment extends Fragment {
 
@@ -21,14 +28,26 @@ public class CartFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        CartViewModel cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
-
         binding = FragmentCartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getContext());
+        User user = sharedPreferencesManager.loadCurrentUser();
+        long cartId = sharedPreferencesManager.getCurrentCartId();
+        String accessToken = sharedPreferencesManager.getAccessToken();
+
+        IApiServices apiServices = new ApiServices();
+        AtomicReference<CartViewModel> cartViewModel = new AtomicReference<>();
+        apiServices.getCart(accessToken, cartId, c -> {
+                    cartViewModel.set(new CartViewModel(c)); // new ViewModelProvider(this).get(CartViewModel.class);
+                },
+                e -> {
+                    cartViewModel.set(new CartViewModel(new Cart(0, new ArrayList<>())));
+                });
+
         RecyclerView recyclerView = root.findViewById(R.id.recyclerViewCart);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        CartAdapter adapter = new CartAdapter(cartViewModel);
+        CartAdapter adapter = new CartAdapter(getActivity(), cartViewModel.get());
         recyclerView.setAdapter(adapter);
 
         return root;
