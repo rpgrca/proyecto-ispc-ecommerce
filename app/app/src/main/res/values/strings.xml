@@ -17,4 +17,5 @@
     <string name="login_failed">"Login failed"</string>
     <string name="logout">Logout</string>
     <string name="prompt_username">Username</string>
+    <string name="admin_login_not_allowed">No puedes iniciar sesión como administrador</string>
 </resources>
