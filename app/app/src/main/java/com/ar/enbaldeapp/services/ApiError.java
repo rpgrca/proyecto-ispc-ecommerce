@@ -16,7 +16,7 @@ public class ApiError {
 
     public ApiError(JsonObject json, int status) {
         ServerApiResponse error = JsonUtilities.getConfiguredGson().fromJson(json, ServerApiResponse.class);
-        if (this.getMessage() != null) {
+        if (error.getMessage() != null) {
             this.message = error.getMessage();
             this.status = error.getStatus();
             this.data = error.getData();
