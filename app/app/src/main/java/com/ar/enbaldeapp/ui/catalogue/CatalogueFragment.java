@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.databinding.FragmentCatalogueBinding;
-import com.ar.enbaldeapp.models.Cart;
 import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
@@ -38,7 +37,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class CatalogueFragment extends Fragment {
-
     private FragmentCatalogueBinding binding;
     private final ActivityResultLauncher<Intent> intentLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),

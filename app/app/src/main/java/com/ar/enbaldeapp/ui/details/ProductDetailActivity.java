@@ -24,8 +24,6 @@ import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.squareup.picasso.Picasso;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 public class ProductDetailActivity extends AppCompatActivity {
     private Product product;
     private User currentUser;
