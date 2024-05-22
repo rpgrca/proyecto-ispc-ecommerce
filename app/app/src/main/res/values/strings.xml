@@ -24,4 +24,5 @@
     <string name="prompt_phone">Numero de teléfono</string>
     <string name="new_user">Quiero registrarme</string>
     <string name="prompt_registered_user">Ya tengo una cuenta</string>
+    <string name="admin_login_not_allowed">No puedes iniciar sesión como administrador</string>
 </resources>
