@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.databinding.FragmentCartBinding;
 import com.ar.enbaldeapp.models.Cart;
-import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.ar.enbaldeapp.services.IApiServices;
@@ -32,7 +31,6 @@ public class CartFragment extends Fragment {
         View root = binding.getRoot();
 
         SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getContext());
-        User user = sharedPreferencesManager.loadCurrentUser();
         long cartId = sharedPreferencesManager.getCurrentCartId();
         String accessToken = sharedPreferencesManager.getAccessToken();
 
@@ -51,11 +49,5 @@ public class CartFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         return root;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 }

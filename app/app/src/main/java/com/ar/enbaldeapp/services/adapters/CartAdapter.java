@@ -53,7 +53,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             }
         });
 
-        holder.cartProductQuantityTextView.setText("Cantidad: " + selection.getQuantity());
+        holder.cartProductQuantityTextView.setText(" " + selection.getQuantity() + " ");
         holder.cartProductQuantityTextView.setOnClickListener(v -> {
             if (onSelectionClickListener != null) {
                 onSelectionClickListener.onClick(position, selection);
