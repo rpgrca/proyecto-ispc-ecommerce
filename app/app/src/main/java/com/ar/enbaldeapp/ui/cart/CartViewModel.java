@@ -8,14 +8,20 @@ import com.ar.enbaldeapp.models.Cart;
 import com.ar.enbaldeapp.models.Selection;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CartViewModel extends ViewModel {
-
     private final MutableLiveData<List<Selection>> selections;
+    private final Cart cart;
 
     public CartViewModel(Cart cart) {
-        selections = new MutableLiveData<>();
-        selections.setValue(cart.getSelections());
+        this.cart = cart;
+        this.selections = new MutableLiveData<>();
+        this.selections.setValue(cart.getSelections());
+    }
+
+    public Cart getCart() {
+        return this.cart;
     }
 
     public LiveData<List<Selection>> getSelections() {

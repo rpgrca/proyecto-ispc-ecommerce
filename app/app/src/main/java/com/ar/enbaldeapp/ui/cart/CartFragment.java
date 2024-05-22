@@ -7,18 +7,21 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.databinding.FragmentCartBinding;
 import com.ar.enbaldeapp.models.Cart;
+import com.ar.enbaldeapp.models.Selection;
 import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.ar.enbaldeapp.services.IApiServices;
 import com.ar.enbaldeapp.services.adapters.CartAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class CartFragment extends Fragment {
@@ -45,7 +48,7 @@ public class CartFragment extends Fragment {
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerViewCart);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        CartAdapter adapter = new CartAdapter(getActivity(), cartViewModel.get());
+        CartAdapter adapter = new CartAdapter(getActivity(), cartViewModel.get(), accessToken);
         recyclerView.setAdapter(adapter);
 
         return root;
