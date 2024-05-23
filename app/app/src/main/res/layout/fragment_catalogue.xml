@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/productDetailView"
     tools:context=".ui.catalogue.CatalogueFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -15,4 +16,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/empty_catalogue_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="No data available" />
 </androidx.constraintlayout.widget.ConstraintLayout>

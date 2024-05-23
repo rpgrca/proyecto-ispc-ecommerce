@@ -2,6 +2,7 @@ package com.ar.enbaldeapp.services.reply;
 
 import com.ar.enbaldeapp.services.ApiError;
 import com.ar.enbaldeapp.services.ApiResponse;
+import com.ar.enbaldeapp.services.IResponseCreator;
 import com.ar.enbaldeapp.services.requesters.IRequester;
 import com.google.gson.JsonParser;
 
@@ -11,8 +12,9 @@ import java.io.InputStream;
 public class ErrorServerReply<T> extends ServerReply<T> {
     private final InputStream inputStream;
     private final IRequester<T> requester;
+    private final int status;
 
-    public ErrorServerReply(InputStream inputStream, IRequester<T> requester) {
+    public ErrorServerReply(InputStream inputStream, int status, IRequester<T> requester) {
         if (inputStream == null) {
             throw new RuntimeException("El input stream es inválido");
         }
@@ -23,6 +25,7 @@ public class ErrorServerReply<T> extends ServerReply<T> {
 
         this.inputStream = inputStream;
         this.requester = requester;
+        this.status = status;
     }
 
     @Override
@@ -33,9 +36,9 @@ public class ErrorServerReply<T> extends ServerReply<T> {
     @Override
     public ApiError getError() throws IOException {
         String jsonText = this.loadInputFrom(this.inputStream);
-        jsonText = this.requester.preprocessResponse(jsonText);
+        jsonText = this.requester.preprocessResponse(this.status, jsonText);
 
-        return new ApiError(JsonParser.parseString(jsonText).getAsJsonObject());
+        return new ApiError(JsonParser.parseString(jsonText).getAsJsonObject(), status);
     }
 
     @Override
