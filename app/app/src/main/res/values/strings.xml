@@ -28,4 +28,5 @@
     <string name="order">Su Pedido</string>
     <string name="content">texto de pedido</string>
     <string name="content_image">imagen de helado</string>
+    <string name="content_bolso">icono de bolso</string>
 </resources>
