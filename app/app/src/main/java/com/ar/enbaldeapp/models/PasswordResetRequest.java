@@ -1,13 +1,19 @@
 package com.ar.enbaldeapp.models;
 
 public class PasswordResetRequest {
-    private final String email;
+    private final String token;
+    private final String password;
 
-    public PasswordResetRequest(String email) {
-        this.email = email;
+    public PasswordResetRequest(String token, String password) {
+        this.token = token;
+        this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getToken() {
+        return token;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

@@ -18,4 +18,5 @@ public interface IApiServices {
     void getCart(String accessToken, long cartId, Consumer<Cart> onSuccess, Consumer<ApiError> onFailure);
     void addToCart(String accessToken, Cart cart, Product product, int amount, Consumer<Selection> onSuccess, Consumer<ApiError> onFailure);
     void sendRecoveryToken(String email, Consumer<String> onSuccess, Consumer<ApiError> onFailure);
+    void resetPassword(String token, String newPassword, Consumer<String> onSuccess, Consumer<ApiError> onFailure);
 }

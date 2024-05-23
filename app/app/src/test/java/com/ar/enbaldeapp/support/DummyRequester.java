@@ -12,7 +12,7 @@ public class DummyRequester<T> implements IRequester<T> {
     }
 
     @Override
-    public String preprocessResponse(String response) {
+    public String preprocessResponse(int statusCode, String response) {
         return response;
     }
 

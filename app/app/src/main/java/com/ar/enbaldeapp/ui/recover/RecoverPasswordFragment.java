@@ -96,6 +96,17 @@ public class RecoverPasswordFragment extends Fragment {
                     });
         });
 
+        button = view.findViewById(R.id.recoverResetPasswordButton);
+        button.setOnClickListener(v -> {
+            new ApiServices().resetPassword(tokenEditText.getText().toString(), newPasswordEditText.getText().toString(),
+                    r -> {
+
+                    },
+                    e -> {
+                        Snackbar.make(getView(), e.getMessage(), Snackbar.LENGTH_SHORT).show();
+                    });
+        });
+
         Utilities.changeToolbarTitleToRecovery(getActivity());
         return view;
     }

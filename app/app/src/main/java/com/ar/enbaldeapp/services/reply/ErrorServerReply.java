@@ -36,7 +36,7 @@ public class ErrorServerReply<T> extends ServerReply<T> {
     @Override
     public ApiError getError() throws IOException {
         String jsonText = this.loadInputFrom(this.inputStream);
-        jsonText = this.requester.preprocessResponse(jsonText);
+        jsonText = this.requester.preprocessResponse(this.status, jsonText);
 
         return new ApiError(JsonParser.parseString(jsonText).getAsJsonObject(), status);
     }

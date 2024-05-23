@@ -31,7 +31,7 @@ public class PutRequester<T> extends Requester<T> {
     }
 
     @Override
-    public String preprocessResponse(String response) {
-        return this.responseWrapper.preprocessResponse(response);
+    public String preprocessResponse(int statusCode, String response) {
+        return this.responseWrapper.preprocessResponse(statusCode, response);
     }
 }

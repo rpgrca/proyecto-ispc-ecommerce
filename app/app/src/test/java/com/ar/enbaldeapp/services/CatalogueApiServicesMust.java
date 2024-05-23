@@ -12,6 +12,7 @@ import com.ar.enbaldeapp.support.ServerConnectorStub;
 
 import org.junit.Test;
 
+import java.net.HttpURLConnection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -39,7 +40,7 @@ public class CatalogueApiServicesMust {
                         .withConnectReturning(true)
                         // Muy dificil crear una prueba que llegue hasta el getCatalogue y llame al preprocess
                         // por si mismo en Java porque hay que mockear demasiadas cosas
-                        .withResponse(new ApiResponse<>(new ApiResponseWrapper().preprocessResponse(CATALOGUE_STRING_JSON)))
+                        .withResponse(new ApiResponse<>(new ApiResponseWrapper().preprocessResponse(HttpURLConnection.HTTP_OK, CATALOGUE_STRING_JSON)))
                         .build()
                 )
                 .build();
@@ -56,7 +57,7 @@ public class CatalogueApiServicesMust {
                         .withConnectReturning(true)
                         // Muy dificil crear una prueba que llegue hasta el getCatalogue y llame al preprocess
                         // por si mismo en Java porque hay que mockear demasiadas cosas
-                        .withResponse(new ApiResponse<>(new ApiResponseWrapper().preprocessResponse(CATALOGUE_STRING_JSON)))
+                        .withResponse(new ApiResponse<>(new ApiResponseWrapper().preprocessResponse(HttpURLConnection.HTTP_OK, CATALOGUE_STRING_JSON)))
                         .build()
                 )
                 .build();
