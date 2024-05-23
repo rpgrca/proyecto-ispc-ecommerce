@@ -25,4 +25,10 @@
     <string name="new_user">Quiero registrarme</string>
     <string name="prompt_registered_user">Ya tengo una cuenta</string>
     <string name="admin_login_not_allowed">No puedes iniciar sesión como administrador</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="checkin">Registrarse</string>
+    <string name="forgot_password">Si no puede recordar su clave ingrese su e-mail a continuación para recibir un token para cambiarla.</string>
+    <string name="enter_your_email">Ingrese su correo</string>
+    <string name="text_text">Le enviaremos un mensaje para reestablecer su nueva contraseña.</string>
+    <string name="reset_password">Cambiar clave</string>
 </resources>
