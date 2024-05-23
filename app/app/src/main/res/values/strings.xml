@@ -30,8 +30,10 @@
     <string name="enter_your_email">Ingrese su correo</string>
     <string name="text_text">Le enviaremos un mensaje para reestablecer su nueva contraseña.</string>
     <string name="Botton_1">Enviar código</string>
+    <string name="Pay">Pagar</string>
+
 
 
 </resources>
 
-</resources>
+    </resources>

@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Enbalde"
         tools:targetApi="31">
         <activity
+            android:name=".Pay"
+            android:exported="false" />
+        <activity
             android:name=".forgot_password"
             android:exported="false" />
         <activity
