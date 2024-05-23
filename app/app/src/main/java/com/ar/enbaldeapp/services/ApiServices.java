@@ -1,6 +1,8 @@
 package com.ar.enbaldeapp.services;
 
 import com.ar.enbaldeapp.models.Cart;
+import com.ar.enbaldeapp.models.PasswordResetRequest;
+import com.ar.enbaldeapp.models.PasswordResetResponse;
 import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.models.Selection;
 import com.ar.enbaldeapp.models.User;
@@ -12,6 +14,7 @@ import com.ar.enbaldeapp.services.requesters.AuthenticatedGetRequester;
 import com.ar.enbaldeapp.services.requesters.GetRequester;
 import com.ar.enbaldeapp.services.requesters.NoBodyRequester;
 import com.ar.enbaldeapp.services.requesters.PostFormDataRequester;
+import com.ar.enbaldeapp.services.requesters.PostRequester;
 import com.ar.enbaldeapp.services.requesters.PutRequester;
 import com.ar.enbaldeapp.services.wrappers.ApiResponseWrapper;
 import com.google.gson.reflect.TypeToken;
@@ -180,6 +183,30 @@ public class ApiServices implements IApiServices {
         }
     }
 
+    @Override
+    public void sendRecoveryToken(String email, Consumer<String> onSuccess, Consumer<ApiError> onFailure) {
+        if (email == null || email.trim().isEmpty()) {
+            onFailure.accept(new ApiError(User.INVALID_EMAIL));
+            return;
+        }
+
+        if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
+        if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
+
+        ApiRequest request = new ApiRequest.Builder()
+                .addBody(new PasswordResetRequest(email))
+                .buildAsBody();
+
+        IServerConnector<PasswordResetResponse> connector = getResetResultFrom(getUrl() + "/api/auth/password_reset/", request);
+        if (connector.connect()) {
+            PasswordResetResponse response = connector.getResponse().castResponseAs(PasswordResetResponse.class);
+            onSuccess.accept(response.getStatus());
+        }
+        else {
+            onFailure.accept(connector.getError());
+        }
+    }
+
     protected IServerConnector<Selection> getModifiedCartFrom(String url, ApiRequest request) {
         return new ServerConnector<>(url, new PutRequester<>(request, new ApiResponseWrapper()), this.connectionFactory);
     }
@@ -202,5 +229,9 @@ public class ApiServices implements IApiServices {
 
     protected IServerConnector<Selection> getCart(String url, String accessToken) {
         return new ServerConnector<>(url, new AuthenticatedGetRequester<>(new ApiResponseWrapper(), accessToken), this.connectionFactory);
+    }
+
+    protected IServerConnector<PasswordResetResponse> getResetResultFrom(String url, ApiRequest request) {
+        return new ServerConnector<>(url, new PostRequester<>(request, new ApiResponseWrapper()), (this.connectionFactory));
     }
 }
