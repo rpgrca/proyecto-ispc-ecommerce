@@ -1,15 +1,25 @@
 package com.ar.enbaldeapp.services;
 
+import com.ar.enbaldeapp.models.Cart;
+import com.ar.enbaldeapp.models.PasswordResetRequest;
+import com.ar.enbaldeapp.models.PasswordResetResponse;
+import com.ar.enbaldeapp.models.ResetTokenRequest;
+import com.ar.enbaldeapp.models.ResetTokenResponse;
 import com.ar.enbaldeapp.models.Product;
+import com.ar.enbaldeapp.models.Selection;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.UserToken;
 import com.ar.enbaldeapp.models.utilities.HttpUtilities;
 import com.ar.enbaldeapp.services.connection.HttpUrlConnectionWrapper;
 import com.ar.enbaldeapp.services.connection.IHttpUrlConnectionWrapper;
+import com.ar.enbaldeapp.services.requesters.AuthenticatedGetRequester;
 import com.ar.enbaldeapp.services.requesters.GetRequester;
 import com.ar.enbaldeapp.services.requesters.NoBodyRequester;
+import com.ar.enbaldeapp.services.requesters.PostFormDataRequester;
 import com.ar.enbaldeapp.services.requesters.PostRequester;
+import com.ar.enbaldeapp.services.requesters.PutRequester;
 import com.ar.enbaldeapp.services.wrappers.ApiResponseWrapper;
+import com.ar.enbaldeapp.services.wrappers.DjangoApiResetPasswordResponseWrapper;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -32,6 +42,11 @@ public class ApiServices implements IApiServices {
     }
 
     @Override
+    public String getUrl() {
+        return ServerUrl;
+    }
+
+    @Override
     public void login(String username, String password, Consumer<UserToken> onSuccess, Consumer<ApiError> onFailure) {
         if (username == null || username.trim().isEmpty()) {
             onFailure.accept(new ApiError(User.INVALID_USERNAME));
@@ -49,9 +64,9 @@ public class ApiServices implements IApiServices {
         ApiRequest request = new ApiRequest.Builder()
                 .addContentDisposition("usuario", username)
                 .addContentDisposition("clave", password)
-                .Build();
+                .buildAsUrlEncodedData();
 
-        IServerConnector<UserToken> connector = getUserTokenFrom(ServerUrl + "/api/auth/login/", request);
+        IServerConnector<UserToken> connector = getUserTokenFrom(getUrl() + "/api/auth/login/", request);
         if (connector.connect()) {
             UserToken userToken = connector.getResponse().castResponseAs(UserToken.class);
             onSuccess.accept(userToken);
@@ -67,7 +82,7 @@ public class ApiServices implements IApiServices {
         if (onSuccess == null) { throw new RuntimeException("El callback por éxito es inválido"); }
         if (onFailure == null) { throw new RuntimeException("El callback por fallo es inválido"); }
 
-        IServerConnector<Boolean> connector = disconnectFrom(ServerUrl + "/api/auth/logout/", accessToken);
+        IServerConnector<Boolean> connector = disconnectFrom(getUrl() + "/api/auth/logout/", accessToken);
         boolean result = false;
 
         if (connector.connect()) {
@@ -105,9 +120,9 @@ public class ApiServices implements IApiServices {
                 .addContentDisposition("clave", password)
                 .addContentDisposition("tipo", User.Client)
                 .addContentDisposition("observaciones", "")
-                .Build();
+                .buildAsUrlEncodedData();
 
-        IServerConnector<User> connector = getUserFrom(ServerUrl + "/api/auth/signup/", request);
+        IServerConnector<User> connector = getUserFrom(getUrl() + "/api/auth/signup/", request);
         if (connector.connect()) {
             User user = connector.getResponse().castResponseAs(User.class);
             onSuccess.accept(user);
@@ -122,7 +137,7 @@ public class ApiServices implements IApiServices {
         if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
         if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
 
-        IServerConnector<Product> connector = getCatalogueFrom(ServerUrl + "/api/articulos");
+        IServerConnector<Product> connector = getCatalogueFrom(getUrl() + "/api/articulos");
         if (connector.connect()) {
             Type listType = new TypeToken<List<Product>>() {}.getType();
             List<Product> products = connector.getResponse().castResponseAsListOf(listType);
@@ -133,12 +148,105 @@ public class ApiServices implements IApiServices {
         }
     }
 
+    @Override
+    public void getCart(String accessToken, long cartId, Consumer<Cart> onSuccess, Consumer<ApiError> onFailure) {
+        if (accessToken == null || accessToken.trim().isEmpty()) throw new RuntimeException("El access token es inválido");
+        if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
+        if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
+
+        IServerConnector<Selection> connector = getCart(getUrl() + "/api/carritos/" + cartId, accessToken);
+        if (connector.connect()) {
+            Type listType = new TypeToken<List<Selection>>() {}.getType();
+            List<Selection> selections = connector.getResponse().castResponseAsListOf(listType);
+            onSuccess.accept(new Cart(cartId, selections));
+        }
+        else {
+            onFailure.accept(connector.getError());
+        }
+    }
+
+    @Override
+    public void addToCart(String accessToken, Cart cart, Product product, int amount, Consumer<Selection> onSuccess, Consumer<ApiError> onFailure) {
+        if (accessToken == null || accessToken.trim().isEmpty()) throw new RuntimeException("El access token es inválido");
+        if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
+        if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
+
+        CartModificationRequest cartModificationRequest = new CartModificationRequest(product, amount);
+        ApiRequest apiRequest = new ApiRequest.Builder()
+                .addBody(cartModificationRequest)
+                .addAccessToken(accessToken)
+                .buildAsBody();
+        IServerConnector<Selection> connector = getModifiedCartFrom(getUrl() + "/api/carritos/" + cart.getId(), apiRequest);
+        if (connector.connect()) {
+            Selection selection = connector.getResponse().castResponseAs(Selection.class);
+            onSuccess.accept(selection);
+        }
+        else {
+            onFailure.accept(connector.getError());
+        }
+    }
+
+    @Override
+    public void sendRecoveryToken(String email, Consumer<String> onSuccess, Consumer<ApiError> onFailure) {
+        if (email == null || email.trim().isEmpty()) {
+            onFailure.accept(new ApiError(User.INVALID_EMAIL));
+            return;
+        }
+
+        if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
+        if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
+
+        ApiRequest request = new ApiRequest.Builder()
+                .addBody(new ResetTokenRequest(email))
+                .buildAsBody();
+
+        IServerConnector<ResetTokenResponse> connector = getTokenResetFrom(getUrl() + "/api/auth/password_reset/", request);
+        if (connector.connect()) {
+            ResetTokenResponse response = connector.getResponse().castResponseAs(ResetTokenResponse.class);
+            onSuccess.accept(response.getStatus());
+        }
+        else {
+            onFailure.accept(connector.getError());
+        }
+    }
+
+    public static final String INVALID_TOKEN = "El token es inválido";
+
+    public void resetPassword(String token, String newPassword, Consumer<String> onSuccess, Consumer<ApiError> onFailure) {
+        if (token == null || token.trim().isEmpty()) {
+            onFailure.accept(new ApiError(INVALID_TOKEN));
+            return;
+        }
+
+        if (newPassword == null || newPassword.trim().isEmpty()) {
+            onFailure.accept(new ApiError(User.INVALID_PASSWORD));
+            return;
+        }
+
+        ApiRequest request = new ApiRequest.Builder()
+                .addBody(new PasswordResetRequest(token, newPassword))
+                .buildAsBody();
+
+        IServerConnector<PasswordResetResponse> connector = getPasswordResetFrom(getUrl() + "/api/auth/password_reset/confirm/", request);
+        if (connector.connect()) {
+            PasswordResetResponse response = connector.getResponse().castResponseAs(PasswordResetResponse.class);
+            onSuccess.accept(response.getStatus());
+        }
+        else {
+            onFailure.accept(connector.getError());
+        }
+    }
+
+    protected IServerConnector<Selection> getModifiedCartFrom(String url, ApiRequest request) {
+        return new ServerConnector<>(url, new PutRequester<>(request, new ApiResponseWrapper()), this.connectionFactory);
+    }
+
     protected IServerConnector<User> getUserFrom(String url, ApiRequest request) {
-        return new ServerConnector<>(url, new PostRequester<>(request), this.connectionFactory);
+        return new ServerConnector<>(url, new PostFormDataRequester<>(request), this.connectionFactory);
     }
 
     protected IServerConnector<UserToken> getUserTokenFrom(String url, ApiRequest request) {
-        return new ServerConnector<>(url, new PostRequester<>(request), this.connectionFactory);
+        return new ServerConnector<>(url, new PostFormDataRequester<>(request), this.connectionFactory);
     }
 
     protected IServerConnector<Boolean> disconnectFrom(String url, String accessToken) {
@@ -147,5 +255,17 @@ public class ApiServices implements IApiServices {
 
     protected IServerConnector<Product> getCatalogueFrom(String url) {
         return new ServerConnector<>(url, new GetRequester<>(new ApiResponseWrapper()), this.connectionFactory);
+    }
+
+    protected IServerConnector<Selection> getCart(String url, String accessToken) {
+        return new ServerConnector<>(url, new AuthenticatedGetRequester<>(new ApiResponseWrapper(), accessToken), this.connectionFactory);
+    }
+
+    protected IServerConnector<ResetTokenResponse> getTokenResetFrom(String url, ApiRequest request) {
+        return new ServerConnector<>(url, new PostRequester<>(request, new ApiResponseWrapper()), this.connectionFactory);
+    }
+
+    protected IServerConnector<PasswordResetResponse> getPasswordResetFrom(String url, ApiRequest request) {
+        return new ServerConnector<>(url, new PostRequester<>(request, new DjangoApiResetPasswordResponseWrapper()), this.connectionFactory);
     }
 }

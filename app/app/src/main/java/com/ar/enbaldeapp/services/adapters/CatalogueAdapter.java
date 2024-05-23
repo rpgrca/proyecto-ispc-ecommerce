@@ -39,7 +39,6 @@ public class CatalogueAdapter extends RecyclerView.Adapter<CatalogueAdapter.View
 
         holder.bindContent(product);
 
-        getImageFromInternet(product.getImage(), holder.productImageView);
         holder.productImageView.setOnClickListener(v -> {
             if (onProductClickListener != null) {
                 onProductClickListener.onClick(position, product);
@@ -59,11 +58,6 @@ public class CatalogueAdapter extends RecyclerView.Adapter<CatalogueAdapter.View
                 onProductClickListener.onClick(position, product);
             }
         });
-
-
-    }
-
-    private void getImageFromInternet(String imageUrl, ImageView productImageView) {
     }
 
     public interface OnClickListener {

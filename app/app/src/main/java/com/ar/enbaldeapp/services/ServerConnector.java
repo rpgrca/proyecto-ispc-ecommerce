@@ -15,6 +15,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Function;
 
 class ServerConnector<T> implements IServerConnector<T> {
     private URL url;
@@ -96,3 +97,4 @@ class ServerConnector<T> implements IServerConnector<T> {
         return false;
     }
 }
+

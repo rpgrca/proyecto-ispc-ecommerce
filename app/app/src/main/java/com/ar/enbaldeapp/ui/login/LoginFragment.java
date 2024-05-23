@@ -63,13 +63,16 @@ public class LoginFragment extends Fragment {
         final ProgressBar loadingProgressBar = binding.loading;
 
         binding.loginRegisterTextView.setOnClickListener(v -> {
-            if (requireActivity() instanceof MainActivity)
-            {
+            if (requireActivity() instanceof MainActivity) {
                 Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_registrationFragment);
                 Utilities.changeBottomMenuToRegistration(getView());
             }
-            else {
+        });
 
+        binding.loginRecoverTextView.setOnClickListener(v -> {
+            if (requireActivity() instanceof MainActivity) {
+                Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_recoverFragment);
+                Utilities.changeBottomMenuToRecover(getView());
             }
         });
 

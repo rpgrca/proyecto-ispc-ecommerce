@@ -24,14 +24,12 @@
             android:layout_marginTop="-20dp"
             app:layout_constraintTop_toTopOf="parent">
 
-
             <LinearLayout
                 android:id="@+id/upper_content"
                 android:layout_width="match_parent"
                 android:layout_height="195dp"
                 android:orientation="vertical"
                 app:layout_constraintTop_toTopOf="parent">
-
 
                 <ImageView
                     android:id="@+id/imageView"

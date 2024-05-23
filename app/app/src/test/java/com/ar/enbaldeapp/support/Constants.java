@@ -85,4 +85,7 @@ public class Constants {
 
     public static final long CART_ID = 1;
     public static final String CATALOGUE_STRING_JSON = "[{\"id\":1,\"nombre\":\"Helado de Chocolate\",\"descripcion\":\"Helado con chispas de chocolate\",\"precio\":\"2300.00\",\"costo\":\"1400.00\",\"imagen\":\"http://localhost:8000/media/images/helado-de-chocolate.jpg\",\"cantidad\":96,\"tipo\":1},{\"id\":2,\"nombre\":\"Helado de Frutilla\",\"descripcion\":\"Helado de frutilla natural\",\"precio\":\"1500.00\",\"costo\":\"800.00\",\"imagen\":\"http://localhost:8000/media/images/helado-de-frutilla.jpg\",\"cantidad\":48,\"tipo\":3},{\"id\":3,\"nombre\":\"Palito de Vainilla\",\"descripcion\":\"Palito de vainilla de crema\",\"precio\":\"550.00\",\"costo\":\"200.00\",\"imagen\":\"http://localhost:8000/media/images/palito-de-vainilla.jpg\",\"cantidad\":47,\"tipo\":2},{\"id\":4,\"nombre\":\"Helado de Fernet\",\"descripcion\":\"Clásico helado de Fernet\",\"precio\":\"1600.00\",\"costo\":\"1000.00\",\"imagen\":\"http://localhost:8000/media/images/Fernet.jpg\",\"cantidad\":99,\"tipo\":1}]";
+    public static final int CART_AMOUNT = 1;
+
+    public static final String ADD_TO_CART_OK_JSON = "{\"id\":6,\"cantidad\":1,\"articulo\":{\"id\":1,\"nombre\":\"Helado de Chocolate\",\"descripcion\":\"Helado con chispas de chocolate\",\"precio\":\"2300.00\",\"costo\":\"1400.00\",\"imagen\":\"/media/images/helado-de-chocolate.jpg\",\"cantidad\":96,\"tipo\":1},\"ofertas\":[],\"descuento\":0,\"total\":2300.0}";
 }

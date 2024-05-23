@@ -15,7 +15,7 @@ public class ApiRequestMust {
                 .addContentDisposition("usuario", USERNAME)
                 .addContentDisposition("clave", 12345678)
                 .addBoundary("separator")
-                .Build();
+                .buildAsUrlEncodedData();
 
         MatcherAssert.assertThat(sut.getData(), CoreMatchers.containsString("Content-Disposition: form-data; name=\"usuario\""));
         MatcherAssert.assertThat(sut.getData(), CoreMatchers.containsString(USERNAME));
