@@ -34,7 +34,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="8dp"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/poetsen_one_regular"
             android:text="@string/welcome"
             android:textAlignment="center"
             android:textColor="@color/white"
