@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -81,6 +82,16 @@ public class CatalogueFragment extends Fragment {
                         Snackbar.make(getView(), "Error retrieving cart from server: " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
                     });
         });
+
+        TextView emptyView = root.findViewById(R.id.empty_catalogue_view);
+        if (adapter.getItemCount() == 0) {
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+        else {
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
 
         return root;
     }
