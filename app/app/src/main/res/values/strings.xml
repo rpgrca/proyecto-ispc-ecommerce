@@ -24,4 +24,8 @@
     <string name="prompt_phone">Numero de teléfono</string>
     <string name="new_user">Quiero registrarme</string>
     <string name="prompt_registered_user">Ya tengo una cuenta</string>
+    <string name="my_profile">Mi perfil</string>
+    <string name="my_orders">Mis ordenes</string>
+    <string name="notification">Notificaciones</string>
+    <string name="save">Guardar</string>
 </resources>
