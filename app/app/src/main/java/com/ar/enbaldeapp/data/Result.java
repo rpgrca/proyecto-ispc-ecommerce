@@ -40,12 +40,25 @@ public class Result<T> {
     public final static class Error<T> extends Result<T> {
         private final Exception error;
 
+        private final String message;
+
         public Error(Exception error) {
             this.error = error;
+            this.message = null;
+        }
+
+        public Error(String message) {
+            this.message = message;
+            this.error = null;
         }
 
         public Exception getError() {
             return this.error;
         }
+
+        public String getMessage() {
+            return this.message;
+        }
+
     }
 }

@@ -41,7 +41,13 @@ public class LoginViewModel extends ViewModel {
             LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
             loginResult.setValue(new LoginResult(new LoggedInUserView(data.getModel())));
         } else {
-            loginResult.setValue(new LoginResult(R.string.login_failed));
+            String errorMessage = ((Result.Error<LoggedInUser>) result).getMessage();
+
+            if ("admin not allowed".equals(errorMessage)) {
+                loginResult.setValue(new LoginResult(R.string.admin_login_not_allowed));
+            } else {
+                loginResult.setValue(new LoginResult(R.string.login_failed));
+            }
         }
     }
 

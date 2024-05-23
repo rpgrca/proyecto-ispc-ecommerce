@@ -18,9 +18,4 @@ public class NoBodyRequester<T> extends Requester<T> {
         connection.setRequestProperty("Accept", "application/json");
         connection.setRequestProperty("Authorization", "Bearer " + token);
     }
-
-    @Override
-    public String preprocessResponse(String response) {
-        return response;
-    }
 }
