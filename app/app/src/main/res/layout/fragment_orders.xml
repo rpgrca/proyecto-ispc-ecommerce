@@ -44,6 +44,151 @@
         app:layout_constraintVertical_bias="1.0"
         android:layout_marginEnd="216dp" />
 
+    <TextView
+        android:id="@+id/cartQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="216dp"
+        android:text="@string/number_two"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.396"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/productDetailsContainer"
+        android:layout_width="387dp"
+        android:layout_height="160dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="@color/dark_grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.344"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintVertical_bias="0.06"
+        app:layout_marginTop="16dp">
+
+        <ImageView
+            android:id="@+id/productImage1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icecream1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/productName1"
+            android:layout_width="83dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/content_price"
+            android:text="@string/ice_cream"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/productPrice1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/productImage1"
+            app:layout_constraintTop_toTopOf="@id/productImage1" />
+
+        <TextView
+            android:id="@+id/productPrice1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/number5000"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/productName1"
+            app:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/removeProduct1"
+            android:layout_width="100dp"
+            android:layout_height="29dp"
+            android:layout_marginBottom="112dp"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/eliminar"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_marginEnd="8dp" />
+
+        <ImageView
+            android:id="@+id/productImage2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/strawberry"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/productImage1"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/productName2"
+            android:layout_width="79dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/ice_cream2"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/productPrice2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/productImage2"
+            app:layout_constraintTop_toTopOf="@id/productImage2" />
+
+        <TextView
+            android:id="@+id/productPrice2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/number1000"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/productName2"
+            app:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/removeProduct2"
+            android:layout_width="65dp"
+            android:layout_height="22dp"
+            android:layout_marginBottom="44dp"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/eliminar"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.95"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_marginEnd="8dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    
+
+
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

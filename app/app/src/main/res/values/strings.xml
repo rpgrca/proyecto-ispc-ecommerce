@@ -29,4 +29,11 @@
     <string name="content">texto de pedido</string>
     <string name="content_image">imagen de helado</string>
     <string name="content_bolso">icono de bolso</string>
+    <string name="number_two">2</string>
+    <string name="ice_cream">Chocolate\n1000ml</string>
+    <string name="content_price">Precio del helado</string>
+    <string name="number5000">$5000</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="ice_cream2">Frutilla\n500ml</string>
+    <string name="number1000">$1000</string>
 </resources>
