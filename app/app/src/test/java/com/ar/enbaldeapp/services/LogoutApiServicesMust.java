@@ -3,10 +3,18 @@ package com.ar.enbaldeapp.services;
 import static com.ar.enbaldeapp.support.Constants.ACCESS_STRING;
 import static com.ar.enbaldeapp.support.Constants.LOGOUT_ERROR_JSON;
 import static com.ar.enbaldeapp.support.Constants.LOGOUT_OK_JSON;
+import static com.ar.enbaldeapp.support.Constants.PRODUCT_DESCRIPTION;
+import static com.ar.enbaldeapp.support.Constants.PRODUCT_ID;
+import static com.ar.enbaldeapp.support.Constants.PRODUCT_IMAGE;
+import static com.ar.enbaldeapp.support.Constants.PRODUCT_NAME;
+import static com.ar.enbaldeapp.support.Constants.PRODUCT_PRICE;
+import static com.ar.enbaldeapp.support.Constants.PRODUCT_QUANTITY;
+import static com.ar.enbaldeapp.support.Constants.PRODUCT_TYPE_ID;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
+import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.support.ApiServicesStub;
 import com.ar.enbaldeapp.support.ServerConnectorStub;
 
@@ -74,3 +82,5 @@ public class LogoutApiServicesMust {
         assertTrue(called.get());
     }
 }
+
+

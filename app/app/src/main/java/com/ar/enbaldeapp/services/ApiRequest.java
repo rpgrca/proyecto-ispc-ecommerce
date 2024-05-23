@@ -1,5 +1,7 @@
 package com.ar.enbaldeapp.services;
 
+import com.ar.enbaldeapp.models.utilities.JsonUtilities;
+
 import java.util.Random;
 
 public class ApiRequest {
@@ -8,6 +10,8 @@ public class ApiRequest {
         private final StringBuilder stringBuilder;
         private String boundary;
         private String newBoundary;
+        private Object body;
+        private String accessToken;
 
         public Builder() {
             stringBuilder = new StringBuilder();
@@ -42,6 +46,16 @@ public class ApiRequest {
             return this;
         }
 
+        public Builder addBody(Object body) {
+            this.body = body;
+            return this;
+        }
+
+        public Builder addAccessToken(String accessToken) {
+            this.accessToken = accessToken;
+            return this;
+        }
+
         public Builder addContentDisposition(String key, int value) {
             addSeparator();
             stringBuilder
@@ -60,7 +74,7 @@ public class ApiRequest {
                     .append("\r\n");
         }
 
-        private void addFinalSeparator() {
+        public void addFinalSeparator() {
             stringBuilder
                     .append("--")
                     .append(this.boundary)
@@ -80,19 +94,26 @@ public class ApiRequest {
             return result;
         }
 
-        public ApiRequest Build() {
+        public ApiRequest buildAsUrlEncodedData() {
             addFinalSeparator();
             String result = popContentData();
-            return new ApiRequest(result, boundary);
+            return new ApiRequest(result, boundary, accessToken);
+        }
+
+        public ApiRequest buildAsBody() {
+            String result = JsonUtilities.getConfiguredGson().toJson(this.body);
+            return new ApiRequest(result, null, accessToken);
         }
     }
 
     private final String data;
     private final String boundary;
+    private final String accessToken;
 
-    private ApiRequest(String data, String boundary) {
+    private ApiRequest(String data, String boundary, String accessToken) {
         this.data = data;
         this.boundary = boundary;
+        this.accessToken = accessToken;
     }
 
     public String getData() {
@@ -100,4 +121,6 @@ public class ApiRequest {
     }
 
     public String getBoundary() { return this.boundary; }
+
+    public String getAccessToken() { return this.accessToken; }
 }
