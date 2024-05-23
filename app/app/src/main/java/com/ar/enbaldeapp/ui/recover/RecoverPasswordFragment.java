@@ -72,6 +72,7 @@ public class RecoverPasswordFragment extends Fragment {
             Utilities.changeToolbarTitleToLogin(getActivity());
         });
 
+        Utilities.changeToolbarTitleToRecovery(getActivity());
         return view;
     }
 }

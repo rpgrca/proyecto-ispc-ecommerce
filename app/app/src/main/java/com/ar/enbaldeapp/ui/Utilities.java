@@ -72,4 +72,8 @@ public class Utilities {
     public static void changeToolbarTitleToRegistration(Activity activity) {
         changeToolbarTitleTo(activity, "Registration");
     }
+
+    public static void changeToolbarTitleToRecovery(Activity activity) {
+        changeToolbarTitleTo(activity, "Recover Password");
+    }
 }
