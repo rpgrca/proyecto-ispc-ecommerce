@@ -23,7 +23,7 @@
         android:id="@+id/imageViewDetail"
         android:layout_width="396dp"
         android:layout_height="176dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
