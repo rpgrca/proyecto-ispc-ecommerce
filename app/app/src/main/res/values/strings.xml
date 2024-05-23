@@ -27,8 +27,8 @@
     <string name="admin_login_not_allowed">No puedes iniciar sesión como administrador</string>
     <string name="login">Iniciar sesión</string>
     <string name="checkin">Registrarse</string>
-    <string name="forgot_password">¿Olvidó contraseña?</string>
+    <string name="forgot_password">Si no puede recordar su clave ingrese su e-mail a continuación para recibir un token para cambiarla.</string>
     <string name="enter_your_email">Ingrese su correo</string>
     <string name="text_text">Le enviaremos un mensaje para reestablecer su nueva contraseña.</string>
-    <string name="Botton_1">Enviar código</string>
+    <string name="reset_password">Cambiar clave</string>
 </resources>
