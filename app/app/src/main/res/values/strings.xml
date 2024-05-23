@@ -31,6 +31,16 @@
     <string name="text_text">Le enviaremos un mensaje para reestablecer su nueva contraseña.</string>
     <string name="Botton_1">Enviar código</string>
     <string name="Pay">Pagar</string>
+    <string name="Total_to_pay">Pagar</string>
+    <string name="Money">1500</string>
+    <string name="payment_method">Por favor seleccione a continuación un método de pago</string>
+    <string name="payment_method_1">MÉTODOS DE PAGO</string>
+    <string name="tarjet1">Tarjeta de Crédito</string>
+    <string name="tarjeta2">Transferencia</string>
+    <string name="pay_1">PAGO</string>
+    <string name="efective">Efectivo</string>
+
+
 
 
 

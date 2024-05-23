@@ -32,7 +32,7 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/Total_to_pay"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="158dp" />
 
@@ -40,7 +40,7 @@
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/Money"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="186dp" />
 
@@ -49,7 +49,7 @@
         android:layout_width="374dp"
         android:layout_height="25dp"
         android:layout_marginBottom="24dp"
-        android:text="TextView"
+        android:text="@string/payment_method"
         app:layout_constraintBottom_toBottomOf="@+id/textView7"
         tools:layout_editor_absoluteX="9dp" />
 
@@ -57,10 +57,10 @@
         android:id="@+id/textView11"
         android:layout_width="259dp"
         android:layout_height="35dp"
-        android:layout_marginTop="28dp"
-        android:text="TextView"
+        android:layout_marginTop="24dp"
+        android:text="@string/payment_method_1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintHorizontal_bias="0.105"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -69,35 +69,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="TextView"
+        android:text="@string/tarjet1"
         app:layout_constraintTop_toTopOf="@+id/textView12"
-        tools:layout_editor_absoluteX="36dp" />
+        tools:layout_editor_absoluteX="29dp" />
 
     <TextView
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="TextView"
+        android:text="@string/pay_1"
         app:layout_constraintTop_toTopOf="@+id/textView12"
         tools:layout_editor_absoluteX="294dp" />
 
     <TextView
         android:id="@+id/textView12"
-        android:layout_width="363dp"
-        android:layout_height="74dp"
-        android:text="TextView"
+        android:layout_width="383dp"
+        android:layout_height="75dp"
+        android:text=
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.288"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="371dp" />
+        tools:layout_editor_absoluteY="368dp" />
 
     <TextView
         android:id="@+id/textView17"
         android:layout_width="379dp"
         android:layout_height="88dp"
         android:layout_marginTop="32dp"
-        android:text="TextView"
+        android:text=
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
@@ -116,8 +116,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="208dp"
-        android:text="TextView"
+        android:layout_marginEnd="176dp"
+        android:text="@string/tarjeta2"
         app:layout_constraintEnd_toStartOf="@+id/textView20"
         app:layout_constraintTop_toTopOf="@+id/textView17" />
 
@@ -126,16 +126,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="TextView"
+        android:text="@string/pay_1"
         app:layout_constraintTop_toTopOf="@+id/textView17"
-        tools:layout_editor_absoluteX="310dp" />
+        tools:layout_editor_absoluteX="294dp" />
 
     <TextView
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="TextView"
+        android:text="@string/efective"
         app:layout_constraintTop_toTopOf="@+id/textView18"
         tools:layout_editor_absoluteX="29dp" />
 
@@ -144,7 +144,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="TextView"
+        android:text="@string/pay_1"
         app:layout_constraintTop_toTopOf="@+id/textView18"
         tools:layout_editor_absoluteX="294dp" />
 
