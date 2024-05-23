@@ -100,7 +100,12 @@ public class RecoverPasswordFragment extends Fragment {
         button.setOnClickListener(v -> {
             new ApiServices().resetPassword(tokenEditText.getText().toString(), newPasswordEditText.getText().toString(),
                     r -> {
-
+                        if (r != null && r.toUpperCase().equals("OK")) {
+                            Snackbar.make(getView(), "Clave cambiada con éxito, por favor ingrese con su nueva clave.", Snackbar.LENGTH_LONG).show();
+                        }
+                        else {
+                            Snackbar.make(getView(), r, Snackbar.LENGTH_SHORT).show();
+                        }
                     },
                     e -> {
                         Snackbar.make(getView(), e.getMessage(), Snackbar.LENGTH_SHORT).show();
