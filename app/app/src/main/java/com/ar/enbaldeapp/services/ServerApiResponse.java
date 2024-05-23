@@ -20,12 +20,3 @@ class ServerApiResponse {
         return status;
     }
 }
-
-class DjangoApiResponse {
-    @SerializedName("detail")
-    private String message;
-
-    public String getMessage() {
-        return message;
-    }
-}

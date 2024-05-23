@@ -1,6 +1,10 @@
 package com.ar.enbaldeapp.services;
 
 import com.ar.enbaldeapp.models.Cart;
+import com.ar.enbaldeapp.models.PasswordResetRequest;
+import com.ar.enbaldeapp.models.PasswordResetResponse;
+import com.ar.enbaldeapp.models.ResetTokenRequest;
+import com.ar.enbaldeapp.models.ResetTokenResponse;
 import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.models.Selection;
 import com.ar.enbaldeapp.models.User;
@@ -12,8 +16,10 @@ import com.ar.enbaldeapp.services.requesters.AuthenticatedGetRequester;
 import com.ar.enbaldeapp.services.requesters.GetRequester;
 import com.ar.enbaldeapp.services.requesters.NoBodyRequester;
 import com.ar.enbaldeapp.services.requesters.PostFormDataRequester;
+import com.ar.enbaldeapp.services.requesters.PostRequester;
 import com.ar.enbaldeapp.services.requesters.PutRequester;
 import com.ar.enbaldeapp.services.wrappers.ApiResponseWrapper;
+import com.ar.enbaldeapp.services.wrappers.DjangoApiResetPasswordResponseWrapper;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -180,6 +186,57 @@ public class ApiServices implements IApiServices {
         }
     }
 
+    @Override
+    public void sendRecoveryToken(String email, Consumer<String> onSuccess, Consumer<ApiError> onFailure) {
+        if (email == null || email.trim().isEmpty()) {
+            onFailure.accept(new ApiError(User.INVALID_EMAIL));
+            return;
+        }
+
+        if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
+        if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
+
+        ApiRequest request = new ApiRequest.Builder()
+                .addBody(new ResetTokenRequest(email))
+                .buildAsBody();
+
+        IServerConnector<ResetTokenResponse> connector = getTokenResetFrom(getUrl() + "/api/auth/password_reset/", request);
+        if (connector.connect()) {
+            ResetTokenResponse response = connector.getResponse().castResponseAs(ResetTokenResponse.class);
+            onSuccess.accept(response.getStatus());
+        }
+        else {
+            onFailure.accept(connector.getError());
+        }
+    }
+
+    public static final String INVALID_TOKEN = "El token es inválido";
+
+    public void resetPassword(String token, String newPassword, Consumer<String> onSuccess, Consumer<ApiError> onFailure) {
+        if (token == null || token.trim().isEmpty()) {
+            onFailure.accept(new ApiError(INVALID_TOKEN));
+            return;
+        }
+
+        if (newPassword == null || newPassword.trim().isEmpty()) {
+            onFailure.accept(new ApiError(User.INVALID_PASSWORD));
+            return;
+        }
+
+        ApiRequest request = new ApiRequest.Builder()
+                .addBody(new PasswordResetRequest(token, newPassword))
+                .buildAsBody();
+
+        IServerConnector<PasswordResetResponse> connector = getPasswordResetFrom(getUrl() + "/api/auth/password_reset/confirm/", request);
+        if (connector.connect()) {
+            PasswordResetResponse response = connector.getResponse().castResponseAs(PasswordResetResponse.class);
+            onSuccess.accept(response.getStatus());
+        }
+        else {
+            onFailure.accept(connector.getError());
+        }
+    }
+
     protected IServerConnector<Selection> getModifiedCartFrom(String url, ApiRequest request) {
         return new ServerConnector<>(url, new PutRequester<>(request, new ApiResponseWrapper()), this.connectionFactory);
     }
@@ -202,5 +259,13 @@ public class ApiServices implements IApiServices {
 
     protected IServerConnector<Selection> getCart(String url, String accessToken) {
         return new ServerConnector<>(url, new AuthenticatedGetRequester<>(new ApiResponseWrapper(), accessToken), this.connectionFactory);
+    }
+
+    protected IServerConnector<ResetTokenResponse> getTokenResetFrom(String url, ApiRequest request) {
+        return new ServerConnector<>(url, new PostRequester<>(request, new ApiResponseWrapper()), this.connectionFactory);
+    }
+
+    protected IServerConnector<PasswordResetResponse> getPasswordResetFrom(String url, ApiRequest request) {
+        return new ServerConnector<>(url, new PostRequester<>(request, new DjangoApiResetPasswordResponseWrapper()), this.connectionFactory);
     }
 }
