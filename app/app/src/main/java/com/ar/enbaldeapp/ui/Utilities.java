@@ -25,6 +25,10 @@ public class Utilities {
         changeBottomMenuTo(view, "Registration");
     }
 
+    public static void changeBottomMenuToRecover(View view) {
+        changeBottomMenuTo(view, "Recovery");
+    }
+
     private static void changeBottomMenuTo(View view, String text) {
         BottomNavigationView bottomNavigationView = view.getRootView().findViewById(R.id.nav_view);
         Menu menu = bottomNavigationView.getMenu();
