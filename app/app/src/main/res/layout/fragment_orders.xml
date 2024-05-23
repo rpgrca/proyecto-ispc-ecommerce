@@ -183,13 +183,67 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    
+    <Button
+        android:id="@+id/applyCouponButton"
+        android:layout_width="94dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/red"
+        android:text="@string/aplicar"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@id/couponField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/couponField" />
 
+    <EditText
+        android:id="@+id/couponField"
+        android:layout_width="257dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="440dp"
+        android:hint="@string/cupon"
+        android:padding="12dp"
+        app:layout_constraintEnd_toStartOf="@id/applyCouponButton"
+        app:layout_constraintHorizontal_bias="0.608"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/priceSummary"
+        android:layout_width="252dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/price"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/couponField" />
 
-
-
-
-
+    <Button
+        android:id="@+id/payButton"
+        android:layout_width="137dp"
+        android:layout_height="53dp"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="76dp"
+        android:backgroundTint="@color/red"
+        android:text="@string/pagar"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/priceSummary"
+        app:layout_constraintVertical_bias="0.307" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 

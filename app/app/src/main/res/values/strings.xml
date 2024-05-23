@@ -36,4 +36,8 @@
     <string name="eliminar">Eliminar</string>
     <string name="ice_cream2">Frutilla\n500ml</string>
     <string name="number1000">$1000</string>
+    <string name="cupon">Ingresar cupón</string>
+    <string name="aplicar">Aplicar</string>
+    <string name="price">Subtotal: $6000\nEnvío: $500\nTotal: $6500</string>
+    <string name="pagar">Pagar</string>
 </resources>
