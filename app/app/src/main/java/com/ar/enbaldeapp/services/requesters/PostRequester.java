@@ -7,11 +7,11 @@ import com.ar.enbaldeapp.services.wrappers.IResponseWrapper;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-public class PutRequester<T> extends Requester<T> {
+public class PostRequester<T> extends Requester<T> {
     private final ApiRequest request;
     private IResponseWrapper responseWrapper;
 
-    public PutRequester(ApiRequest request, IResponseWrapper responseWrapper) {
+    public PostRequester(ApiRequest request, IResponseWrapper responseWrapper) {
         this.request = request;
         this.responseWrapper = responseWrapper;
     }
@@ -20,10 +20,9 @@ public class PutRequester<T> extends Requester<T> {
     public void sendRequestTo(IHttpUrlConnectionWrapper connection) throws IOException {
         connection.setDoOutput(true);
         connection.setDoInput(true);
-        connection.setRequestMethod("PUT");
+        connection.setRequestMethod("POST");
         connection.setRequestProperty("Accept", "application/json");
         connection.setRequestProperty("Content-Type", "application/json");
-        connection.setRequestProperty("Authorization", "Bearer " + request.getAccessToken());
 
         OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
         out.write(this.request.getData());

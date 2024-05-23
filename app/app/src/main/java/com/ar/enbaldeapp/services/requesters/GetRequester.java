@@ -18,7 +18,7 @@ public class GetRequester<T> extends Requester<T> {
     }
 
     @Override
-    public String preprocessResponse(String response) {
-        return wrapper.preprocessResponse(response);
+    public String preprocessResponse(int statusCode, String response) {
+        return wrapper.preprocessResponse(statusCode, response);
     }
 }

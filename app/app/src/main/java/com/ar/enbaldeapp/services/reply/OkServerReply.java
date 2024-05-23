@@ -30,7 +30,7 @@ public class OkServerReply<T> extends ServerReply<T> {
     @Override
     public ApiResponse<T> getResponse() throws IOException {
         String jsonText = this.loadInputFrom(this.inputStream);
-        jsonText = this.requester.preprocessResponse(jsonText);
+        jsonText = this.requester.preprocessResponse(this.status, jsonText);
 
         return new ApiResponse<T>(jsonText);
     }
