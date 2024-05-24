@@ -56,4 +56,8 @@
     <string name="pay_1">PAGO</string>
     <string name="efective">Efectivo</string>
     <string name="reset_password">Cambiar clave</string>
+    <string name="my_profile">Mi perfil</string>
+    <string name="my_orders">Mis ordenes</string>
+    <string name="notification">Notificaciones</string>
+    <string name="save">Guardar</string>
 </resources>
