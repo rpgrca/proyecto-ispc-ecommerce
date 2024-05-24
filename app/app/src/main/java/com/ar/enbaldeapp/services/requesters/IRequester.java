@@ -7,6 +7,6 @@ import java.io.IOException;
 
 public interface IRequester<T> {
     void sendRequestTo(IHttpUrlConnectionWrapper connection) throws IOException;
-    String preprocessResponse(String response);
+    String preprocessResponse(int statusCode, String response);
     IServerReply<T> getReplyFromServer(IHttpUrlConnectionWrapper connection) throws IOException;
 }
