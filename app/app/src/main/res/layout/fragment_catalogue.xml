@@ -4,15 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scaleY="1.2"
     android:id="@+id/productDetailView"
     tools:context=".ui.catalogue.CatalogueFragment">
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/catalogueBackgroundImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="?attr/actionBarSize"
         android:scaleType="fitXY"
         android:src="@drawable/bg_catalogo"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,8 +18,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/catalogueLogoImageView"
+        android:layout_width="123dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/logo_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/catalogueBackgroundImageView" />
+
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/catalogueItemsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -29,36 +37,23 @@
         android:text="@string/our_ice_creams"
         android:textColor="@color/black"
         android:fontFamily="@font/poetsen_one_regular"
-        android:textSize="30dp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintTop_toBottomOf="@+id/catalogueLogoImageView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCatalogue"
-        android:layout_width="358dp"
-        android:layout_height="535dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:paddingBottom="?attr/actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="@+id/catalogueBackgroundImageView"
+        app:layout_constraintTop_toBottomOf="@+id/catalogueItemsTextView" />
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="123dp"
-        android:layout_height="96dp"
-        android:layout_marginTop="88dp"
-        android:src="@drawable/logo_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView5" />
-
-<TextView
+    <TextView
         android:id="@+id/empty_catalogue_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
