@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Enbalde"
         tools:targetApi="31">
         <activity
-            android:name=".Pay"
+            android:name=".ui.Pay"
             android:exported="false" />
         <activity
             android:name=".ui.details.ProductDetailActivity"

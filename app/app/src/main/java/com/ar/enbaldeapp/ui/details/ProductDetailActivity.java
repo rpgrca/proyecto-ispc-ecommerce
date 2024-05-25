@@ -53,7 +53,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         this.findViewById(R.id.buttonDetailAdd).setOnClickListener(v -> {
             Intent result = new Intent();
             ApiServices apiServices = new ApiServices();
-            apiServices.addToCart(accessToken, currentCart, product, Integer.parseInt(editText.getText().toString()),
+            apiServices.addToCart(accessToken, currentCart, product, 1,
                     c -> {
                         result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product added correctly");
                     },
@@ -62,7 +62,20 @@ public class ProductDetailActivity extends AppCompatActivity {
                     });
 
             setResult(Activity.RESULT_OK, result);
-            finish();
+        });
+
+        this.findViewById(R.id.buttonDetailMinus).setOnClickListener(v -> {
+            Intent result = new Intent();
+            ApiServices apiServices = new ApiServices();
+            apiServices.addToCart(accessToken, currentCart, product, -1,
+                    c -> {
+                        result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product removed correctly");
+                    },
+                    e -> {
+                        result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, e.getMessage());
+                    });
+
+            setResult(Activity.RESULT_OK, result);
         });
 
         if (currentUser == null) {
