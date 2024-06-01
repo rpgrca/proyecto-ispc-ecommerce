@@ -59,6 +59,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 ApiServices apiServices = new ApiServices();
                 apiServices.addToCart(accessToken, currentCart, product, 1,
                         c -> {
+                            editText.setText(String.valueOf(c.getQuantity()));
                             result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product added correctly");
                         },
                         e -> {
@@ -73,6 +74,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 ApiServices apiServices = new ApiServices();
                 apiServices.addToCart(accessToken, currentCart, product, -1,
                         c -> {
+                            editText.setText(String.valueOf(c.getQuantity()));
                             result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product removed correctly");
                         },
                         e -> {

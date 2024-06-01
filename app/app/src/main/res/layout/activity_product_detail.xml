@@ -61,19 +61,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewDetailName" />
 
-    <EditText
-        android:id="@+id/editNumberDetailAmount"
-        android:layout_width="247dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="232dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="1"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDetailDescription" />
-
     <Button
         android:id="@+id/buttonDetailMinus"
         android:layout_width="wrap_content"
@@ -103,17 +90,17 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="199dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputEditText"
-        app:layout_constraintEnd_toEndOf="@+id/textInputEditText"
+        app:layout_constraintBottom_toBottomOf="@+id/editNumberDetailAmount"
+        app:layout_constraintEnd_toEndOf="@+id/editNumberDetailAmount"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textInputEditText"
-        app:layout_constraintTop_toTopOf="@+id/textInputEditText"
+        app:layout_constraintStart_toStartOf="@+id/editNumberDetailAmount"
+        app:layout_constraintTop_toTopOf="@+id/editNumberDetailAmount"
         app:layout_constraintVertical_bias="0.0">
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/textInputEditText"
+        android:id="@+id/editNumberDetailAmount"
         android:layout_width="164dp"
         android:layout_height="51dp"
         android:layout_marginStart="8dp"
@@ -127,20 +114,6 @@
         app:layout_constraintStart_toEndOf="@+id/buttonDetailMinus"
         app:layout_constraintTop_toBottomOf="@+id/textViewDetailDescription" />
 
-    <Button
-        android:id="@+id/button7"
-        android:layout_width="188dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="12dp"
-        android:background="@color/olive_green"
-        android:text="Comprar"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="87dp"
@@ -152,6 +125,6 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/editNumberDetailAmount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
