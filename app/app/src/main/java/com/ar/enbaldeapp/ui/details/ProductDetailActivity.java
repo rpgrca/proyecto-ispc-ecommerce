@@ -25,6 +25,7 @@ import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,6 +69,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 apiServices.addToCart(accessToken, currentCart, product, 1,
                         s -> {
                             editText.setText(String.valueOf(s.getQuantity()));
+                            updateCurrentCost(s);
                             result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product added correctly");
                         },
                         e -> {
@@ -81,8 +83,9 @@ public class ProductDetailActivity extends AppCompatActivity {
                 Intent result = new Intent();
                 ApiServices apiServices = new ApiServices();
                 apiServices.addToCart(accessToken, currentCart, product, -1,
-                        c -> {
-                            editText.setText(String.valueOf(c.getQuantity()));
+                        s -> {
+                            editText.setText(String.valueOf(s.getQuantity()));
+                            updateCurrentCost(s);
                             result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product removed correctly");
                         },
                         e -> {
@@ -103,8 +106,18 @@ public class ProductDetailActivity extends AppCompatActivity {
         Selection selection = getCurrentSelection();
         if (selection != null) {
             double subTotal = selection.getProduct().getPrice() * selection.getQuantity();
-            productDetailSubTotalTextView.setText(String.valueOf(subTotal));
+            DecimalFormat df = new DecimalFormat("#.00");
+            productDetailSubTotalTextView.setText("$ " + df.format(subTotal));
         }
+        else {
+            productDetailSubTotalTextView.setText("");
+        }
+    }
+
+    private void updateCurrentCost(Selection selection) {
+        double subTotal = selection.getProduct().getPrice() * selection.getQuantity();
+        DecimalFormat df = new DecimalFormat("#.00");
+        productDetailSubTotalTextView.setText("$ " + df.format(subTotal));
     }
 
     private void initializeCurrentAmount() {
