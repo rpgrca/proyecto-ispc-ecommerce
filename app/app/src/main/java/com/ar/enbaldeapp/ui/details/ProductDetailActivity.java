@@ -20,9 +20,13 @@ import android.widget.TextView;
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.models.Cart;
 import com.ar.enbaldeapp.models.Product;
+import com.ar.enbaldeapp.models.Selection;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductDetailActivity extends AppCompatActivity {
     private Product product;
@@ -49,6 +53,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         ((TextView)this.findViewById(R.id.textViewDetailDescription)).setText(product.getDescription());
 
         editText = this.findViewById(R.id.editNumberDetailAmount);
+        initializeCurrentAmount();
 
         Button plusButton = this.findViewById(R.id.buttonDetailAdd);
         Button minusButton = this.findViewById(R.id.buttonDetailMinus);
@@ -89,5 +94,16 @@ public class ProductDetailActivity extends AppCompatActivity {
             plusButton.setVisibility(View.GONE);
             minusButton.setVisibility(View.GONE);
         }
+    }
+
+    private void initializeCurrentAmount() {
+        List<Selection> selections = currentCart.getSelections().stream().filter(p -> p.getId() == product.getId()).collect(Collectors.toList());
+        int amount = 0;
+
+        if (! selections.isEmpty()) {
+            amount = selections.get(0).getQuantity();
+        }
+
+        editText.setText(String.valueOf(amount));
     }
 }
