@@ -20,9 +20,14 @@ import android.widget.TextView;
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.models.Cart;
 import com.ar.enbaldeapp.models.Product;
+import com.ar.enbaldeapp.models.Selection;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.squareup.picasso.Picasso;
+
+import java.text.DecimalFormat;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductDetailActivity extends AppCompatActivity {
     private Product product;
@@ -30,6 +35,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private Cart currentCart;
     private String accessToken;
     private EditText editText;
+    private TextView productDetailSubTotalTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +55,9 @@ public class ProductDetailActivity extends AppCompatActivity {
         ((TextView)this.findViewById(R.id.textViewDetailDescription)).setText(product.getDescription());
 
         editText = this.findViewById(R.id.editNumberDetailAmount);
+        productDetailSubTotalTextView = this.findViewById(R.id.productDetailSubTotalTextView);
+        initializeCurrentAmount();
+        initializeCurrentCost();
 
         Button plusButton = this.findViewById(R.id.buttonDetailAdd);
         Button minusButton = this.findViewById(R.id.buttonDetailMinus);
@@ -58,7 +67,9 @@ public class ProductDetailActivity extends AppCompatActivity {
                 Intent result = new Intent();
                 ApiServices apiServices = new ApiServices();
                 apiServices.addToCart(accessToken, currentCart, product, 1,
-                        c -> {
+                        s -> {
+                            editText.setText(String.valueOf(s.getQuantity()));
+                            updateCurrentCost(s);
                             result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product added correctly");
                         },
                         e -> {
@@ -72,7 +83,9 @@ public class ProductDetailActivity extends AppCompatActivity {
                 Intent result = new Intent();
                 ApiServices apiServices = new ApiServices();
                 apiServices.addToCart(accessToken, currentCart, product, -1,
-                        c -> {
+                        s -> {
+                            editText.setText(String.valueOf(s.getQuantity()));
+                            updateCurrentCost(s);
                             result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product removed correctly");
                         },
                         e -> {
@@ -87,5 +100,43 @@ public class ProductDetailActivity extends AppCompatActivity {
             plusButton.setVisibility(View.GONE);
             minusButton.setVisibility(View.GONE);
         }
+    }
+
+    private void initializeCurrentCost() {
+        Selection selection = getCurrentSelection();
+        if (selection != null) {
+            double subTotal = selection.getProduct().getPrice() * selection.getQuantity();
+            DecimalFormat df = new DecimalFormat("#.00");
+            productDetailSubTotalTextView.setText("$ " + df.format(subTotal));
+        }
+        else {
+            productDetailSubTotalTextView.setText("");
+        }
+    }
+
+    private void updateCurrentCost(Selection selection) {
+        double subTotal = selection.getProduct().getPrice() * selection.getQuantity();
+        DecimalFormat df = new DecimalFormat("#.00");
+        productDetailSubTotalTextView.setText("$ " + df.format(subTotal));
+    }
+
+    private void initializeCurrentAmount() {
+        Selection selection = getCurrentSelection();
+        int amount = 0;
+
+        if (selection != null) {
+            amount = selection.getQuantity();
+        }
+
+        editText.setText(String.valueOf(amount));
+    }
+
+    private Selection getCurrentSelection() {
+        List<Selection> selections = currentCart.getSelections().stream().filter(p -> p.getProduct().getId() == product.getId()).collect(Collectors.toList());
+        if (selections.isEmpty()) {
+            return null;
+        }
+
+        return selections.get(0);
     }
 }
