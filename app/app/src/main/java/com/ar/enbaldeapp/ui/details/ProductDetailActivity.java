@@ -50,40 +50,42 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         editText = this.findViewById(R.id.editNumberDetailAmount);
 
-        this.findViewById(R.id.buttonDetailAdd).setOnClickListener(v -> {
-            Intent result = new Intent();
-            ApiServices apiServices = new ApiServices();
-            apiServices.addToCart(accessToken, currentCart, product, 1,
-                    c -> {
-                        result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product added correctly");
-                    },
-                    e -> {
-                        result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, e.getMessage());
-                    });
+        Button plusButton = this.findViewById(R.id.buttonDetailAdd);
+        Button minusButton = this.findViewById(R.id.buttonDetailMinus);
 
-            setResult(Activity.RESULT_OK, result);
-        });
+        if (currentUser != null) {
+            plusButton.setOnClickListener(v -> {
+                Intent result = new Intent();
+                ApiServices apiServices = new ApiServices();
+                apiServices.addToCart(accessToken, currentCart, product, 1,
+                        c -> {
+                            result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product added correctly");
+                        },
+                        e -> {
+                            result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, e.getMessage());
+                        });
 
-        this.findViewById(R.id.buttonDetailMinus).setOnClickListener(v -> {
-            Intent result = new Intent();
-            ApiServices apiServices = new ApiServices();
-            apiServices.addToCart(accessToken, currentCart, product, -1,
-                    c -> {
-                        result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product removed correctly");
-                    },
-                    e -> {
-                        result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, e.getMessage());
-                    });
+                setResult(Activity.RESULT_OK, result);
+            });
 
-            setResult(Activity.RESULT_OK, result);
-        });
+            minusButton.setOnClickListener(v -> {
+                Intent result = new Intent();
+                ApiServices apiServices = new ApiServices();
+                apiServices.addToCart(accessToken, currentCart, product, -1,
+                        c -> {
+                            result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product removed correctly");
+                        },
+                        e -> {
+                            result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, e.getMessage());
+                        });
 
-        if (currentUser == null) {
-            EditText editText = this.findViewById(R.id.editNumberDetailAmount);
+                setResult(Activity.RESULT_OK, result);
+            });
+        }
+        else {
             editText.setVisibility(View.GONE);
-
-            Button button = this.findViewById(R.id.buttonDetailAdd);
-            button.setVisibility(View.GONE);
+            plusButton.setVisibility(View.GONE);
+            minusButton.setVisibility(View.GONE);
         }
     }
 }

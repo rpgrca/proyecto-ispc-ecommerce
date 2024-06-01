@@ -44,6 +44,14 @@ public class Utilities {
         item.setVisible(true);
     }
 
+    public static void showPreviousOrdersMenuItem(View view) {
+        BottomNavigationView bottomNavigationView = view.getRootView().findViewById(R.id.nav_view);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem item = menu.findItem(R.id.navigation_history);
+        item.setEnabled(true);
+        item.setVisible(true);
+    }
+
     public static void hideCartMenuItem(View view) {
         BottomNavigationView bottomNavigationView = view.getRootView().findViewById(R.id.nav_view);
         Menu menu = bottomNavigationView.getMenu();
