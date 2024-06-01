@@ -8,7 +8,6 @@ import com.ar.enbaldeapp.models.Cart;
 import com.ar.enbaldeapp.models.Selection;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CartViewModel extends ViewModel {
     private final MutableLiveData<List<Selection>> selections;

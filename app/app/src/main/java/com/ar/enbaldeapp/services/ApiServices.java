@@ -1,11 +1,13 @@
 package com.ar.enbaldeapp.services;
 
 import com.ar.enbaldeapp.models.Cart;
+import com.ar.enbaldeapp.models.HistoryResponse;
 import com.ar.enbaldeapp.models.PasswordResetRequest;
 import com.ar.enbaldeapp.models.PasswordResetResponse;
 import com.ar.enbaldeapp.models.ResetTokenRequest;
 import com.ar.enbaldeapp.models.ResetTokenResponse;
 import com.ar.enbaldeapp.models.Product;
+import com.ar.enbaldeapp.models.Sale;
 import com.ar.enbaldeapp.models.Selection;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.UserToken;
@@ -212,8 +214,8 @@ public class ApiServices implements IApiServices {
 
     public static final String INVALID_TOKEN = "El token es inválido";
 
-    public void resetPassword(String token, String newPassword, Consumer<String> onSuccess, Consumer<ApiError> onFailure) {
-        if (token == null || token.trim().isEmpty()) {
+    public void resetPassword(String accessToken, String newPassword, Consumer<String> onSuccess, Consumer<ApiError> onFailure) {
+        if (accessToken == null || accessToken.trim().isEmpty()) {
             onFailure.accept(new ApiError(INVALID_TOKEN));
             return;
         }
@@ -224,13 +226,31 @@ public class ApiServices implements IApiServices {
         }
 
         ApiRequest request = new ApiRequest.Builder()
-                .addBody(new PasswordResetRequest(token, newPassword))
+                .addBody(new PasswordResetRequest(accessToken, newPassword))
                 .buildAsBody();
 
         IServerConnector<PasswordResetResponse> connector = getPasswordResetFrom(getUrl() + "/api/auth/password_reset/confirm/", request);
         if (connector.connect()) {
             PasswordResetResponse response = connector.getResponse().castResponseAs(PasswordResetResponse.class);
             onSuccess.accept(response.getStatus());
+        }
+        else {
+            onFailure.accept(connector.getError());
+        }
+    }
+
+    @Override
+    public void getHistory(String accessToken, User user, Consumer<List<Sale>> onSuccess, Consumer<ApiError> onFailure) {
+        if (accessToken == null || accessToken.trim().isEmpty()) {
+            onFailure.accept(new ApiError(INVALID_TOKEN));
+            return;
+        }
+
+        IServerConnector<Sale> connector = getHistoryFrom(getUrl() + "/api/compras/" + user.getId(), accessToken);
+        if (connector.connect()) {
+            Type listType = new TypeToken<List<Sale>>() {}.getType();
+            List<Sale> sales = connector.getResponse().castResponseAsListOf(listType);
+            onSuccess.accept(sales);
         }
         else {
             onFailure.accept(connector.getError());
@@ -267,5 +287,9 @@ public class ApiServices implements IApiServices {
 
     protected IServerConnector<PasswordResetResponse> getPasswordResetFrom(String url, ApiRequest request) {
         return new ServerConnector<>(url, new PostRequester<>(request, new DjangoApiResetPasswordResponseWrapper()), this.connectionFactory);
+    }
+
+    protected IServerConnector<Sale> getHistoryFrom(String url, String accessToken) {
+        return new ServerConnector<>(url, new AuthenticatedGetRequester<>(new ApiResponseWrapper(), accessToken), this.connectionFactory);
     }
 }
