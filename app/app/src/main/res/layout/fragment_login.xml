@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="28dp"
-            android:layout_marginTop="-20dp"
+            android:layout_marginTop="0dp"
             app:layout_constraintTop_toTopOf="parent">
 
 
@@ -38,6 +38,7 @@
                     android:id="@+id/imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/content_logo"
                     android:padding="16dp"
                     android:src="@drawable/logo_text" />
 
@@ -46,10 +47,11 @@
 
         <EditText
             android:id="@+id/username"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="350dp"
+            android:layout_height="48dp"
             android:minHeight="45dp"
-            android:paddingLeft="20dp"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginTop="70dp"
@@ -64,10 +66,11 @@
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="350dp"
+            android:layout_height="48dp"
             android:minHeight="45dp"
-            android:paddingLeft="20dp"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
@@ -119,7 +122,7 @@
         <TextView
             android:id="@+id/loginRegisterTextView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginTop="32dp"
             android:clickable="true"
             android:text="@string/new_user"
@@ -133,9 +136,9 @@
         <TextView
             android:id="@+id/loginRecoverTextView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:clickable="true"
-            android:text="Olvidé mi clave"
+            android:text="@string/forgot_password2"
             android:textColor="@color/blue"
             android:textSize="24sp"
             android:textStyle="bold"
