@@ -65,22 +65,30 @@ public class CatalogueFragment extends Fragment {
 
             SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(context);
             User user = sharedPreferencesManager.loadCurrentUser();
-            long cartId = sharedPreferencesManager.getCurrentCartId();
-            String accessToken = sharedPreferencesManager.getAccessToken();
 
-            new ApiServices().getCart(accessToken, cartId,
-                    c -> {
-                        Intent intent = new Intent(context, ProductDetailActivity.class);
-                        intent.putExtra(PRODUCT_FOR_DETAIL, product);
-                        intent.putExtra(CURRENT_USER_FOR_DETAIL, user);
-                        intent.putExtra(CURRENT_CART_FOR_DETAIL, c);
-                        intent.putExtra(ACCESS_TOKEN_FOR_DETAIL, accessToken);
+            if (user != null) {
+                long cartId = sharedPreferencesManager.getCurrentCartId();
+                String accessToken = sharedPreferencesManager.getAccessToken();
 
-                        intentLauncher.launch(intent);
-                    },
-                    e -> {
-                        Snackbar.make(getView(), "Error retrieving cart from server: " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
-                    });
+                new ApiServices().getCart(accessToken, cartId,
+                        c -> {
+                            Intent intent = new Intent(context, ProductDetailActivity.class);
+                            intent.putExtra(PRODUCT_FOR_DETAIL, product);
+                            intent.putExtra(CURRENT_USER_FOR_DETAIL, user);
+                            intent.putExtra(CURRENT_CART_FOR_DETAIL, c);
+                            intent.putExtra(ACCESS_TOKEN_FOR_DETAIL, accessToken);
+
+                            intentLauncher.launch(intent);
+                        },
+                        e -> {
+                            Snackbar.make(getView(), "Error retrieving cart from server: " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
+                        });
+            }
+            else {
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra(PRODUCT_FOR_DETAIL, product);
+                intentLauncher.launch(intent);
+            }
         });
 
         TextView emptyView = root.findViewById(R.id.empty_catalogue_view);
