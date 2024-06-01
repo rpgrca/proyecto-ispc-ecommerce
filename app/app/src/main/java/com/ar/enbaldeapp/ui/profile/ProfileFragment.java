@@ -17,6 +17,7 @@ import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.data.LoginDataSource;
 import com.ar.enbaldeapp.data.Result;
 import com.ar.enbaldeapp.databinding.FragmentProfileBinding;
+import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
 import com.ar.enbaldeapp.services.ApiError;
 import com.ar.enbaldeapp.services.ApiServices;
@@ -30,16 +31,78 @@ public class ProfileFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ProfileViewModel profileViewModel =
-                new ViewModelProvider(this).get(ProfileViewModel.class);
+        ProfileViewModel profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getContext());
+        User user = sharedPreferencesManager.loadCurrentUser();
+        String accessToken = sharedPreferencesManager.getAccessToken();
+
+        binding.profileAddressTextView.setText(R.string.prompt_address);
+        binding.profileEmailTextView.setText(R.string.prompt_email);
+        binding.profilePhoneTextView.setText(R.string.prompt_phone);
+        binding.profileUsernameTextView.setText(R.string.prompt_username);
+        binding.profileFirstNameTextView.setText(R.string.prompt_fname);
+        binding.profileLastNameTextView.setText(R.string.prompt_lname);
+        binding.profileOldPasswordTextView.setText("Old password");
+        binding.profileNewPasswordTextView.setText("New password");
+        binding.profileRepeatPasswordTextView.setText("Repeat new password");
+
+        refreshProfileInformation(user);
+
+        binding.profileSaveButton.setText(R.string.save);
+
         final Button logoutButton = binding.profileLogoutButton;
         logoutButton.setOnClickListener(this::onLogout);
 
+        binding.profileSaveButton.setOnClickListener(v -> {
+            String oldPassword = binding.profileOldPasswordEditText.getText().toString();
+            String newPassword = binding.profileNewPasswordEditText.getText().toString();
+            String repeatPassword = binding.profileRepeatPasswordEditText.getText().toString();
+
+            if (! oldPassword.isEmpty()) {
+                if (! newPassword.equals(repeatPassword)) {
+                    Snackbar.make(v, "Passwords do not match.", Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+            else {
+                if (! newPassword.isEmpty() || !repeatPassword.isEmpty()) {
+                    Snackbar.make(v, "Must write old password to change", Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            String address = binding.profileAddressEditText.getText().toString();
+            String email = binding.profileEmailEditText.getText().toString();
+            String phone = binding.profilePhoneEditText.getText().toString();
+
+            IApiServices apiServices = new ApiServices();
+            apiServices.modifyUser(accessToken, user, address, email, newPassword, phone, u -> {
+                        refreshProfileInformation(u);
+                        Snackbar.make(getView(), "Information updated", Snackbar.LENGTH_SHORT).show();
+                    },
+                    e -> {
+                        Snackbar.make(getView(), "Could not update information: " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
+                    });
+        });
+
         return root;
+    }
+
+    private void refreshProfileInformation(User user) {
+        binding.profileAddressEditText.setText(user.getAddress());
+        binding.profileEmailEditText.setText(user.getEmail());
+        binding.profilePhoneEditText.setText(user.getPhone());
+        binding.profileUsernameEditText.setText(user.getUsername());
+        binding.profileUsernameEditText.setEnabled(false);
+        binding.profileFirstNameEditText.setText(user.getFirstName());
+        binding.profileFirstNameEditText.setEnabled(false);
+        binding.profileLastNameEditText.setText(user.getLastName());
+        binding.profileLastNameEditText.setEnabled(false);
+        binding.profileOldPasswordEditText.setText(user.getPassword());
     }
 
     @Override
