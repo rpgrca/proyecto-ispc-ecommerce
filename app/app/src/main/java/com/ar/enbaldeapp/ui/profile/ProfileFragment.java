@@ -61,27 +61,14 @@ public class ProfileFragment extends Fragment {
             String oldPassword = binding.profileOldPasswordEditText.getText().toString();
             String newPassword = binding.profileNewPasswordEditText.getText().toString();
             String repeatPassword = binding.profileRepeatPasswordEditText.getText().toString();
-
-            if (! oldPassword.isEmpty()) {
-                if (! newPassword.equals(repeatPassword)) {
-                    Snackbar.make(v, "Passwords do not match.", Snackbar.LENGTH_SHORT).show();
-                    return;
-                }
-            }
-            else {
-                if (! newPassword.isEmpty() || !repeatPassword.isEmpty()) {
-                    Snackbar.make(v, "Must write old password to change", Snackbar.LENGTH_SHORT).show();
-                    return;
-                }
-            }
-
             String address = binding.profileAddressEditText.getText().toString();
             String email = binding.profileEmailEditText.getText().toString();
             String phone = binding.profilePhoneEditText.getText().toString();
 
             IApiServices apiServices = new ApiServices();
-            apiServices.modifyUser(accessToken, user, address, email, newPassword, phone, u -> {
+            apiServices.modifyUser(accessToken, user, address, email, oldPassword, newPassword, repeatPassword, phone, u -> {
                         refreshProfileInformation(u);
+                        sharedPreferencesManager.saveCurrentUser(u);
                         Snackbar.make(getView(), "Information updated", Snackbar.LENGTH_SHORT).show();
                     },
                     e -> {

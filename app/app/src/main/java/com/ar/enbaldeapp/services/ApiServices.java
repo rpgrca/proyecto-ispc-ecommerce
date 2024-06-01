@@ -22,6 +22,7 @@ import com.ar.enbaldeapp.services.requesters.PostRequester;
 import com.ar.enbaldeapp.services.requesters.PutRequester;
 import com.ar.enbaldeapp.services.wrappers.ApiResponseWrapper;
 import com.ar.enbaldeapp.services.wrappers.DjangoApiResetPasswordResponseWrapper;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -258,7 +259,54 @@ public class ApiServices implements IApiServices {
     }
 
     @Override
-    public void modifyUser(String accessToken, User user, String address, String email, String newPassword, String phone, Consumer<User> onSuccess, Consumer<ApiError> onFailure) {
+    public void modifyUser(String accessToken, User user, String address, String email, String oldPassword, String newPassword, String repeatPassword, String phone, Consumer<User> onSuccess, Consumer<ApiError> onFailure) {
+        if (user == null) {
+            onFailure.accept(new ApiError("User is null"));
+            return;
+        }
+
+        if (accessToken == null || accessToken.trim().isEmpty()) {
+            onFailure.accept(new ApiError(INVALID_TOKEN));
+            return;
+        }
+
+        if (! oldPassword.isEmpty()) {
+            if (! newPassword.equals(repeatPassword)) {
+                onFailure.accept(new ApiError("Passwords do not match."));
+                return;
+            }
+
+            if (newPassword.trim().isEmpty()) {
+                onFailure.accept(new ApiError("Password cannot be empty."));
+                return;
+            }
+        }
+        else {
+            if (!newPassword.isEmpty() || !repeatPassword.isEmpty()) {
+                onFailure.accept(new ApiError("Must write old password to change"));
+                return;
+            }
+        }
+
+        try {
+            String op = oldPassword;
+            if (op.isEmpty()) {
+                op = "Test";
+            }
+
+            new User(1, user.getLastName(), user.getFirstName(), email, address, phone  , "", user.getUsername(), op, User.Client);
+
+            String np = newPassword;
+            if (np.isEmpty()) {
+                np = "Test";
+            }
+            new User(1, user.getLastName(), user.getFirstName(), email, address, phone  , "", user.getUsername(), np, User.Client);
+        }
+        catch (Exception ex) {
+            onFailure.accept(new ApiError(ex.getMessage()));
+            return;
+        }
+
         UserModificationRequest userModificationRequest = new UserModificationRequest(address, email, phone, "", newPassword);
         ApiRequest.Builder apiRequestBuilder = new ApiRequest.Builder()
                 .addBody(userModificationRequest)
@@ -267,7 +315,7 @@ public class ApiServices implements IApiServices {
                 .addContentDisposition("telefono", phone)
                 .addContentDisposition("observaciones", "");
 
-        if (newPassword != null && !newPassword.isEmpty()) {
+        if (!newPassword.isEmpty()) {
             apiRequestBuilder.addContentDisposition("clave", newPassword);
         }
 
