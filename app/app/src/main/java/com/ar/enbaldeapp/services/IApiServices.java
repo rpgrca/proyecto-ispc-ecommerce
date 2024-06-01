@@ -21,4 +21,5 @@ public interface IApiServices {
     void sendRecoveryToken(String email, Consumer<String> onSuccess, Consumer<ApiError> onFailure);
     void resetPassword(String accessToken, String newPassword, Consumer<String> onSuccess, Consumer<ApiError> onFailure);
     void getHistory(String accessToken, User user, Consumer<List<Sale>> onSuccess, Consumer<ApiError> onFailure);
+    void modifyUser(String accessToken, User user, String address, String email, String oldPassword, String newPassword, String repeatPassword, String phone, Consumer<User> onSuccess, Consumer<ApiError> onFailure);
 }

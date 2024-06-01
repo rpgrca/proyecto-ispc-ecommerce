@@ -1,7 +1,6 @@
 package com.ar.enbaldeapp.services;
 
 import com.ar.enbaldeapp.models.Cart;
-import com.ar.enbaldeapp.models.HistoryResponse;
 import com.ar.enbaldeapp.models.PasswordResetRequest;
 import com.ar.enbaldeapp.models.PasswordResetResponse;
 import com.ar.enbaldeapp.models.ResetTokenRequest;
@@ -17,11 +16,13 @@ import com.ar.enbaldeapp.services.connection.IHttpUrlConnectionWrapper;
 import com.ar.enbaldeapp.services.requesters.AuthenticatedGetRequester;
 import com.ar.enbaldeapp.services.requesters.GetRequester;
 import com.ar.enbaldeapp.services.requesters.NoBodyRequester;
+import com.ar.enbaldeapp.services.requesters.AuthenticatedPatchFormDataRequester;
 import com.ar.enbaldeapp.services.requesters.PostFormDataRequester;
 import com.ar.enbaldeapp.services.requesters.PostRequester;
 import com.ar.enbaldeapp.services.requesters.PutRequester;
 import com.ar.enbaldeapp.services.wrappers.ApiResponseWrapper;
 import com.ar.enbaldeapp.services.wrappers.DjangoApiResetPasswordResponseWrapper;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -30,7 +31,7 @@ import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 
 public class ApiServices implements IApiServices {
-    // 10.0.2.2 es la ip de la maquina local corriendo el emulador de Android
+    // 10.0.2.2 es la ip de la maquina local corriendo el emulator de Android
     private static String ServerUrl = "http://10.0.2.2:8000";
 
     private final Callable<IHttpUrlConnectionWrapper> connectionFactory;
@@ -257,6 +258,79 @@ public class ApiServices implements IApiServices {
         }
     }
 
+    @Override
+    public void modifyUser(String accessToken, User user, String address, String email, String oldPassword, String newPassword, String repeatPassword, String phone, Consumer<User> onSuccess, Consumer<ApiError> onFailure) {
+        if (user == null) {
+            onFailure.accept(new ApiError("User is null"));
+            return;
+        }
+
+        if (accessToken == null || accessToken.trim().isEmpty()) {
+            onFailure.accept(new ApiError(INVALID_TOKEN));
+            return;
+        }
+
+        if (! oldPassword.isEmpty()) {
+            if (! newPassword.equals(repeatPassword)) {
+                onFailure.accept(new ApiError("Passwords do not match."));
+                return;
+            }
+
+            if (newPassword.trim().isEmpty()) {
+                onFailure.accept(new ApiError("Password cannot be empty."));
+                return;
+            }
+        }
+        else {
+            if (!newPassword.isEmpty() || !repeatPassword.isEmpty()) {
+                onFailure.accept(new ApiError("Must write old password to change"));
+                return;
+            }
+        }
+
+        try {
+            String op = oldPassword;
+            if (op.isEmpty()) {
+                op = "Test";
+            }
+
+            new User(1, user.getLastName(), user.getFirstName(), email, address, phone  , "", user.getUsername(), op, User.Client);
+
+            String np = newPassword;
+            if (np.isEmpty()) {
+                np = "Test";
+            }
+            new User(1, user.getLastName(), user.getFirstName(), email, address, phone  , "", user.getUsername(), np, User.Client);
+        }
+        catch (Exception ex) {
+            onFailure.accept(new ApiError(ex.getMessage()));
+            return;
+        }
+
+        UserModificationRequest userModificationRequest = new UserModificationRequest(address, email, phone, "", newPassword);
+        ApiRequest.Builder apiRequestBuilder = new ApiRequest.Builder()
+                .addBody(userModificationRequest)
+                .addContentDisposition("direccion", address)
+                .addContentDisposition("email", email)
+                .addContentDisposition("telefono", phone)
+                .addContentDisposition("observaciones", "");
+
+        if (!newPassword.isEmpty()) {
+            apiRequestBuilder.addContentDisposition("clave", newPassword);
+        }
+
+        ApiRequest request = apiRequestBuilder.buildAsUrlEncodedData();
+        IServerConnector<User> connector = getModifiedUserFrom(getUrl() + "/api/usuarios/" + user.getId() + "/", request, accessToken);
+
+        if (connector.connect()) {
+            User modifiedUser = connector.getResponse().castResponseAs(User.class);
+            onSuccess.accept(modifiedUser);
+        }
+        else {
+            onFailure.accept(connector.getError());
+        }
+    }
+
     protected IServerConnector<Selection> getModifiedCartFrom(String url, ApiRequest request) {
         return new ServerConnector<>(url, new PutRequester<>(request, new ApiResponseWrapper()), this.connectionFactory);
     }
@@ -291,5 +365,9 @@ public class ApiServices implements IApiServices {
 
     protected IServerConnector<Sale> getHistoryFrom(String url, String accessToken) {
         return new ServerConnector<>(url, new AuthenticatedGetRequester<>(new ApiResponseWrapper(), accessToken), this.connectionFactory);
+    }
+
+    protected IServerConnector<User> getModifiedUserFrom(String url, ApiRequest request, String accessToken) {
+        return new ServerConnector<>(url, new AuthenticatedPatchFormDataRequester<>(request, new ApiResponseWrapper(), accessToken), this.connectionFactory);
     }
 }
