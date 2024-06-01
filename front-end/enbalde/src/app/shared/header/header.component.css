@@ -10,12 +10,12 @@ header {
 .nav-link {
   transition: .1s;
   border-radius: 10px 0px;
-  color: white;
+  color: #850F1B;
 }
 
 .nav-link:hover {
   transition: .5s;
-  color: rgba(245,245,220,1) !important;
+  color: #f5f5dc !important;
   background-color: #EC5564;
   border-radius: 15px;
 }

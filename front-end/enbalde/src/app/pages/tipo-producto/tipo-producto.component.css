@@ -36,11 +36,11 @@ input[type=text] {
   display: flex;
   flex-direction: column;
   text-align: center;
-  color: #EC5564;
+  color: #D8182B;
 }
 
 .agregar_title{
   font-style: italic;
   font-family: "Poetsen One", sans-serif;
-  color: #EC5564;
+  color: #D8182B;
 }

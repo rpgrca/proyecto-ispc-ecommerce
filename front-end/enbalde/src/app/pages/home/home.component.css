@@ -34,7 +34,7 @@ div [class^="col-"] {
   font-size: 1.5rem;
   font-family: "Poetsen One", sans-serif;
   transition: 1s;
-  color: #EC5564;
+  color: #D8182B;
 }
 
 .card-title i:hover {
@@ -50,7 +50,7 @@ div [class^="col-"] {
 .card-text {
   font-size: 1.05rem;
   padding: 5%;
-  color: #EC5564;
+  color: #D8182B;
   font-weight: 600;
 }
 
@@ -261,7 +261,7 @@ div [class^="col-"] {
 }
 
 .user_name{
-  color: #EC5564;
+  color: #D8182B;
   font-size: 1.5rem;
   margin: auto;
 }

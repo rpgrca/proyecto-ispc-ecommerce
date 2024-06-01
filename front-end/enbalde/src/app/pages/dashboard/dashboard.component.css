@@ -36,13 +36,13 @@ input[type=text], input[type=number], input[type=file], #tipo {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #EC5564;
+  color: #D8182B;
 }
 
 .agregar_title{
   font-style: italic;
   font-family: "Poetsen One", sans-serif;
-  color: #EC5564;
+  color: #D8182B;
   margin-bottom: 5%;
   font-size: 2rem;
 }

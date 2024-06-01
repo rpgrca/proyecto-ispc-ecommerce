@@ -45,7 +45,7 @@ body {
 p {
   text-align: center;
   padding: .5%;
-  color: #EC5564;
+  color: #D8182B;
   font-size: 1.2em;
 }
 
@@ -97,13 +97,13 @@ input[type=password] {
 }
 
 .from_title{
-  color: #EC5564;
+  color: #D8182B;
   font-style: italic;
   text-align: center;
   font-family: "Poetsen One", sans-serif;
 }
 
 .form_text{
-  color: #EC5564;
+  color: #D8182B;
   font-size: 1.5rem;
 }

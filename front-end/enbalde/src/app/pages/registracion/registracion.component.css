@@ -15,7 +15,7 @@ body {
   margin: auto;
   border-radius: 0.5rem;
   background-color: rgba(245,245,220,1);
-  color: #EC5564;
+  color: #D8182B;
   margin-top: 0.5rem ;
   font-size: 1.3rem;
 }
@@ -74,7 +74,7 @@ p {
 }
 
 a{
-  color: #EC5564;
+  color: #D8182B;
   font-size: 1.5rem;
   text-decoration: none;
 }
@@ -82,6 +82,6 @@ a{
 a:hover{
   border-radius: 15px;
   padding: 1.2rem;
-  background-color: #EC5564;
+  background-color: #D8182B;
   color: rgba(245,245,220,1);
 }
