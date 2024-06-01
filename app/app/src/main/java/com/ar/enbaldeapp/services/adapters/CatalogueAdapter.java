@@ -58,6 +58,13 @@ public class CatalogueAdapter extends RecyclerView.Adapter<CatalogueAdapter.View
                 onProductClickListener.onClick(position, product);
             }
         });
+
+        holder.productPriceTextView.setText("$" + product.getPrice());
+        holder.productPriceTextView.setOnClickListener(v -> {
+            if (onProductClickListener != null) {
+                onProductClickListener.onClick(position, product);;
+            }
+        });
     }
 
     public interface OnClickListener {
@@ -77,12 +84,14 @@ public class CatalogueAdapter extends RecyclerView.Adapter<CatalogueAdapter.View
         ImageView productImageView;
         TextView productNameTextView;
         TextView productDescriptionTextView;
+        TextView productPriceTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             productImageView = itemView.findViewById(R.id.productImageView);
             productNameTextView = itemView.findViewById(R.id.productNameTextView);
             productDescriptionTextView = itemView.findViewById(R.id.productDescriptionTextView);
+            productPriceTextView = itemView.findViewById(R.id.productPriceTextView);
         }
 
         public void bindContent(Product product) {
