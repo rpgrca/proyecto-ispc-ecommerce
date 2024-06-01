@@ -53,5 +53,6 @@ body {
 
 .dropdown-menu{
   text-align: center;
-  background-color: rgba(245, 245, 220, 1);;
+  /* background-color: rgba(245, 245, 220, 1); */
+  background: #81b4db !important;
 }

@@ -10,7 +10,7 @@ header {
 .nav-link {
   transition: .1s;
   border-radius: 10px 0px;
-  color: #EC5564;
+  color: white;
 }
 
 .nav-link:hover {
@@ -25,4 +25,9 @@ header {
   font-size: 1.3rem;
   font-weight: bold;
   margin: 0.5em;
+}
+
+.form-control{
+  box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
+  #9e9ea1;
 }

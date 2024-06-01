@@ -1,6 +1,6 @@
 footer {
     background: #81b4db !important;
-    color: #EC5564;
+    color: white;
 }
 
 .container {
@@ -12,7 +12,7 @@ h5 {
 }
 
 a{
-    color: #EC5564;
+    color: white;
     text-decoration: none;
     font-weight: bold;
 }

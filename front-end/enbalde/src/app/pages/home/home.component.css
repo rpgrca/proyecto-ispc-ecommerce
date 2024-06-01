@@ -230,14 +230,14 @@ div [class^="col-"] {
 .title {
   font-family: "Poetsen One", sans-serif;
   color: rgba(245,245,220,1);
-  font-size: 7.5rem;
+  font-size: 5rem;
   font-style: italic;
   overflow-wrap: break-word;
   text-align: center;
 }
 
 .description_paraghrap {
-  font-size: 2rem;
+  font-size: 1.7rem;
   color: rgba(245,245,220,1);
   font-style: italic;
 }
@@ -267,6 +267,5 @@ div [class^="col-"] {
 }
 
 .profile-image{
-  width: 150px;
   border-radius: 15px 0px 0px 15px;
 }
