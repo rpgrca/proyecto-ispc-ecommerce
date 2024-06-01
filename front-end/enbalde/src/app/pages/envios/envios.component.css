@@ -5,3 +5,23 @@
 .ng-invalid:not(form).ng-touched {
   border-bottom: 5px solid #a94442;
 }
+
+.title{
+  font-size: 3rem;
+  font-style: italic;
+  font-family: "Poetsen One", sans-serif;
+  color: rgba(245,245,220,1);
+}
+
+.agregar {
+  background-color: rgba(245, 245, 220, 1);
+  border-radius: 15px;
+  padding: 2%;
+  display: flex;
+}
+
+.agregar_title{
+  font-style: italic;
+  font-family: "Poetsen One", sans-serif;
+  color: #EC5564;
+}

@@ -8,17 +8,21 @@ header {
 }
 
 .nav-link {
-  color: #160f75 !important;
-}
-
-.nav-item {
-  font-size: large;
-  font-weight: bold;
-  margin: 0.5em;
+  transition: .1s;
+  border-radius: 10px 0px;
+  color: #EC5564;
 }
 
 .nav-link:hover {
-  transition: .1s;
-  color: #e9e9eb !important;
-  background-color: #160f75;
+  transition: .5s;
+  color: rgba(245,245,220,1) !important;
+  background-color: #EC5564;
+  border-radius: 15px;
+}
+
+.nav-item {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 0.5em;
 }
