@@ -51,6 +51,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     private String getSaleName(Sale sale) {
         String description = sale.getSelections().stream().map(p -> p.getProduct().getName()).collect(Collectors.joining(","));
+        if (description.isEmpty()) {
+            description = "Artículos varios";
+        }
+
         return description;
     }
 
@@ -85,7 +89,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
         public void bindContent(Sale sale) {
             IApiServices apiServices = new ApiServices();
-            Picasso.with(activityContext).load(apiServices.getUrl() + sale.getSelections().get(0).getProduct().getImage()).into(historyProductImageView);
+            if (! sale.getSelections().isEmpty()) {
+                Picasso.with(activityContext).load(apiServices.getUrl() + sale.getSelections().get(0).getProduct().getImage()).into(historyProductImageView);
+            }
         }
     }
 }
