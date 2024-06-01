@@ -18,13 +18,13 @@ html, body {
 }
 
 .table-header{
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: #EC5564;
 }
 
 .table-body{
+  padding: 2%;
   background-color: #e9e9eb;
-  font-size: 1.2rem;
   color: rgb(17, 100, 17);
 }
 
@@ -34,3 +34,4 @@ html, body {
   font-family: "Poetsen One", sans-serif;
   color: rgba(245,245,220,1);
 }
+

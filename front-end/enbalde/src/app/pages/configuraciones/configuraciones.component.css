@@ -15,7 +15,11 @@
 }
 
 .table {
+  word-wrap: break-word;
   font-size: 1.1rem;
+  margin: auto;
+  min-width: 400px;
+  max-width: 90%;
 }
 
 .agregar {

@@ -7,12 +7,14 @@
 </div>
 
 <div class="container table">
-  <ng-container *ngIf="tipoProductos.length > 0">
-    <div class="row table-header-color">
-      <div class="col-10 col-lg-6 col-md-6 col-xl-6">Nombre</div>
-    </div>
-    <app-item-tipo-producto *ngFor="let tipoProducto of tipoProductos; let odd = odd" [odd]="odd" (refrescar)="refrescar($event)" [tipoProducto]="tipoProducto"></app-item-tipo-producto>
-  </ng-container>
+  <div class="col-10 mx-auto">
+    <ng-container *ngIf="tipoProductos.length > 0">
+      <div class="row table-header-color">
+        <div class="col-10 col-lg-6 col-md-6 col-xl-6">Nombre</div>
+      </div>
+      <app-item-tipo-producto *ngFor="let tipoProducto of tipoProductos; let odd = odd" [odd]="odd" (refrescar)="refrescar($event)" [tipoProducto]="tipoProducto"></app-item-tipo-producto>
+    </ng-container>
+  </div>
   <ng-container *ngIf="tipoProductos.length == 0">
     <p>No hay tipos de artículos para mostrar.</p>
   </ng-container>

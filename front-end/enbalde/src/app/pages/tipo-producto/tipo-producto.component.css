@@ -27,9 +27,16 @@ input[type=text] {
 }
 
 .agregar {
+  min-width: 400px;
+  max-width: 60%;
+  margin: 2% auto;
   background-color: rgba(245, 245, 220, 1);
   border-radius: 15px;
   padding: 2%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: #EC5564;
 }
 
 .agregar_title{
