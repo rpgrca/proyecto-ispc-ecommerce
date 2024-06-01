@@ -34,6 +34,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private Cart currentCart;
     private String accessToken;
     private EditText editText;
+    private TextView productDetailSubTotalTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,9 @@ public class ProductDetailActivity extends AppCompatActivity {
         ((TextView)this.findViewById(R.id.textViewDetailDescription)).setText(product.getDescription());
 
         editText = this.findViewById(R.id.editNumberDetailAmount);
+        productDetailSubTotalTextView = this.findViewById(R.id.productDetailSubTotalTextView);
         initializeCurrentAmount();
+        initializeCurrentCost();
 
         Button plusButton = this.findViewById(R.id.buttonDetailAdd);
         Button minusButton = this.findViewById(R.id.buttonDetailMinus);
@@ -63,8 +66,8 @@ public class ProductDetailActivity extends AppCompatActivity {
                 Intent result = new Intent();
                 ApiServices apiServices = new ApiServices();
                 apiServices.addToCart(accessToken, currentCart, product, 1,
-                        c -> {
-                            editText.setText(String.valueOf(c.getQuantity()));
+                        s -> {
+                            editText.setText(String.valueOf(s.getQuantity()));
                             result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product added correctly");
                         },
                         e -> {
@@ -96,14 +99,31 @@ public class ProductDetailActivity extends AppCompatActivity {
         }
     }
 
+    private void initializeCurrentCost() {
+        Selection selection = getCurrentSelection();
+        if (selection != null) {
+            double subTotal = selection.getProduct().getPrice() * selection.getQuantity();
+            productDetailSubTotalTextView.setText(String.valueOf(subTotal));
+        }
+    }
+
     private void initializeCurrentAmount() {
-        List<Selection> selections = currentCart.getSelections().stream().filter(p -> p.getId() == product.getId()).collect(Collectors.toList());
+        Selection selection = getCurrentSelection();
         int amount = 0;
 
-        if (! selections.isEmpty()) {
-            amount = selections.get(0).getQuantity();
+        if (selection != null) {
+            amount = selection.getQuantity();
         }
 
         editText.setText(String.valueOf(amount));
+    }
+
+    private Selection getCurrentSelection() {
+        List<Selection> selections = currentCart.getSelections().stream().filter(p -> p.getProduct().getId() == product.getId()).collect(Collectors.toList());
+        if (selections.isEmpty()) {
+            return null;
+        }
+
+        return selections.get(0);
     }
 }
