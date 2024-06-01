@@ -54,15 +54,16 @@ public class ProductDetailActivity extends AppCompatActivity {
         ((TextView)this.findViewById(R.id.textViewDetailName)).setText(product.getName());
         ((TextView)this.findViewById(R.id.textViewDetailDescription)).setText(product.getDescription());
 
-        editText = this.findViewById(R.id.editNumberDetailAmount);
-        productDetailSubTotalTextView = this.findViewById(R.id.productDetailSubTotalTextView);
-        initializeCurrentAmount();
-        initializeCurrentCost();
-
         Button plusButton = this.findViewById(R.id.buttonDetailAdd);
         Button minusButton = this.findViewById(R.id.buttonDetailMinus);
 
+        editText = this.findViewById(R.id.editNumberDetailAmount);
+        productDetailSubTotalTextView = this.findViewById(R.id.productDetailSubTotalTextView);
+
         if (currentUser != null) {
+            initializeCurrentAmount();
+            initializeCurrentCost();
+
             plusButton.setOnClickListener(v -> {
                 Intent result = new Intent();
                 ApiServices apiServices = new ApiServices();
@@ -96,6 +97,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             });
         }
         else {
+            initializePrice(product);
             editText.setVisibility(View.GONE);
             plusButton.setVisibility(View.GONE);
             minusButton.setVisibility(View.GONE);
@@ -112,6 +114,11 @@ public class ProductDetailActivity extends AppCompatActivity {
         else {
             productDetailSubTotalTextView.setText("");
         }
+    }
+
+    private void initializePrice(Product product) {
+        DecimalFormat df = new DecimalFormat("#.00");
+        productDetailSubTotalTextView.setText("$ " + df.format(product.getPrice()));
     }
 
     private void updateCurrentCost(Selection selection) {
