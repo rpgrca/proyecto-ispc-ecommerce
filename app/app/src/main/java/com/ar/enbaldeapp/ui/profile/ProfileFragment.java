@@ -36,7 +36,7 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final Button logoutButton = binding.logoutButton;
+        final Button logoutButton = binding.profileLogoutButton;
         logoutButton.setOnClickListener(this::onLogout);
 
         return root;
