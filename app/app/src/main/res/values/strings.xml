@@ -62,4 +62,7 @@
     <string name="my_orders">Mis ordenes</string>
     <string name="notification">Notificaciones</string>
     <string name="save">Guardar</string>
+    <string name="content_logo">Logo</string>
+    <string name="forgot_password2">Olvidé mi clave</string>
+    
 </resources>
