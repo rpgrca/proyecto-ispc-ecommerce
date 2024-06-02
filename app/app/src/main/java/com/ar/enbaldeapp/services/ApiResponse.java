@@ -32,4 +32,8 @@ public class ApiResponse<T> {
     public String getMessage() { return message; }
 
     public int getStatus() { return this.status; }
+
+    public Object getRawData() {
+        return this.data;
+    }
 }
