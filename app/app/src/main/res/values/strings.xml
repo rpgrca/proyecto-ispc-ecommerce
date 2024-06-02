@@ -73,6 +73,9 @@
     <string name="recoverEmail">Recuperar Email</string>
     <string name="recoverToken">Recuperar Token</string>
     <string name="recoverPassword">Recuperar contraseña</string>
+    <string name="recover_password_hint">Enter your new password</string>
+    <string name="recover_email_hint">Enter your email address</string>
+    <string name="recovery_token_hint">Enter your recovery token</string>
 
 
 
