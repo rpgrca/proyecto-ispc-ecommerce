@@ -1,6 +1,7 @@
 package com.ar.enbaldeapp.services;
 
 import com.ar.enbaldeapp.models.Cart;
+import com.ar.enbaldeapp.models.PaymentType;
 import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.models.Sale;
 import com.ar.enbaldeapp.models.Selection;
@@ -24,4 +25,6 @@ public interface IApiServices {
     void getHistory(String accessToken, User user, Consumer<List<Sale>> onSuccess, Consumer<ApiError> onFailure);
     void modifyUser(String accessToken, User user, String address, String email, String oldPassword, String newPassword, String repeatPassword, String phone, Consumer<User> onSuccess, Consumer<ApiError> onFailure);
     void getShippingMethods(String accessToken, Consumer<List<ShippingMethod>> onSuccess, Consumer<ApiError> onFailure);
+    void checkout(String accessToken, Cart cart, ShippingMethod shippingMethod, PaymentType paymentType, String transaction, Consumer<Sale> onSuccess, Consumer<ApiError> onFailure);
+    void replaceCart(String accessToken, User user, Consumer<Long> onSuccess, Consumer<ApiError> onFailure);
 }

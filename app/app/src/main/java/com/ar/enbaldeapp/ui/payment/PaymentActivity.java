@@ -3,11 +3,15 @@ package com.ar.enbaldeapp.ui.payment;
 import static com.ar.enbaldeapp.ui.IntentConstants.ACCESS_TOKEN_FOR_PAYMENT;
 import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_CART_FOR_PAYMENT;
 import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_USER_FOR_PAYMENT;
+import static com.ar.enbaldeapp.ui.IntentConstants.PAYMENT_MESSAGE_FOR_CART;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -15,8 +19,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.models.Cart;
+import com.ar.enbaldeapp.models.PaymentType;
 import com.ar.enbaldeapp.models.ShippingMethod;
 import com.ar.enbaldeapp.models.User;
+import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.ar.enbaldeapp.services.IApiServices;
 import com.ar.enbaldeapp.services.adapters.ShippingMethodSpinnerAdapter;
@@ -28,6 +34,7 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
     private Cart currentCart;
     private ShippingMethod shippingMethod;
     private Spinner spinner;
+    private PaymentType paymentType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,10 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
         currentUser = (User)intent.getSerializableExtra(CURRENT_USER_FOR_PAYMENT);
         currentCart = (Cart)intent.getSerializableExtra(CURRENT_CART_FOR_PAYMENT);
         accessToken = intent.getStringExtra(ACCESS_TOKEN_FOR_PAYMENT);
+        paymentType = PaymentType.CASH;
+
+        RadioButton radioButton = this.findViewById(R.id.cashRadioButton);
+        radioButton.setSelected(true);
 
         TextView totalTextView = this.findViewById(R.id.paymentTotalTextView);
         totalTextView.setText("Total");
@@ -55,6 +66,24 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
                 e -> {
                     Snackbar.make(parentLayout, "Could not retrieve shipping methods: " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
                 });
+
+        Button paymentButton = this.findViewById(R.id.paymentButton);
+        paymentButton.setOnClickListener(v -> apiServices.checkout(accessToken, currentCart, shippingMethod, paymentType, "",
+                s -> {
+                    apiServices.replaceCart(accessToken, currentUser, i -> {
+                        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getApplicationContext());
+                        sharedPreferencesManager.saveCurrentCartId(i);
+
+                        Intent result = new Intent();
+                        result.putExtra(PAYMENT_MESSAGE_FOR_CART, "Cart bought successfully");
+                        setResult(Activity.RESULT_OK, result);
+                    },
+                    ee -> {
+                        Snackbar.make(parentLayout, "Could not get a new cart: " + ee.getMessage(), Snackbar.LENGTH_SHORT).show();
+                    });
+                },
+                e -> Snackbar.make(parentLayout, "Could not finish sale: " + e.getMessage(), Snackbar.LENGTH_SHORT).show())
+        );
     }
 
     private void refreshTotal() {

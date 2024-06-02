@@ -7,12 +7,12 @@ import com.ar.enbaldeapp.services.wrappers.IResponseWrapper;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-public class AuthenticatedPatchFormDataRequester<T> extends Requester<T> {
+public class AuthenticatedPostFormDataRequester<T> extends Requester<T> {
     private final ApiRequest request;
     private final String accessToken;
     private final IResponseWrapper responseWrapper;
 
-    public AuthenticatedPatchFormDataRequester(ApiRequest request, IResponseWrapper responseWrapper, String accessToken) {
+    public AuthenticatedPostFormDataRequester(ApiRequest request, IResponseWrapper responseWrapper, String accessToken) {
         this.request = request;
         this.accessToken = accessToken;
         this.responseWrapper = responseWrapper;
@@ -22,7 +22,7 @@ public class AuthenticatedPatchFormDataRequester<T> extends Requester<T> {
     public void sendRequestTo(IHttpUrlConnectionWrapper connection) throws IOException {
         connection.setDoOutput(true);
         connection.setDoInput(true);
-        connection.setRequestMethod("PATCH");
+        connection.setRequestMethod("POST");
         connection.setRequestProperty("Accept", "application/json");
         connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + this.request.getBoundary());
         connection.setRequestProperty("Authorization", "Bearer " + accessToken);

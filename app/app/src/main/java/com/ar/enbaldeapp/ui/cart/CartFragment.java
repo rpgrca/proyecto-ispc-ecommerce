@@ -3,6 +3,8 @@ package com.ar.enbaldeapp.ui.cart;
 import static com.ar.enbaldeapp.ui.IntentConstants.ACCESS_TOKEN_FOR_PAYMENT;
 import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_CART_FOR_PAYMENT;
 import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_USER_FOR_PAYMENT;
+import static com.ar.enbaldeapp.ui.IntentConstants.DETAIL_MESSAGE_FOR_CATALOGUE;
+import static com.ar.enbaldeapp.ui.IntentConstants.PAYMENT_MESSAGE_FOR_CART;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -28,6 +30,7 @@ import com.ar.enbaldeapp.services.ApiServices;
 import com.ar.enbaldeapp.services.IApiServices;
 import com.ar.enbaldeapp.services.adapters.CartAdapter;
 import com.ar.enbaldeapp.ui.payment.PaymentActivity;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
@@ -39,8 +42,8 @@ public class CartFragment extends Fragment {
             new ActivityResultContracts.StartActivityForResult(),
             o -> {
                 if (o.getResultCode() == Activity.RESULT_OK) {
-
-
+                    String message = o.getData().getStringExtra(PAYMENT_MESSAGE_FOR_CART);
+                    Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).show();
                 }
             });
 
