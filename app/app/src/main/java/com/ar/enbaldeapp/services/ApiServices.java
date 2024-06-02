@@ -3,17 +3,20 @@ package com.ar.enbaldeapp.services;
 import com.ar.enbaldeapp.models.Cart;
 import com.ar.enbaldeapp.models.PasswordResetRequest;
 import com.ar.enbaldeapp.models.PasswordResetResponse;
+import com.ar.enbaldeapp.models.PaymentType;
 import com.ar.enbaldeapp.models.ResetTokenRequest;
 import com.ar.enbaldeapp.models.ResetTokenResponse;
 import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.models.Sale;
 import com.ar.enbaldeapp.models.Selection;
+import com.ar.enbaldeapp.models.ShippingMethod;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.UserToken;
 import com.ar.enbaldeapp.models.utilities.HttpUtilities;
 import com.ar.enbaldeapp.services.connection.HttpUrlConnectionWrapper;
 import com.ar.enbaldeapp.services.connection.IHttpUrlConnectionWrapper;
 import com.ar.enbaldeapp.services.requesters.AuthenticatedGetRequester;
+import com.ar.enbaldeapp.services.requesters.AuthenticatedPostFormDataRequester;
 import com.ar.enbaldeapp.services.requesters.GetRequester;
 import com.ar.enbaldeapp.services.requesters.NoBodyRequester;
 import com.ar.enbaldeapp.services.requesters.AuthenticatedPatchFormDataRequester;
@@ -331,6 +334,71 @@ public class ApiServices implements IApiServices {
         }
     }
 
+    @Override
+    public void getShippingMethods(String accessToken, Consumer<List<ShippingMethod>> onSuccess, Consumer<ApiError> onFailure) {
+        if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
+        if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
+
+        IServerConnector<ShippingMethod> connector = getShippingMethodsFrom(getUrl() + "/api/envios/", accessToken);
+        if (connector.connect()) {
+            Type listType = new TypeToken<List<ShippingMethod>>() {}.getType();
+            List<ShippingMethod> shippingMethods = connector.getResponse().castResponseAsListOf(listType);
+            onSuccess.accept(shippingMethods);
+        }
+        else {
+            onFailure.accept(connector.getError());
+        }
+    }
+
+    @Override
+    public void replaceCart(String accessToken, User user, Consumer<Long> onSuccess, Consumer<ApiError> onFailure) {
+        if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
+        if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
+
+        ApiRequest request = new ApiRequest.Builder()
+                .addContentDisposition("usuario", user.getId())
+                .buildAsUrlEncodedData();
+
+        IServerConnector<Long> connector = getNewCartFrom(getUrl() + "/api/carritos/", request, accessToken);
+        if (connector.connect()) {
+            long cartId = connector.getResponse().castResponseAs(Long.class);
+            onSuccess.accept(cartId);
+        }
+        else {
+            onFailure.accept(connector.getError());
+        }
+    }
+
+    @Override
+    public void checkout(String accessToken, Cart cart, ShippingMethod shippingMethod, PaymentType paymentType, String transaction, Consumer<Sale> onSuccess, Consumer<ApiError> onFailure) {
+        if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
+        if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
+
+        ApiRequest request = new ApiRequest.Builder()
+                .addContentDisposition("carrito", cart.getId())
+                .addContentDisposition("envio", shippingMethod.getId())
+                .addContentDisposition("pago", paymentType.ordinal())
+                .addContentDisposition("transaccion", transaction)
+                .buildAsUrlEncodedData();
+
+        IServerConnector<Sale> connector = getSaleFrom(getUrl() + "/api/ventas/", request, accessToken);
+        if (connector.connect()) {
+            Sale sale = connector.getResponse().castResponseAs(Sale.class);
+            onSuccess.accept(sale);
+        }
+        else {
+            onFailure.accept(connector.getError());
+        }
+    }
+
+    private IServerConnector<Sale> getSaleFrom(String url, ApiRequest request, String accessToken) {
+        return new ServerConnector<>(url, new AuthenticatedPostFormDataRequester<>(request, new ApiResponseWrapper(), accessToken), this.connectionFactory);
+    }
+
+    private IServerConnector<ShippingMethod> getShippingMethodsFrom(String url, String accessToken) {
+        return new ServerConnector<>(url, new AuthenticatedGetRequester<>(new ApiResponseWrapper(), accessToken), this.connectionFactory);
+    }
+
     protected IServerConnector<Selection> getModifiedCartFrom(String url, ApiRequest request) {
         return new ServerConnector<>(url, new PutRequester<>(request, new ApiResponseWrapper()), this.connectionFactory);
     }
@@ -369,5 +437,9 @@ public class ApiServices implements IApiServices {
 
     protected IServerConnector<User> getModifiedUserFrom(String url, ApiRequest request, String accessToken) {
         return new ServerConnector<>(url, new AuthenticatedPatchFormDataRequester<>(request, new ApiResponseWrapper(), accessToken), this.connectionFactory);
+    }
+
+    private IServerConnector<Long> getNewCartFrom(String url, ApiRequest request, String accessToken) {
+        return new ServerConnector<>(url, new AuthenticatedPostFormDataRequester<>(request, new ApiResponseWrapper(), accessToken), this.connectionFactory);
     }
 }

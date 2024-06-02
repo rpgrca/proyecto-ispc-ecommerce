@@ -72,6 +72,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                             editText.setText(String.valueOf(s.getQuantity()));
                             updateCurrentCost(s);
                             result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product added correctly");
+                            setResult(Activity.RESULT_OK, result);
                         },
                         e -> {
                             result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, e.getMessage());

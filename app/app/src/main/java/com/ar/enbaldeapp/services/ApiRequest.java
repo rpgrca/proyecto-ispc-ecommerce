@@ -67,6 +67,17 @@ public class ApiRequest {
             return this;
         }
 
+        public Builder addContentDisposition(String key, long value) {
+            addSeparator();
+            stringBuilder
+                    .append("Content-Disposition: form-data; name=" + "\"")
+                    .append(key)
+                    .append("\"\r\n\r\n")
+                    .append(value)
+                    .append("\r\n");
+            return this;
+        }
+
         private void addSeparator() {
             stringBuilder
                     .append("--")
