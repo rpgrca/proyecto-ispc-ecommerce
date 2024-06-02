@@ -64,5 +64,15 @@
     <string name="save">Guardar</string>
     <string name="content_logo">Logo</string>
     <string name="forgot_password2">Olvidé mi clave</string>
-    
+    <string name="money">$200</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="loading1">cargando</string>
+    <string name="loading2">Cargando</string>
+    <string name="cantidad">1</string>
+    <string name="icecream">helado</string>
+    <string name="fondo">fondo</string>
+
+
+
 </resources>
