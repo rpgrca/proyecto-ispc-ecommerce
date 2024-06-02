@@ -64,5 +64,17 @@
     <string name="save">Guardar</string>
     <string name="content_logo">Logo</string>
     <string name="forgot_password2">Olvidé mi clave</string>
-    
+    <string name="new_password">Nueva Clave</string>
+    <string name="send_me_a_token">Send me a token</string>
+    <string name="token_and_new_password">"A continuación ingrese el token que recibió por correo y la nueva clave que desea usar."</string>
+    <string name="token">Token</string>
+    <string name="content_image2">Content Imagen</string>
+    <string name="recoverToken_contentDescription">Recover Token</string>
+    <string name="recoverEmail">Recuperar Email</string>
+    <string name="recoverToken">Recuperar Token</string>
+    <string name="recoverPassword">Recuperar contraseña</string>
+
+
+
+
 </resources>
