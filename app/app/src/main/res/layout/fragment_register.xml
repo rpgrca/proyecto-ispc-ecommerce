@@ -44,7 +44,7 @@
         <EditText
             android:id="@+id/registerFirstNameEditText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:minHeight="45dp"
             android:paddingLeft="20dp"
             android:layout_marginStart="24dp"
@@ -62,7 +62,7 @@
         <EditText
             android:id="@+id/registerLastNameEditText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:minHeight="45dp"
             android:paddingLeft="20dp"
             android:layout_marginStart="24dp"
@@ -80,7 +80,7 @@
         <EditText
             android:id="@+id/registerEmailEditText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:minHeight="45dp"
             android:paddingLeft="20dp"
             android:layout_marginStart="24dp"
@@ -98,7 +98,7 @@
         <EditText
             android:id="@+id/registerAddressEditText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:minHeight="45dp"
             android:paddingLeft="20dp"
             android:layout_marginStart="24dp"
@@ -116,7 +116,7 @@
         <EditText
             android:id="@+id/registerUsernameEditText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:minHeight="45dp"
             android:paddingLeft="20dp"
             android:layout_marginStart="24dp"
@@ -134,7 +134,7 @@
         <EditText
             android:id="@+id/registerPasswordEditText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:minHeight="45dp"
             android:paddingLeft="20dp"
             android:layout_marginStart="24dp"
