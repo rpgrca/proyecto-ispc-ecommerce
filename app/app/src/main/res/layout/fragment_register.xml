@@ -201,7 +201,7 @@
         <TextView
             android:id="@+id/registrationAlreadyAccountTextView"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
             android:layout_marginBottom="45dp"
             android:textColor="@color/blue"
