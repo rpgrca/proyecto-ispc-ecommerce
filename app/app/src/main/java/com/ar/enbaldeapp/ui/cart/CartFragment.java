@@ -43,6 +43,8 @@ public class CartFragment extends Fragment {
             new ActivityResultContracts.StartActivityForResult(),
             o -> {
                 if (o.getResultCode() == Activity.RESULT_OK) {
+                    updateCart(getView());
+
                     String message = o.getData().getStringExtra(PAYMENT_MESSAGE_FOR_CART);
                     Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).show();
                 }
@@ -53,10 +55,17 @@ public class CartFragment extends Fragment {
         binding = FragmentCartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        updateCart(root);
+
+        return root;
+    }
+
+    private void updateCart(View root) {
         SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getContext());
         long cartId = sharedPreferencesManager.getCurrentCartId();
         User user = sharedPreferencesManager.loadCurrentUser();
         String accessToken = sharedPreferencesManager.getAccessToken();
+
         AtomicReference<Cart> cart = new AtomicReference<>();
 
         IApiServices apiServices = new ApiServices();
@@ -97,6 +106,5 @@ public class CartFragment extends Fragment {
             button.setVisibility(View.GONE);
         }
 
-        return root;
     }
 }
