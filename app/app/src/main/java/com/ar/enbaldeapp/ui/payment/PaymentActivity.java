@@ -3,7 +3,6 @@ package com.ar.enbaldeapp.ui.payment;
 import static com.ar.enbaldeapp.ui.IntentConstants.ACCESS_TOKEN_FOR_PAYMENT;
 import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_CART_FOR_PAYMENT;
 import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_USER_FOR_PAYMENT;
-import static com.ar.enbaldeapp.ui.IntentConstants.PRODUCT_FOR_DETAIL;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,36 +15,37 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.models.Cart;
-import com.ar.enbaldeapp.models.Product;
-import com.ar.enbaldeapp.models.Selection;
 import com.ar.enbaldeapp.models.ShippingMethod;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.ar.enbaldeapp.services.IApiServices;
 import com.ar.enbaldeapp.services.adapters.ShippingMethodSpinnerAdapter;
+import com.google.android.material.snackbar.Snackbar;
 
 public class PaymentActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private Product product;
     private String accessToken;
     private User currentUser;
     private Cart currentCart;
     private ShippingMethod shippingMethod;
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
+
         Intent intent = getIntent();
-        product = (Product)intent.getSerializableExtra(PRODUCT_FOR_DETAIL);
         currentUser = (User)intent.getSerializableExtra(CURRENT_USER_FOR_PAYMENT);
         currentCart = (Cart)intent.getSerializableExtra(CURRENT_CART_FOR_PAYMENT);
         accessToken = intent.getStringExtra(ACCESS_TOKEN_FOR_PAYMENT);
 
-        TextView textView = this.findViewById(R.id.paymentTotalTextView);
-        textView.setText("Total");
+        TextView totalTextView = this.findViewById(R.id.paymentTotalTextView);
+        totalTextView.setText("Total");
 
-        Spinner spinner = this.findViewById(R.id.paymentShipmentSpinner);
+        spinner = this.findViewById(R.id.paymentShipmentSpinner);
         spinner.setOnItemSelectedListener(this);
+
+        View parentLayout = findViewById(android.R.id.content);
 
         IApiServices apiServices = new ApiServices();
         apiServices.getShippingMethods(accessToken, s -> {
@@ -53,7 +53,7 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
                     spinner.setAdapter(adapter);
                 },
                 e -> {
-
+                    Snackbar.make(parentLayout, "Could not retrieve shipping methods: " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
                 });
     }
 
