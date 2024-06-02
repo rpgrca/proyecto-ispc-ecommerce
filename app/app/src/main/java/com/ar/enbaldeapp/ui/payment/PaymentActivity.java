@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -45,7 +46,7 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
         currentUser = (User)intent.getSerializableExtra(CURRENT_USER_FOR_PAYMENT);
         currentCart = (Cart)intent.getSerializableExtra(CURRENT_CART_FOR_PAYMENT);
         accessToken = intent.getStringExtra(ACCESS_TOKEN_FOR_PAYMENT);
-        paymentType = PaymentType.CASH;
+        paymentType = PaymentType.CASH_TO_PAY;
 
         RadioButton radioButton = this.findViewById(R.id.cashRadioButton);
         radioButton.setSelected(true);
@@ -85,6 +86,19 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
                 },
                 e -> Snackbar.make(parentLayout, "Could not finish sale: " + e.getMessage(), Snackbar.LENGTH_SHORT).show())
         );
+
+        RadioGroup radioGroup = this.findViewById(R.id.paymentRadioGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.cashRadioButton) {
+                    paymentType = PaymentType.CASH_TO_PAY;
+                }
+                else if (checkedId == R.id.enbaldePagoRadioButton) {
+                    paymentType = PaymentType.ENBALDE_PAGO;
+                }
+            }
+        });
     }
 
     private void refreshTotal() {
