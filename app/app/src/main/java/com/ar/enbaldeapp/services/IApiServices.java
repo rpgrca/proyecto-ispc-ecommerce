@@ -4,6 +4,7 @@ import com.ar.enbaldeapp.models.Cart;
 import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.models.Sale;
 import com.ar.enbaldeapp.models.Selection;
+import com.ar.enbaldeapp.models.ShippingMethod;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.UserToken;
 
@@ -22,4 +23,5 @@ public interface IApiServices {
     void resetPassword(String accessToken, String newPassword, Consumer<String> onSuccess, Consumer<ApiError> onFailure);
     void getHistory(String accessToken, User user, Consumer<List<Sale>> onSuccess, Consumer<ApiError> onFailure);
     void modifyUser(String accessToken, User user, String address, String email, String oldPassword, String newPassword, String repeatPassword, String phone, Consumer<User> onSuccess, Consumer<ApiError> onFailure);
+    void getShippingMethods(String accessToken, Consumer<List<ShippingMethod>> onSuccess, Consumer<ApiError> onFailure);
 }
