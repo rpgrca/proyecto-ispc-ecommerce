@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -42,6 +43,8 @@ public class CartFragment extends Fragment {
             new ActivityResultContracts.StartActivityForResult(),
             o -> {
                 if (o.getResultCode() == Activity.RESULT_OK) {
+                    updateCart(getView());
+
                     String message = o.getData().getStringExtra(PAYMENT_MESSAGE_FOR_CART);
                     Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).show();
                 }
@@ -52,10 +55,17 @@ public class CartFragment extends Fragment {
         binding = FragmentCartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        updateCart(root);
+
+        return root;
+    }
+
+    private void updateCart(View root) {
         SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getContext());
         long cartId = sharedPreferencesManager.getCurrentCartId();
         User user = sharedPreferencesManager.loadCurrentUser();
         String accessToken = sharedPreferencesManager.getAccessToken();
+
         AtomicReference<Cart> cart = new AtomicReference<>();
 
         IApiServices apiServices = new ApiServices();
@@ -69,20 +79,32 @@ public class CartFragment extends Fragment {
                 });
 
         RecyclerView recyclerView = root.findViewById(R.id.cartRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        CartAdapter adapter = new CartAdapter(getActivity(), cartViewModel.get(), accessToken);
-        recyclerView.setAdapter(adapter);
-
+        TextView emptyMessage = root.findViewById(R.id.empty_cart_view);
         Button button = root.findViewById(R.id.checkoutButton);
-        button.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), PaymentActivity.class);
-            intent.putExtra(CURRENT_USER_FOR_PAYMENT, user);
-            intent.putExtra(CURRENT_CART_FOR_PAYMENT, cart.get());
-            intent.putExtra(ACCESS_TOKEN_FOR_PAYMENT, accessToken);
 
-            intentLauncher.launch(intent);
-        });
+        if (! cart.get().getSelections().isEmpty()) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            CartAdapter adapter = new CartAdapter(getActivity(), cartViewModel.get(), accessToken);
+            recyclerView.setAdapter(adapter);
 
-        return root;
+            button.setOnClickListener(v -> {
+                Intent intent = new Intent(getContext(), PaymentActivity.class);
+                intent.putExtra(CURRENT_USER_FOR_PAYMENT, user);
+                intent.putExtra(CURRENT_CART_FOR_PAYMENT, cart.get());
+                intent.putExtra(ACCESS_TOKEN_FOR_PAYMENT, accessToken);
+
+                intentLauncher.launch(intent);
+            });
+
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyMessage.setVisibility(View.GONE);
+            button.setVisibility(View.VISIBLE);
+        }
+        else {
+            recyclerView.setVisibility(View.GONE);
+            emptyMessage.setVisibility(View.VISIBLE);
+            button.setVisibility(View.GONE);
+        }
+
     }
 }

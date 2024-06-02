@@ -356,12 +356,12 @@ public class ApiServices implements IApiServices {
         if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
 
         ApiRequest request = new ApiRequest.Builder()
-                .addContentDisposition("usuario", user.getId())
+                .addContentDisposition("usuario", user.getUsername())
                 .buildAsUrlEncodedData();
 
         IServerConnector<Long> connector = getNewCartFrom(getUrl() + "/api/carritos/", request, accessToken);
         if (connector.connect()) {
-            long cartId = connector.getResponse().castResponseAs(Long.class);
+            long cartId = (long)connector.getResponse().getRawData();
             onSuccess.accept(cartId);
         }
         else {
