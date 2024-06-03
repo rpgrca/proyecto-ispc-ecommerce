@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="52dp"
-            android:text="First Name"
+            android:text="@string/first_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="28dp"
-            android:text="Last Name"
+            android:text="@string/last_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileFirstNameTextView" />
 
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="28dp"
-            android:text="Email"
+            android:text="@string/email"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileLastNameTextView" />
 
@@ -69,8 +69,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="28dp"
-            android:text="Address"
+            android:layout_marginTop="32dp"
+            android:text="@string/address"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileEmailTextView" />
 
@@ -79,8 +79,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="28dp"
-            android:text="Username"
+            android:layout_marginTop="40dp"
+            android:text="@string/username"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileAddressTextView" />
 
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="32dp"
-            android:text="Phone Number"
+            android:text="@string/phone_number"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileUsernameTextView" />
 
@@ -98,9 +98,9 @@
             android:id="@+id/profileOldPasswordTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="32dp"
-            android:text="Old Password"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="36dp"
+            android:text="@string/old_password"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profilePhoneTextView" />
 
@@ -108,9 +108,9 @@
             android:id="@+id/profileNewPasswordTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="28dp"
-            android:text="New Password"
+            android:text="@string/new_password2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileOldPasswordTextView" />
 
@@ -118,9 +118,9 @@
             android:id="@+id/profileRepeatPasswordTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="28dp"
             android:layout_marginTop="32dp"
-            android:text="Repeat Password"
+            android:text="@string/repeat_password"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileNewPasswordTextView" />
 
@@ -132,13 +132,13 @@
             android:layout_marginTop="36dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/custom_input"
+            android:hint="@string/first_name_hint"
             android:ems="10"
             android:inputType="text"
             android:minHeight="48dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:selectAllOnFocus="true"
-            android:text="First Name"
             app:layout_constraintBottom_toTopOf="@+id/profileLastNameEditText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -153,13 +153,13 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/custom_input"
+
             android:ems="10"
             android:inputType="text"
             android:minHeight="48dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:selectAllOnFocus="true"
-            android:text="Last Name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/profileLastNameTextView"
@@ -217,7 +217,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:selectAllOnFocus="true"
-            android:text="Username"
+            android:hint="Username"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/profileUsernameTextView"
