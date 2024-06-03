@@ -28,6 +28,8 @@
             android:paddingEnd="20dp"
             android:selectAllOnFocus="true"
             android:text="@string/save"
+            android:background="@drawable/button"
+            android:backgroundTint="@color/bg_catalogo"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.504"
