@@ -6,14 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".ui.cart.CartFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cartRecyclerView"
+    <ImageView
+        android:id="@+id/cartBackgroundImageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="?attr/actionBarSize"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_catalogo"
+        android:contentDescription="@string/background"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/cartLogoImageView"
+        android:layout_width="123dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/logo_text"
+        android:contentDescription="@string/content_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cartBackgroundImageView" />
+
+    <TextView
+        android:id="@+id/cartItemsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Carrito"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poetsen_one_regular"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cartLogoImageView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cartRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:paddingBottom="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cartItemsTextView" />
 
     <TextView
         android:id="@+id/empty_cart_view"
