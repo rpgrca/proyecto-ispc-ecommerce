@@ -21,14 +21,11 @@ import java.util.stream.Collectors;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
     private final Activity activityContext;
-    private OnClickListener onSelectionClickListener;
-    private HistoryViewModel history;
-    private String accessToken;
+    private final HistoryViewModel history;
 
-    public HistoryAdapter(Activity activity, HistoryViewModel history, String accessToken) {
+    public HistoryAdapter(Activity activity, HistoryViewModel history) {
         this.activityContext = activity;
         this.history = history;
-        this.accessToken = accessToken;
     }
 
     @NonNull
@@ -40,13 +37,15 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Sale sale = history.getSales().getValue().get(position);
-        holder.historyProductNameTextView.setText(getSaleName(sale));
+        if (history.getSales().getValue() != null) {
+            Sale sale = history.getSales().getValue().get(position);
 
-        holder.bindContent(sale);
-        holder.historyProductSubTotalTextView.setText("Total: $" + sale.getTotal());
-        holder.historyProductPaymentTextView.setText(sale.getPaymentAsString());
-        holder.historyProductShippingTextView.setText(sale.getShippingMethod());
+            holder.historyProductNameTextView.setText(getSaleName(sale));
+            holder.bindContent(sale);
+            holder.historyProductSubTotalTextView.setText(String.format("Total: $%s", sale.getTotal()));
+            holder.historyProductPaymentTextView.setText(sale.getPaymentAsString());
+            holder.historyProductShippingTextView.setText(sale.getShippingMethod());
+        }
     }
 
     private String getSaleName(Sale sale) {
@@ -58,17 +57,13 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         return description;
     }
 
-    public interface OnClickListener {
-        void onClick(int position, Sale sale);
-    }
-
     @Override
     public int getItemCount() {
-        return history.getSales().getValue().size();
-    }
+        if (history.getSales().getValue() != null) {
+            return history.getSales().getValue().size();
+        }
 
-    public void setOnClickListeners(OnClickListener onClickListener) {
-        this.onSelectionClickListener = onClickListener;
+        return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

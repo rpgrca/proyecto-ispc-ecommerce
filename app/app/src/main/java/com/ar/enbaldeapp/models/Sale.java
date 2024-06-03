@@ -18,7 +18,7 @@ public class Sale {
     private final String shipping;
     private final double shippingCost;
     @SerializedName("pago")
-    private int payment;
+    private final int payment;
     private final PaymentType paymentType;
     @SerializedName("transaccion")
     private final String transaction;
@@ -39,6 +39,7 @@ public class Sale {
         this.shipping = shipping.getName();
         this.shippingCost = shipping.getCost();
         this.paymentType = paymentType;
+        this.payment = paymentType.getValue();
         this.transaction = transaction;
     }
 

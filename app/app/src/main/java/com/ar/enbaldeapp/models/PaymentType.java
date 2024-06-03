@@ -7,7 +7,7 @@ public enum PaymentType {
     STRIPE_TO_PAY(4),
     STRIPE_PAID(5);
 
-    private int value;
+    private final int value;
 
     PaymentType(int value) {
         this.value = value;
