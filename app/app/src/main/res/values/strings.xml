@@ -103,6 +103,18 @@
     <string name="email_hint2">Escribe tu email aquí</string>
     <string name="issue_hint">Escribe tu asunto aquí</string>
     <string name="message_hint">Escribe tu mensaje aquí</string>
+    <string name="perfil">Perfil</string>
+    <string name="toque_aqui_si_quiere_contactarnos">Toque aquí si quiere contactarnos</string>
+    <string name="rdenes_pasadas">Órdenes Pasadas</string>
+    <string name="carrito">Carrito</string>
+    <string name="comprar">Comprar</string>
+    <string name="el_carrito_est_vacio">El carrito está vacío</string>
+    <string name="imagen_del_producto">Imagen del producto</string>
+    <string name="pago">Pago</string>
+    <string name="envio">Envío</string>
+    <string name="total">Total</string>
+    <string name="efectivo">Efectivo</string>
+    <string name="stripe">Tarjeta de Crédito (vía Stripe)</string>
     <string name="flecha_para_abajo">Flecha para abajo</string>
 
 </resources>

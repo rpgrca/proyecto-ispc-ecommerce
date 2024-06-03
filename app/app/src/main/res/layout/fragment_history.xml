@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="Órdenes Pasadas"
+        android:text="@string/rdenes_pasadas"
         android:textColor="@color/black"
         android:fontFamily="@font/poetsen_one_regular"
         android:textSize="30sp"

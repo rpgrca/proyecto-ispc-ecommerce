@@ -31,6 +31,7 @@
                 android:background="@color/red"
                 android:clickable="true"
                 android:importantForAccessibility="yes"
+                android:contentDescription="@string/imagen_del_producto"
                 android:padding="5dp"
                 android:scaleType="centerCrop" />
         </RelativeLayout>
