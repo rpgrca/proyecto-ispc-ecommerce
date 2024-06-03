@@ -23,6 +23,7 @@ import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.models.Selection;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.services.ApiServices;
+import com.ar.enbaldeapp.ui.Utilities;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -41,6 +42,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
+
+        Utilities.changeToolbarTitleToDetails(this);
 
         Intent intent = getIntent();
         product = (Product)intent.getSerializableExtra(PRODUCT_FOR_DETAIL);

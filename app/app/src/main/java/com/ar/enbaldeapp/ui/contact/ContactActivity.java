@@ -17,6 +17,7 @@ import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.ar.enbaldeapp.services.IApiServices;
+import com.ar.enbaldeapp.ui.Utilities;
 import com.google.android.material.snackbar.Snackbar;
 
 public class ContactActivity extends AppCompatActivity {
@@ -25,6 +26,8 @@ public class ContactActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
+
+        Utilities.changeToolbarTitleToContact(this);
 
         EditText nameEditText = findViewById(R.id.contactNameEditText);
         EditText emailEditText = findViewById(R.id.contactEmailEditText);

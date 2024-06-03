@@ -46,9 +46,9 @@ public class ProfileFragment extends Fragment {
         binding.profileUsernameTextView.setText(R.string.prompt_username);
         binding.profileFirstNameTextView.setText(R.string.prompt_fname);
         binding.profileLastNameTextView.setText(R.string.prompt_lname);
-        binding.profileOldPasswordTextView.setText("Old password");
-        binding.profileNewPasswordTextView.setText("New password");
-        binding.profileRepeatPasswordTextView.setText("Repeat new password");
+        binding.profileOldPasswordTextView.setText(R.string.old_password);
+        binding.profileNewPasswordTextView.setText(R.string.new_password);
+        binding.profileRepeatPasswordTextView.setText(R.string.repeat_password);
 
         refreshProfileInformation(user);
 

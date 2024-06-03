@@ -7,33 +7,77 @@
     android:layout_height="match_parent"
     tools:context=".ui.payment.PaymentActivity">
 
+    <ImageView
+        android:id="@+id/paymentBackgroundImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_catalogo"
+        android:contentDescription="@string/background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/paymentLogoImageView"
+        android:layout_width="123dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/logo_text"
+        android:contentDescription="@string/content_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/paymentBackgroundImageView" />
+
+    <TextView
+        android:id="@+id/paymentItemsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Pago"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poetsen_one_regular"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paymentLogoImageView" />
+
     <Spinner
         android:id="@+id/paymentShipmentSpinner"
         android:layout_width="264dp"
         android:layout_height="26dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="32dp"
+        android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.387"
+        app:layout_constraintHorizontal_bias="0.892"
         app:layout_constraintStart_toEndOf="@+id/paymentShipmentTextView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/paymentItemsTextView" />
 
     <TextView
         android:id="@+id/paymentShipmentTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
         android:text="Shipping"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/paymentItemsTextView" />
 
     <TextView
         android:id="@+id/paymentTotalTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="28dp"
         android:text="Total"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/paymentShipmentTextView" />
 
@@ -41,10 +85,14 @@
         android:id="@+id/paymentTotalValueTextView"
         android:layout_width="264dp"
         android:layout_height="28dp"
-        android:layout_marginTop="20dp"
+
+        android:layout_marginTop="32dp"
         android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.537"
+        app:layout_constraintHorizontal_bias="0.956"
         app:layout_constraintStart_toEndOf="@+id/paymentTotalTextView"
         app:layout_constraintTop_toBottomOf="@+id/paymentShipmentSpinner" />
 
@@ -62,6 +110,9 @@
             android:id="@+id/cashRadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:checked="true"
             android:text="Cash" />
 
         <RadioButton
@@ -69,6 +120,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Stripe"
+            android:textStyle="bold"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </RadioGroup>
@@ -85,10 +138,13 @@
 
     <Button
         android:id="@+id/paymentButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="218dp"
+        android:layout_height="48dp"
+        android:textSize="20sp"
         android:layout_marginTop="28dp"
         android:text="Pagar"
+        android:background="@drawable/button"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

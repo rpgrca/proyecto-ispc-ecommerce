@@ -7,6 +7,43 @@
     android:layout_height="match_parent"
     tools:context=".ui.contact.ContactActivity">
 
+    <ImageView
+        android:id="@+id/contactBackgroundImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_catalogo"
+        android:contentDescription="@string/background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/contactLogoImageView"
+        android:layout_width="123dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/logo_text"
+        android:contentDescription="@string/content_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/contactBackgroundImageView" />
+
+    <TextView
+        android:id="@+id/contactItemsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Contacto"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poetsen_one_regular"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contactLogoImageView" />
+
     <TextView
         android:id="@+id/contactNameTextView"
         android:layout_width="wrap_content"
@@ -14,8 +51,10 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="28dp"
         android:text="Nombre"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/contactItemsTextView" />
 
     <TextView
         android:id="@+id/contactEmailTextView"
@@ -24,6 +63,8 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="44dp"
         android:text="Email"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contactNameTextView" />
 
@@ -34,6 +75,8 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="40dp"
         android:text="Asunto"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contactEmailTextView" />
 
@@ -44,6 +87,8 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="44dp"
         android:text="Mensaje"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contactTitleTextView" />
 
@@ -56,7 +101,7 @@
         android:ems="10"
         android:inputType="text"
         app:layout_constraintStart_toEndOf="@+id/contactNameTextView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/contactItemsTextView" />
 
     <EditText
         android:id="@+id/contactEmailEditText"
@@ -82,8 +127,8 @@
 
     <EditText
         android:id="@+id/contactMessageEditView"
-        android:layout_width="215dp"
-        android:layout_height="240dp"
+        android:layout_width="216dp"
+        android:layout_height="156dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="16dp"
         android:ems="10"
@@ -94,11 +139,17 @@
 
     <Button
         android:id="@+id/contactSendButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_width="218dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button"
         android:text="Enviar"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/contactBackgroundImageView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contactMessageEditView" />
+        app:layout_constraintTop_toBottomOf="@+id/contactMessageEditView"
+        app:layout_constraintVertical_bias="0.143" />
 </androidx.constraintlayout.widget.ConstraintLayout>

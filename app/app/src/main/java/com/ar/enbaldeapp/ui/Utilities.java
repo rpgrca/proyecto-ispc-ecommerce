@@ -73,6 +73,10 @@ public class Utilities {
         changeToolbarTitleTo(activity,"Login");
     }
 
+    public static void changeToolbarTitleToContact(Activity activity) {
+        changeToolbarTitleTo(activity, "Contact");
+    }
+
     public static void changeToolbarTitleToProfile(Activity activity) {
         changeToolbarTitleTo(activity, "Profile");
     }
@@ -83,5 +87,13 @@ public class Utilities {
 
     public static void changeToolbarTitleToRecovery(Activity activity) {
         changeToolbarTitleTo(activity, "Recover Password");
+    }
+
+    public static void changeToolbarTitleToPayment(Activity activity) {
+        changeToolbarTitleTo(activity, "Payment");
+    }
+
+    public static void changeToolbarTitleToDetails(Activity activity) {
+        changeToolbarTitleTo(activity, "Details");
     }
 }

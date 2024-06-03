@@ -42,6 +42,7 @@
         android:layout_height="wrap_content"
         android:background="@color/red"
         android:layout_toEndOf="@id/leftColumnContainer"
+        android:contentDescription="@string/content_logo"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -50,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -58,7 +59,7 @@
             android:id="@+id/productDescriptionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -66,7 +67,7 @@
             android:id="@+id/productPriceTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
 
