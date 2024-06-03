@@ -1,7 +1,7 @@
 package com.ar.enbaldeapp.models;
 
 public enum PaymentType {
-    CASH_TO_PAY(1) ,
+    CASH_TO_PAY(1),
     CASH_PAID(2),
     ENBALDE_PAGO(3),
     STRIPE_TO_PAY(4),
