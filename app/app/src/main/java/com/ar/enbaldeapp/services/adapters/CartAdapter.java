@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private final Activity activityContext;
     private CartAdapter.OnClickListener onSelectionClickListener;
+    private CartAdapter.OnEmptyListener onEmptyListener;
     private CartViewModel cart;
     private String accessToken;
 
@@ -115,9 +116,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         void onClick(int position, Selection selection);
     }
 
+    public interface OnEmptyListener {
+        void Empty();
+    }
+
     public void updateSelection(List<Selection> selections) {
         this.cart = new CartViewModel(new Cart(this.cart.getCart().getId(), selections));
         notifyDataSetChanged();
+
+        if (selections.isEmpty()) {
+            if (this.onEmptyListener != null) {
+                onEmptyListener.Empty();
+            }
+        }
     }
 
     @Override
@@ -127,6 +138,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     public void setOnClickListeners(CartAdapter.OnClickListener onClickListener) {
         this.onSelectionClickListener = onClickListener;
+    }
+
+    public void setOnEmptyListeners(CartAdapter.OnEmptyListener onEmptyListener) {
+        this.onEmptyListener = onEmptyListener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -87,6 +87,12 @@ public class CartFragment extends Fragment {
         if (cart.get() != null && !cart.get().getSelections().isEmpty()) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             CartAdapter adapter = new CartAdapter(getActivity(), cartViewModel.get(), accessToken);
+            adapter.setOnEmptyListeners(() -> {
+                button.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.GONE);
+                emptyMessage.setVisibility(View.VISIBLE);
+            });
+
             recyclerView.setAdapter(adapter);
 
             button.setOnClickListener(v -> {
