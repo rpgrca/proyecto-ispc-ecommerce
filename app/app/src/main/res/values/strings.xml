@@ -99,5 +99,7 @@
     <string name="mensaje">Mensaje</string>
     <string name="asunto">Asunto</string>
     <string name="enviar">Enviar</string>
+    <string name="ingrese_el_asunto_del_mensaje">Ingrese el asunto del mensaje</string>
+    <string name="ingrese_el_mensaje">Ingrese el mensaje</string>
 
 </resources>

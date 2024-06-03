@@ -53,6 +53,7 @@
         android:text="@string/nombre"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:labelFor="@+id/contactNameEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/contactItemsTextView" />
 
@@ -65,6 +66,7 @@
         android:text="@string/email"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:labelFor="@+id/contactEmailEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contactNameTextView" />
 
@@ -77,11 +79,12 @@
         android:text="@string/asunto"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:labelFor="@+id/contactTitleEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contactEmailTextView" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/contactMessageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -89,6 +92,7 @@
         android:text="@string/mensaje"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:labelFor="@+id/contactMessageEditView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contactTitleTextView" />
 
@@ -122,6 +126,8 @@
         android:layout_height="48dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="16dp"
+        android:importantForAutofill="no"
+        android:autofillHints=""
         android:ems="10"
         android:inputType="text"
         app:layout_constraintStart_toEndOf="@+id/contactTitleTextView"
@@ -133,10 +139,11 @@
         android:layout_height="156dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="16dp"
+        android:importantForAutofill="no"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintStart_toEndOf="@+id/contactMessageTextView"
         app:layout_constraintTop_toBottomOf="@+id/contactTitleEditText" />
 
     <Button
