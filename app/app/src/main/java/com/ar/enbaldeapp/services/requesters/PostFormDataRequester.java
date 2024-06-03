@@ -10,7 +10,7 @@ import java.io.OutputStreamWriter;
 
 public class PostFormDataRequester<T> extends Requester<T> {
     private final ApiRequest request;
-    private IResponseWrapper responseWrapper;
+    private final IResponseWrapper responseWrapper;
 
     public PostFormDataRequester(ApiRequest request) {
         this.request = request;
