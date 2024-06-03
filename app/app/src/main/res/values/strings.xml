@@ -103,5 +103,6 @@
     <string name="email_hint2">Escribe tu email aquí</string>
     <string name="issue_hint">Escribe tu asunto aquí</string>
     <string name="message_hint">Escribe tu mensaje aquí</string>
+    <string name="perfil">Perfil</string>
 
 </resources>
