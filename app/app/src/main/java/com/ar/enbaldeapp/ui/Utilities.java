@@ -73,6 +73,10 @@ public class Utilities {
         changeToolbarTitleTo(activity,"Login");
     }
 
+    public static void changeToolbarTitleToContact(Activity activity) {
+        changeToolbarTitleTo(activity, "Contact");
+    }
+
     public static void changeToolbarTitleToProfile(Activity activity) {
         changeToolbarTitleTo(activity, "Profile");
     }
