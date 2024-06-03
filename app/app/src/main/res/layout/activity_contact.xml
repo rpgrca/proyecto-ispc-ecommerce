@@ -127,7 +127,8 @@
         android:ems="10"
         android:inputType="text"
         android:autofillHints="asunto"
-        android:hint="@string/message_hint"
+        android:hint="@string/issue_hint"
+        android:minHeight="48dp"
         app:layout_constraintStart_toEndOf="@+id/contactTitleTextView"
         app:layout_constraintTop_toBottomOf="@+id/contactEmailEditText" />
 
@@ -141,6 +142,7 @@
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:autofillHints="mensaje"
+        android:hint="@string/message_hint"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/contactTitleEditText" />
 
