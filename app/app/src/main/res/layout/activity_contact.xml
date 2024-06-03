@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="@string/contacto"
+        android:text="@string/contact"
         android:textColor="@color/black"
         android:fontFamily="@font/poetsen_one_regular"
         android:textSize="30sp"
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginTop="32dp"
-        android:text="@string/nombre"
+        android:text="@string/name"
         android:textSize="16sp"
         android:textStyle="bold"
         android:labelFor="@+id/contactNameEditText"
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginTop="44dp"
-        android:text="@string/asunto"
+        android:text="@string/issue"
         android:textSize="16sp"
         android:textStyle="bold"
         android:labelFor="@+id/contactTitleEditText"
@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="44dp"
-        android:text="@string/mensaje"
+        android:text="@string/message"
         android:textSize="16sp"
         android:textStyle="bold"
         android:labelFor="@+id/contactMessageEditView"
@@ -105,6 +105,7 @@
         android:autofillHints="name"
         android:ems="10"
         android:inputType="text"
+        android:minHeight="48dp"
         app:layout_constraintStart_toEndOf="@+id/contactNameTextView"
         app:layout_constraintTop_toBottomOf="@id/contactItemsTextView" />
 
@@ -114,9 +115,10 @@
         android:layout_height="48dp"
         android:layout_marginStart="44dp"
         android:layout_marginTop="16dp"
-        android:autofillHints="emailAddress"
         android:ems="10"
         android:inputType="textEmailAddress"
+        android:autofillHints="emailAddress"
+        android:minHeight="48dp"
         app:layout_constraintStart_toEndOf="@+id/contactEmailTextView"
         app:layout_constraintTop_toBottomOf="@+id/contactNameEditText" />
 
@@ -127,9 +129,9 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="16dp"
         android:importantForAutofill="no"
-        android:autofillHints=""
         android:ems="10"
         android:inputType="text"
+        android:minHeight="48dp"
         app:layout_constraintStart_toEndOf="@+id/contactTitleTextView"
         app:layout_constraintTop_toBottomOf="@+id/contactEmailEditText" />
 
@@ -143,6 +145,7 @@
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
+        android:autofillHints="mensaje"
         app:layout_constraintStart_toEndOf="@+id/contactMessageTextView"
         app:layout_constraintTop_toBottomOf="@+id/contactTitleEditText" />
 
@@ -152,7 +155,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/button"
-        android:text="@string/enviar"
+        android:text="@string/send"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/contactBackgroundImageView"
