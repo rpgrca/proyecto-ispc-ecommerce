@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ar.enbaldeapp.R;
@@ -24,10 +25,19 @@ import com.ar.enbaldeapp.models.PaymentType;
 import com.ar.enbaldeapp.models.ShippingMethod;
 import com.ar.enbaldeapp.models.User;
 import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
+import com.ar.enbaldeapp.services.ApiRequest;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.ar.enbaldeapp.services.IApiServices;
 import com.ar.enbaldeapp.services.adapters.ShippingMethodSpinnerAdapter;
 import com.google.android.material.snackbar.Snackbar;
+import com.stripe.android.ApiResultCallback;
+import com.stripe.android.PaymentConfiguration;
+import com.stripe.android.Stripe;
+import com.stripe.android.model.PaymentMethod;
+import com.stripe.android.model.PaymentMethodCreateParams;
+import com.stripe.android.model.Token;
+import com.stripe.android.paymentsheet.LinkHandler;
+import com.stripe.android.view.CardInputWidget;
 
 public class PaymentActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private String accessToken;
@@ -36,6 +46,8 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
     private ShippingMethod shippingMethod;
     private Spinner spinner;
     private PaymentType paymentType;
+    private String stripeKey;
+    private CardInputWidget cardInputWidget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +66,10 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
         TextView totalTextView = this.findViewById(R.id.paymentTotalTextView);
         totalTextView.setText("Total");
 
+        stripeKey = "pk_test_51PNOnNAI1OQ6xCK87d15hp031AIdnT1S0hudDQrCkhcmybaQkvym9CcL6l7ipxd7ghsvR6dAZjuENrRzmG7jy16300lvHWQmvt";
+
+        PaymentConfiguration.init(getApplicationContext(), stripeKey);
+
         spinner = this.findViewById(R.id.paymentShipmentSpinner);
         spinner.setOnItemSelectedListener(this);
 
@@ -68,24 +84,66 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
                     Snackbar.make(parentLayout, "Could not retrieve shipping methods: " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
                 });
 
+        cardInputWidget = findViewById(R.id.paymentCardInputWidget);
         Button paymentButton = this.findViewById(R.id.paymentButton);
-        paymentButton.setOnClickListener(v -> apiServices.checkout(accessToken, currentCart, shippingMethod, paymentType, "",
-                s -> {
-                    apiServices.replaceCart(accessToken, currentUser, i -> {
-                        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getApplicationContext());
-                        sharedPreferencesManager.saveCurrentCartId(i);
+        paymentButton.setOnClickListener(v ->
+        {
+                if (paymentType == PaymentType.CASH_TO_PAY) {
+                    apiServices.checkout(accessToken, currentCart, shippingMethod, paymentType, "",
+                            s -> {
+                                apiServices.replaceCart(accessToken, currentUser, i -> {
+                                            SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getApplicationContext());
+                                            sharedPreferencesManager.saveCurrentCartId(i);
 
-                        Intent result = new Intent();
-                        result.putExtra(PAYMENT_MESSAGE_FOR_CART, "Cart bought successfully");
-                        setResult(Activity.RESULT_OK, result);
-                        finish();
-                    },
-                    ee -> {
-                        Snackbar.make(parentLayout, "Could not get a new cart: " + ee.getMessage(), Snackbar.LENGTH_SHORT).show();
-                    });
-                },
-                e -> Snackbar.make(parentLayout, "Could not finish sale: " + e.getMessage(), Snackbar.LENGTH_SHORT).show())
-        );
+                                            Intent result = new Intent();
+                                            result.putExtra(PAYMENT_MESSAGE_FOR_CART, "Cart bought successfully");
+                                            setResult(Activity.RESULT_OK, result);
+                                            finish();
+                                        },
+                                        ee -> {
+                                            Snackbar.make(parentLayout, "Could not get a new cart: " + ee.getMessage(), Snackbar.LENGTH_SHORT).show();
+                                        });
+                            },
+                            e -> Snackbar.make(parentLayout, "Could not finish sale: " + e.getMessage(), Snackbar.LENGTH_SHORT).show());
+                }
+                else {
+                    Stripe stripe = new Stripe(this, stripeKey);
+
+                    PaymentMethodCreateParams.Card card = cardInputWidget.getPaymentMethodCard();
+                    PaymentMethodCreateParams cardParams = cardInputWidget.getPaymentMethodCreateParams();
+                    if (card != null) {
+                        PaymentMethodCreateParams paymentMethodParams = PaymentMethodCreateParams.create(card);
+
+                        stripe = new Stripe(getApplicationContext(), PaymentConfiguration.getInstance(getApplicationContext()).getPublishableKey());
+                        stripe.createPaymentMethod(cardParams, new ApiResultCallback<PaymentMethod>() {
+                            @Override
+                            public void onSuccess(@NonNull PaymentMethod paymentMethod) {
+                                apiServices.checkout(accessToken, currentCart, shippingMethod, PaymentType.STRIPE_PAID, "",
+                                        s -> {
+                                            apiServices.replaceCart(accessToken, currentUser, i -> {
+                                                        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getApplicationContext());
+                                                        sharedPreferencesManager.saveCurrentCartId(i);
+
+                                                        Intent result = new Intent();
+                                                        result.putExtra(PAYMENT_MESSAGE_FOR_CART, "Cart bought successfully");
+                                                        setResult(Activity.RESULT_OK, result);
+                                                        finish();
+                                                    },
+                                                    ee -> {
+                                                        Snackbar.make(parentLayout, "Could not get a new cart: " + ee.getMessage(), Snackbar.LENGTH_SHORT).show();
+                                                    });
+                                        },
+                                        e -> Snackbar.make(parentLayout, "Could not finish sale: " + e.getMessage(), Snackbar.LENGTH_SHORT).show());
+                            }
+
+                            @Override
+                            public void onError(@NonNull Exception e) {
+                                Snackbar.make(parentLayout, "Error pagando en Stripe", Snackbar.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+                });
 
         RadioGroup radioGroup = this.findViewById(R.id.paymentRadioGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -93,9 +151,11 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.cashRadioButton) {
                     paymentType = PaymentType.CASH_TO_PAY;
+                    cardInputWidget.setVisibility(View.GONE);
                 }
                 else if (checkedId == R.id.enbaldePagoRadioButton) {
-                    paymentType = PaymentType.ENBALDE_PAGO;
+                    paymentType = PaymentType.STRIPE_TO_PAY;
+                    cardInputWidget.setVisibility(View.VISIBLE);
                 }
             }
         });
