@@ -101,6 +101,7 @@
         android:ems="10"
         android:inputType="text"
         android:autofillHints="nombre"
+        android:hint="@string/name_hint"
         app:layout_constraintStart_toEndOf="@+id/contactNameTextView"
         app:layout_constraintTop_toBottomOf="@id/contactItemsTextView" />
 
@@ -113,7 +114,7 @@
         android:ems="10"
         android:inputType="textEmailAddress"
         android:autofillHints="email"
-        android:hint="@string/email_hint"
+        android:hint="@string/email_hint2"
         app:layout_constraintStart_toEndOf="@+id/contactEmailTextView"
         app:layout_constraintTop_toBottomOf="@+id/contactNameEditText" />
 
@@ -126,6 +127,7 @@
         android:ems="10"
         android:inputType="text"
         android:autofillHints="asunto"
+        android:hint="@string/message_hint"
         app:layout_constraintStart_toEndOf="@+id/contactTitleTextView"
         app:layout_constraintTop_toBottomOf="@+id/contactEmailEditText" />
 

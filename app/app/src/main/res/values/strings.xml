@@ -99,5 +99,10 @@
     <string name="issue">Asunto</string>
     <string name="message">Mensaje</string>
     <string name="send">Enviar</string>
+    <string name="name_hint">Escribe tu nombre aquí</string>
+    <string name="email_hint2">Escribe tu email aquí</string>
+    <string name="issue_hint">Escribe tu asunto aquí</string>
+    <string name="message_hint">Escribe tu mensaje aquí</string>
+
 
 </resources>
