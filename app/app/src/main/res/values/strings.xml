@@ -115,5 +115,6 @@
     <string name="total">Total</string>
     <string name="efectivo">Efectivo</string>
     <string name="stripe">Tarjeta de Crédito (vía Stripe)</string>
+    <string name="flecha_para_abajo">Flecha para abajo</string>
 
 </resources>

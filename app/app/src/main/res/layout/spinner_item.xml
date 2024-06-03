@@ -10,7 +10,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
-        android:text="Texto"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -19,6 +18,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/flecha_para_abajo"
         android:background="@drawable/baseline_keyboard_arrow_down_24">
 
     </ImageView>
