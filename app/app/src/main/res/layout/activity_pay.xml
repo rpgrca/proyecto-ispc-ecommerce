@@ -48,9 +48,10 @@
         android:id="@+id/paymentShipmentSpinner"
         android:layout_width="264dp"
         android:layout_height="26dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="32dp"
+        android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.719"
+        app:layout_constraintHorizontal_bias="0.892"
         app:layout_constraintStart_toEndOf="@+id/paymentShipmentTextView"
         app:layout_constraintTop_toBottomOf="@id/paymentItemsTextView" />
 
@@ -58,9 +59,12 @@
         android:id="@+id/paymentShipmentTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="28dp"
         android:text="Shipping"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/paymentItemsTextView" />
 
@@ -68,9 +72,12 @@
         android:id="@+id/paymentTotalTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="28dp"
         android:text="Total"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/paymentShipmentTextView" />
 
@@ -78,10 +85,14 @@
         android:id="@+id/paymentTotalValueTextView"
         android:layout_width="264dp"
         android:layout_height="28dp"
-        android:layout_marginTop="20dp"
+
+        android:layout_marginTop="32dp"
         android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.537"
+        app:layout_constraintHorizontal_bias="0.956"
         app:layout_constraintStart_toEndOf="@+id/paymentTotalTextView"
         app:layout_constraintTop_toBottomOf="@+id/paymentShipmentSpinner" />
 
