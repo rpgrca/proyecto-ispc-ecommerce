@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.models.User;
@@ -51,13 +52,12 @@ public class ContactActivity extends AppCompatActivity {
                     () -> {
                         result.putExtra(CONTACT_MESSAGE_FOR_HOME, "El mensaje ha sido enviado con éxito");
                         setResult(Activity.RESULT_OK, result);
+                        finish();
                     },
                     e -> {
-                        result.putExtra(CONTACT_MESSAGE_FOR_HOME, "Error enviando el mensaje: " + e.getMessage());
-                        setResult(Activity.RESULT_OK, result);
+                        Toast.makeText(this, "Error enviando el mensaje: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        setResult(Activity.RESULT_CANCELED);
                     });
-
-            finish();
         });
     }
 }
