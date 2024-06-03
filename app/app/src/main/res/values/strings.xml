@@ -94,5 +94,10 @@
     <string name="repeat_password_hint">Enter your password again</string>
     <string name="content_catalogue">No data available</string>
     <string name="background">Imagen de fondo</string>
+    <string name="contacto">Contacto</string>
+    <string name="nombre">Nombre</string>
+    <string name="mensaje">Mensaje</string>
+    <string name="asunto">Asunto</string>
+    <string name="enviar">Enviar</string>
 
 </resources>
