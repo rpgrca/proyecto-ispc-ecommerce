@@ -67,6 +67,8 @@
     <string name="recover_password_hint">Enter your new password</string>
     <string name="recover_email_hint">Enter your email address</string>
     <string name="recovery_token_hint">Enter your recovery token</string>
+    <string name="content_catalogue">No data available</string>
+    <string name="background">Imagen de fondo</string>
 
 
 
