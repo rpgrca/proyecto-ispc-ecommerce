@@ -77,6 +77,7 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
                         Intent result = new Intent();
                         result.putExtra(PAYMENT_MESSAGE_FOR_CART, "Cart bought successfully");
                         setResult(Activity.RESULT_OK, result);
+                        finish();
                     },
                     ee -> {
                         Snackbar.make(parentLayout, "Could not get a new cart: " + ee.getMessage(), Snackbar.LENGTH_SHORT).show();

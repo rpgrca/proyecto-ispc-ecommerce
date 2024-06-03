@@ -35,6 +35,7 @@
                     android:id="@+id/imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/content_logo"
                     android:padding="16dp"
                     android:src="@drawable/logo_text" />
 
@@ -44,9 +45,10 @@
         <EditText
             android:id="@+id/registerFirstNameEditText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:minHeight="45dp"
-            android:paddingLeft="20dp"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginTop="70dp"
@@ -57,14 +59,16 @@
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView" />
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            app:layout_constraintWidth_max="488dp"/>
 
         <EditText
             android:id="@+id/registerLastNameEditText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:minHeight="45dp"
-            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginTop="30dp"
@@ -75,14 +79,16 @@
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerFirstNameEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/registerFirstNameEditText"
+            app:layout_constraintWidth_max="488dp"/>
 
         <EditText
             android:id="@+id/registerEmailEditText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:minHeight="45dp"
-            android:paddingLeft="20dp"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginTop="30dp"
@@ -93,14 +99,16 @@
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerLastNameEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/registerLastNameEditText"
+            app:layout_constraintWidth_max="488dp"/>
 
         <EditText
             android:id="@+id/registerAddressEditText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:minHeight="45dp"
-            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginTop="30dp"
@@ -111,14 +119,16 @@
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerEmailEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/registerEmailEditText"
+            app:layout_constraintWidth_max="488dp"/>
 
         <EditText
             android:id="@+id/registerUsernameEditText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:minHeight="45dp"
-            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginTop="30dp"
@@ -129,14 +139,16 @@
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerAddressEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/registerAddressEditText"
+            app:layout_constraintWidth_max="488dp"/>
 
         <EditText
             android:id="@+id/registerPasswordEditText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:minHeight="45dp"
-            android:paddingLeft="20dp"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginTop="30dp"
@@ -147,14 +159,16 @@
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerUsernameEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/registerUsernameEditText"
+            app:layout_constraintWidth_max="488dp"/>
 
         <EditText
             android:id="@+id/registerPhoneEditText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:minHeight="45dp"
-            android:paddingLeft="20dp"
+            android:layout_height="48dp"
+            android:minHeight="48dp"
+           android:paddingEnd="20dp"
+            android:paddingStart="20dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginTop="30dp"
@@ -165,13 +179,14 @@
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerPasswordEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/registerPasswordEditText"
+            app:layout_constraintWidth_max="488dp"/>
 
 
         <Button
             android:id="@+id/buttonRegisterAccount"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginStart="48dp"
             android:layout_marginTop="38dp"
             android:layout_marginEnd="48dp"
@@ -194,6 +209,7 @@
             android:textStyle="bold"
             android:text="@string/prompt_registered_user"
             android:textSize="24sp"
+            android:padding="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

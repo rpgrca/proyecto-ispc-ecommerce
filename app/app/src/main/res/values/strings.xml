@@ -30,17 +30,8 @@
     <string name="order">Su Pedido</string>
     <string name="content">texto de pedido</string>
     <string name="content_image">imagen de helado</string>
-    <string name="content_bolso">icono de bolso</string>
-    <string name="number_two">2</string>
-    <string name="ice_cream">Chocolate\n1000ml</string>
     <string name="content_price">Precio del helado</string>
-    <string name="number5000">$5000</string>
     <string name="eliminar">Eliminar</string>
-    <string name="ice_cream2">Frutilla\n500ml</string>
-    <string name="number1000">$1000</string>
-    <string name="cupon">Ingresar cupón</string>
-    <string name="aplicar">Aplicar</string>
-    <string name="price">Subtotal: $6000\nEnvío: $500\nTotal: $6500</string>
     <string name="pagar">Pagar</string>
     <string name="login">Iniciar sesión</string>
     <string name="checkin">Registrarse</string>
@@ -72,7 +63,19 @@
     <string name="cantidad">1</string>
     <string name="icecream">helado</string>
     <string name="fondo">fondo</string>
-
-
+    <string name="new_password">Nueva Clave</string>
+    <string name="send_me_a_token">Send me a token</string>
+    <string name="token_and_new_password">"A continuación ingrese el token que recibió por correo y la nueva clave que desea usar."</string>
+    <string name="token">Token</string>
+    <string name="content_image2">Content Imagen</string>
+    <string name="recoverToken_contentDescription">Recover Token</string>
+    <string name="recoverEmail">Recuperar Email</string>
+    <string name="recoverToken">Recuperar Token</string>
+    <string name="recoverPassword">Recuperar contraseña</string>
+    <string name="recover_password_hint">Enter your new password</string>
+    <string name="recover_email_hint">Enter your email address</string>
+    <string name="recovery_token_hint">Enter your recovery token</string>
+    <string name="content_catalogue">No data available</string>
+    <string name="background">Imagen de fondo</string>
 
 </resources>
