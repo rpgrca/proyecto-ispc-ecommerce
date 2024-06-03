@@ -109,5 +109,11 @@
     <string name="carrito">Carrito</string>
     <string name="comprar">Comprar</string>
     <string name="el_carrito_est_vacio">El carrito está vacío</string>
+    <string name="imagen_del_producto">Imagen del producto</string>
+    <string name="pago">Pago</string>
+    <string name="envio">Envío</string>
+    <string name="total">Total</string>
+    <string name="efectivo">Efectivo</string>
+    <string name="stripe">Tarjeta de Crédito (vía Stripe)</string>
 
 </resources>

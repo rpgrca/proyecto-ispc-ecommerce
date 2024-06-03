@@ -30,6 +30,7 @@
                 android:layout_centerInParent="true"
                 android:background="@color/red"
                 android:clickable="true"
+                android:contentDescription="@string/imagen_del_producto"
                 android:importantForAccessibility="yes"
                 android:paddingVertical="5dp"
                 android:scaleType="centerCrop" />
@@ -61,7 +62,7 @@
                 android:id="@+id/cartSubtractItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-" />
+                android:text="@string/minus" />
 
             <TextView
                 android:id="@+id/cartQuantity"
@@ -75,7 +76,7 @@
                 android:id="@+id/cartAddItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+" />
+                android:text="@string/plus" />
         </LinearLayout>
 
         <TextView
