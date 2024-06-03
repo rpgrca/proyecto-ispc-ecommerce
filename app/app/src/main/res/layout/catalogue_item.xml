@@ -42,6 +42,7 @@
         android:layout_height="wrap_content"
         android:background="@color/red"
         android:layout_toEndOf="@id/leftColumnContainer"
+        android:contentDescription="@string/content_logo"
         android:orientation="vertical"
         android:padding="16dp">
 

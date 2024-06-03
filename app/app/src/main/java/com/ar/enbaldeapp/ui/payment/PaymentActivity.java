@@ -6,8 +6,10 @@ import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_USER_FOR_PAYMENT;
 import static com.ar.enbaldeapp.ui.IntentConstants.PAYMENT_MESSAGE_FOR_CART;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -17,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ar.enbaldeapp.R;
@@ -29,6 +32,7 @@ import com.ar.enbaldeapp.services.ApiRequest;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.ar.enbaldeapp.services.IApiServices;
 import com.ar.enbaldeapp.services.adapters.ShippingMethodSpinnerAdapter;
+import com.ar.enbaldeapp.ui.Utilities;
 import com.google.android.material.snackbar.Snackbar;
 import com.stripe.android.ApiResultCallback;
 import com.stripe.android.PaymentConfiguration;
@@ -53,6 +57,8 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
+
+        Utilities.changeToolbarTitleToPayment(this);
 
         Intent intent = getIntent();
         currentUser = (User)intent.getSerializableExtra(CURRENT_USER_FOR_PAYMENT);
