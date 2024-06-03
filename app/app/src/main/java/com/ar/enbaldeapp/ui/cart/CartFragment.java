@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -76,13 +77,14 @@ public class CartFragment extends Fragment {
                 },
                 e -> {
                     cartViewModel.set(new CartViewModel(new Cart(0, new ArrayList<>())));
+                    Toast.makeText(getContext(), "Error obteniendo carrito: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
 
         RecyclerView recyclerView = root.findViewById(R.id.cartRecyclerView);
         TextView emptyMessage = root.findViewById(R.id.empty_cart_view);
         Button button = root.findViewById(R.id.checkoutButton);
 
-        if (! cart.get().getSelections().isEmpty()) {
+        if (cart.get() != null && !cart.get().getSelections().isEmpty()) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             CartAdapter adapter = new CartAdapter(getActivity(), cartViewModel.get(), accessToken);
             recyclerView.setAdapter(adapter);
@@ -105,6 +107,5 @@ public class CartFragment extends Fragment {
             emptyMessage.setVisibility(View.VISIBLE);
             button.setVisibility(View.GONE);
         }
-
     }
 }

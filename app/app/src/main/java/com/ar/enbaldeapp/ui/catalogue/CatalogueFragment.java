@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -81,7 +82,7 @@ public class CatalogueFragment extends Fragment {
                             intentLauncher.launch(intent);
                         },
                         e -> {
-                            Snackbar.make(getView(), "Error retrieving cart from server: " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Error retrieving cart from server: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         });
             }
             else {
@@ -112,7 +113,7 @@ public class CatalogueFragment extends Fragment {
                 result::set,
                 e -> {
                     result.set(new ArrayList<>());
-                    Snackbar.make(getParentFragment().getView(), "Error obtaining catalogue: " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Error obtaining catalogue: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
         );
 
