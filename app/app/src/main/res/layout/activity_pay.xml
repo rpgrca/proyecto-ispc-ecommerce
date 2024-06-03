@@ -122,10 +122,13 @@
 
     <Button
         android:id="@+id/paymentButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="218dp"
+        android:layout_height="48dp"
+        android:textSize="20sp"
         android:layout_marginTop="28dp"
         android:text="Pagar"
+        android:background="@drawable/button"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
