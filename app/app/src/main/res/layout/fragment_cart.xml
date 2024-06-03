@@ -61,8 +61,7 @@
         android:textSize="24sp"
         android:gravity="center"
         android:visibility="gone"
-        android:textColor="@color/white"
-        android:background="@drawable/button"
+        android:textColor="@color/black"
         android:text="El carrito está vacío" />
 
     <Button
