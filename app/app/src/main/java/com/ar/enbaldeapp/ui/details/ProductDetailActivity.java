@@ -37,6 +37,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     private String accessToken;
     private EditText editText;
     private TextView productDetailSubTotalTextView;
+    private Button plusButton;
+    private Button minusButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +59,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         ((TextView)this.findViewById(R.id.textViewDetailName)).setText(product.getName());
         ((TextView)this.findViewById(R.id.textViewDetailDescription)).setText(product.getDescription());
 
-        Button plusButton = this.findViewById(R.id.buttonDetailAdd);
-        Button minusButton = this.findViewById(R.id.buttonDetailMinus);
+        plusButton = this.findViewById(R.id.buttonDetailAdd);
+        minusButton = this.findViewById(R.id.buttonDetailMinus);
 
         editText = this.findViewById(R.id.editNumberDetailAmount);
         productDetailSubTotalTextView = this.findViewById(R.id.productDetailSubTotalTextView);
@@ -72,6 +74,8 @@ public class ProductDetailActivity extends AppCompatActivity {
                 ApiServices apiServices = new ApiServices();
                 apiServices.addToCart(accessToken, currentCart, product, 1,
                         s -> {
+                            updateCart(s);
+                            updateMinusButton();
                             editText.setText(String.valueOf(s.getQuantity()));
                             updateCurrentCost(s);
                             result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product added correctly");
@@ -89,6 +93,8 @@ public class ProductDetailActivity extends AppCompatActivity {
                 ApiServices apiServices = new ApiServices();
                 apiServices.addToCart(accessToken, currentCart, product, -1,
                         s -> {
+                            updateCart(s);
+                            updateMinusButton();
                             editText.setText(String.valueOf(s.getQuantity()));
                             updateCurrentCost(s);
                             result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product removed correctly");
@@ -132,6 +138,21 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     private void initializeCurrentAmount() {
+        int amount = getQuantity();
+        editText.setText(String.valueOf(amount));
+    }
+
+    private void updateMinusButton() {
+        int amount = getQuantity();
+        if (amount > 0) {
+            minusButton.setVisibility(View.VISIBLE);
+        }
+        else {
+            minusButton.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private int getQuantity() {
         Selection selection = getCurrentSelection();
         int amount = 0;
 
@@ -139,7 +160,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             amount = selection.getQuantity();
         }
 
-        editText.setText(String.valueOf(amount));
+        return amount;
     }
 
     private Selection getCurrentSelection() {
@@ -149,5 +170,17 @@ public class ProductDetailActivity extends AppCompatActivity {
         }
 
         return selections.get(0);
+    }
+
+    private void updateCart(Selection s) {
+        List<Selection> selections = currentCart.getSelections().stream().filter(p -> p.getProduct().getId() == s.getProduct().getId()).collect(Collectors.toList());
+        if (selections.isEmpty()) {
+            selections = currentCart.getSelections();
+            selections.add(s);
+            currentCart = new Cart(currentCart.getId(), selections);
+        }
+        else {
+            currentCart = new Cart(currentCart.getId(), currentCart.getSelections().stream().map(p -> p.getProduct().getId() == s.getProduct().getId() ? s : p).collect(Collectors.toList()));
+        }
     }
 }
