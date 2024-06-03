@@ -81,9 +81,9 @@
     <string name="address">Address</string>
     <string name="username">Username</string>
     <string name="phone_number">Phone number</string>
-    <string name="old_password">Old Password</string>
-    <string name="new_password2">New Password</string>
-    <string name="repeat_password">Repeat Password</string>
+    <string name="old_password">Clave Vieja</string>
+    <string name="new_password2">Clave Nueva</string>
+    <string name="repeat_password">Repetir Clave</string>
     <string name="last_name_hint">Enter your last name</string>
     <string name="old_password_hint">Enter your old password</string>
     <string name="email_hint">Enter your email</string>
