@@ -98,5 +98,6 @@
     <string name="name">Nombre</string>
     <string name="issue">Asunto</string>
     <string name="message">Mensaje</string>
+    <string name="send">Enviar</string>
 
 </resources>
