@@ -96,5 +96,7 @@
     <string name="background">Imagen de fondo</string>
     <string name="contact">Contacto</string>
     <string name="name">Nombre</string>
+    <string name="issue">Asunto</string>
+    <string name="message">Mensaje</string>
 
 </resources>
