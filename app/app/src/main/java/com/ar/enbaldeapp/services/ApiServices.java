@@ -37,7 +37,7 @@ public class ApiServices implements IApiServices {
     // 10.0.2.2 es la ip de la maquina local corriendo el emulator de Android
     private static String ServerUrl = "http://10.0.2.2:8000";
     private static final String INVALID_TOKEN = "El token es inválido";
-    private static final String INVALID_TITLE = "El título es inválido";
+    private static final String INVALID_TITLE = "El asunto es inválido";
     private static final String INVALID_MESSAGE = "El mensaje es inválido";
 
     private final Callable<IHttpUrlConnectionWrapper> connectionFactory;
