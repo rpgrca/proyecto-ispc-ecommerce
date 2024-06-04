@@ -31,6 +31,7 @@ import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.ar.enbaldeapp.services.adapters.CatalogueAdapter;
 import com.ar.enbaldeapp.services.IApiServices;
+import com.ar.enbaldeapp.ui.Utilities;
 import com.ar.enbaldeapp.ui.details.ProductDetailActivity;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -55,6 +56,8 @@ public class CatalogueFragment extends Fragment {
 
         binding = FragmentCatalogueBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        Utilities.insertLogoImageInto(getContext(), binding.catalogueLogoImageView);
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerViewCatalogue);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
