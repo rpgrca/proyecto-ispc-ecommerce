@@ -1,6 +1,7 @@
 package com.ar.enbaldeapp.services;
 
 import com.ar.enbaldeapp.models.Cart;
+import com.ar.enbaldeapp.models.Configuration;
 import com.ar.enbaldeapp.models.PaymentType;
 import com.ar.enbaldeapp.models.Product;
 import com.ar.enbaldeapp.models.Sale;
@@ -28,4 +29,5 @@ public interface IApiServices {
     void checkout(String accessToken, Cart cart, ShippingMethod shippingMethod, PaymentType paymentType, String transaction, Consumer<Sale> onSuccess, Consumer<ApiError> onFailure);
     void replaceCart(String accessToken, User user, Consumer<Long> onSuccess, Consumer<ApiError> onFailure);
     void contact(String name, String email, String title, String message, Runnable onSuccess, Consumer<ApiError> onFailure);
+    void getConfiguration(Consumer<List<Configuration>> onSuccess, Consumer<ApiError> onFailure);
 }

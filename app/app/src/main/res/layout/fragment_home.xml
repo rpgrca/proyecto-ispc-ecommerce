@@ -23,6 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" >
 
         <ImageView
+            android:id="@+id/homeMainLogo"
             android:layout_width="wrap_content"
             android:layout_height="350dp"
             android:src="@drawable/logo"

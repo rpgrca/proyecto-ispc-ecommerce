@@ -5,12 +5,14 @@ import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ar.enbaldeapp.R;
 import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.squareup.picasso.Picasso;
 
 public class Utilities {
     public static void changeBottomMenuToLogin(View view) {
@@ -95,5 +97,13 @@ public class Utilities {
 
     public static void changeToolbarTitleToDetails(Activity activity) {
         changeToolbarTitleTo(activity, "Details");
+    }
+
+    public static void insertLogoImageInto(Context context, ImageView imageView) {
+        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(context);
+        String logoUrl = sharedPreferencesManager.getLogo();
+        if (logoUrl != null) {
+            Picasso.with(context).load(logoUrl).into(imageView);
+        }
     }
 }

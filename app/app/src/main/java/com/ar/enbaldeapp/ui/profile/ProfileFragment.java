@@ -36,6 +36,8 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        Utilities.insertLogoImageInto(getContext(), binding.profileLogoImageView);
+
         SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getContext());
         User user = sharedPreferencesManager.loadCurrentUser();
         String accessToken = sharedPreferencesManager.getAccessToken();

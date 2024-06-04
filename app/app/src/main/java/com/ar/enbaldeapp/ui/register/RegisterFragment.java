@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ar.enbaldeapp.R;
@@ -94,6 +95,9 @@ public class RegisterFragment extends Fragment {
         phoneEditText = view.findViewById(R.id.registerPhoneEditText);
         passwordEditText = view.findViewById(R.id.registerPasswordEditText);
         usernameEditText = view.findViewById(R.id.registerUsernameEditText);
+        ImageView logoImageView = view.findViewById(R.id.registerLogoImageView);
+
+        Utilities.insertLogoImageInto(getContext(), logoImageView);
 
         Button button = view.findViewById(R.id.buttonRegisterAccount);
         button.setOnClickListener(v -> {

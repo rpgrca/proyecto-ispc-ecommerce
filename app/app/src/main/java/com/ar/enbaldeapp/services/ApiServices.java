@@ -1,6 +1,7 @@
 package com.ar.enbaldeapp.services;
 
 import com.ar.enbaldeapp.models.Cart;
+import com.ar.enbaldeapp.models.Configuration;
 import com.ar.enbaldeapp.models.PasswordResetRequest;
 import com.ar.enbaldeapp.models.PasswordResetResponse;
 import com.ar.enbaldeapp.models.PaymentType;
@@ -32,6 +33,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class ApiServices implements IApiServices {
     // 10.0.2.2 es la ip de la maquina local corriendo el emulator de Android
@@ -410,6 +412,22 @@ public class ApiServices implements IApiServices {
     }
 
     @Override
+    public void getConfiguration(Consumer<List<Configuration>> onSuccess, Consumer<ApiError> onFailure) {
+        if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
+        if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
+
+        IServerConnector<Configuration> connector = getConfigurationsFrom(getUrl() + "/api/configuraciones/");
+        if (connector.connect()) {
+            Type listType = new TypeToken<List<Configuration>>() {}.getType();
+            List<Configuration> configurations = connector.getResponse().castResponseAsListOf(listType);
+            onSuccess.accept(configurations);
+        }
+        else {
+            onFailure.accept(connector.getError());
+        }
+    }
+
+    @Override
     public void checkout(String accessToken, Cart cart, ShippingMethod shippingMethod, PaymentType paymentType, String transaction, Consumer<Sale> onSuccess, Consumer<ApiError> onFailure) {
         if (onSuccess == null) throw new RuntimeException("El callback por éxito es inválido");
         if (onFailure == null) throw new RuntimeException("El callback por fallo es inválido");
@@ -479,11 +497,15 @@ public class ApiServices implements IApiServices {
         return new ServerConnector<>(url, new AuthenticatedPatchFormDataRequester<>(request, new ApiResponseWrapper(), accessToken), this.connectionFactory);
     }
 
-    private IServerConnector<Long> getNewCartFrom(String url, ApiRequest request, String accessToken) {
+    protected IServerConnector<Long> getNewCartFrom(String url, ApiRequest request, String accessToken) {
         return new ServerConnector<>(url, new AuthenticatedPostFormDataRequester<>(request, new ApiResponseWrapper(), accessToken), this.connectionFactory);
     }
 
-    private IServerConnector<Void> getContactFrom(String url, ApiRequest request) {
+    protected IServerConnector<Void> getContactFrom(String url, ApiRequest request) {
         return new ServerConnector<>(url, new PostFormDataRequester<>(request, new ApiResponseWrapper()), this.connectionFactory);
+    }
+
+    protected IServerConnector<Configuration> getConfigurationsFrom(String url) {
+        return new ServerConnector<>(url, new GetRequester<>(new ApiResponseWrapper()), this.connectionFactory);
     }
 }

@@ -19,6 +19,7 @@ import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.ar.enbaldeapp.services.IApiServices;
 import com.ar.enbaldeapp.services.adapters.HistoryAdapter;
+import com.ar.enbaldeapp.ui.Utilities;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
@@ -31,6 +32,8 @@ public class HistoryFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHistoryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        Utilities.insertLogoImageInto(getContext(), binding.historyLogoImageView);
 
         SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getContext());
         String accessToken = sharedPreferencesManager.getAccessToken();

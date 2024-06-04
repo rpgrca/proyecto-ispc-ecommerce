@@ -2,6 +2,7 @@ package com.ar.enbaldeapp.models.utilities;
 
 import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_ACCESS;
 import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_CART_ID;
+import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_LOGO_URL;
 import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_REFRESH;
 import static com.ar.enbaldeapp.ui.IntentConstants.CURRENT_USER;
 
@@ -58,5 +59,13 @@ public class SharedPreferencesManager {
 
     public String getAccessToken() {
         return sharedPreferences.getString(CURRENT_ACCESS, null);
+    }
+
+    public void saveLogo(String logoUrl) {
+        sharedPreferences.edit().putString(CURRENT_LOGO_URL, logoUrl).apply();
+    }
+
+    public String getLogo() {
+        return sharedPreferences.getString(CURRENT_LOGO_URL, null);
     }
 }
