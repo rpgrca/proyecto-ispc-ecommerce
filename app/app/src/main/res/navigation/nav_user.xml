@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_user"
+    app:startDestination="@id/navigation_login_fragment">
+
+    <fragment
+        android:id="@+id/navigation_login_fragment"
+        android:name="com.ar.enbaldeapp.ui.login.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_registrationFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:destination="@id/navigation_registration_fragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_profileFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:destination="@id/navigation_profile_fragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_recoverFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:destination="@+id/navigation_recovery_fragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_registration_fragment"
+        android:name="com.ar.enbaldeapp.ui.register.RegisterFragment"
+        android:label="RegistrationFragment">
+        <action
+            android:id="@+id/action_registrationFragment_to_loginFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:destination="@+id/navigation_login_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile_fragment"
+        android:name="com.ar.enbaldeapp.ui.profile.ProfileFragment"
+        android:label="ProfileFragment">
+
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:destination="@id/navigation_login_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_recovery_fragment"
+        android:name="com.ar.enbaldeapp.ui.recover.RecoverPasswordFragment"
+        android:label="RecoverPasswordFragment">
+        <action
+            android:id="@+id/action_recoverFragment_to_loginFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:destination="@+id/navigation_login_fragment" />
+    </fragment>
+
+</navigation>

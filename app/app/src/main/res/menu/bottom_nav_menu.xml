@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_catalogue"
+        android:icon="@drawable/baseline_icecream_24"
+        android:title="@string/title_catalogue" />
+
+    <item
+        android:id="@+id/navigation_cart"
+        android:icon="@drawable/baseline_shopping_cart_24"
+        android:visible="false"
+        android:enabled="false"
+        android:title="@string/title_cart" />
+
+    <item
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/baseline_history_24"
+        android:visible="false"
+        android:enabled="false"
+        android:title="History" />
+
+    <item
+        android:id="@+id/navigation_user"
+        android:icon="@drawable/baseline_person_24"
+        android:visible="true"
+        android:enabled="true"
+        android:title="Login" />
+<!--
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/baseline_person_24"
+        android:visible="false"
+        android:enabled="false"
+        android:title="@string/profile" />
+
+    <item
+        android:id="@+id/navigation_login"
+        android:icon="@drawable/baseline_person_24"
+        android:title="Login" />
+        -->
+</menu>

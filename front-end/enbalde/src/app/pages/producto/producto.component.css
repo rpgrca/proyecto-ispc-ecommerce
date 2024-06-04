@@ -1,0 +1,29 @@
+.card_product{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    /* background: rgb(215,217,214); */
+    background: radial-gradient(circle, rgba(215,217,214,1) 15%, rgba(129,180,219,1) 100%);
+    color: #850F1B;
+    font-size: 1.3rem;
+    /* -webkit-box-shadow: 10px 10px 25px 0px rgba(245,245,220,1);
+    -moz-box-shadow: 10px 10px 25px 0px rgba(245,245,220,1);
+    box-shadow: 10px 10px 25px 0px rgba(245,245,220,1); */
+    margin-bottom: 5%;
+}
+
+.title_card{
+    font-style: italic;
+    font-size: 1.8rem;
+    text-align: center;
+    font-family: "Poetsen One", sans-serif;
+}
+
+.item_text{
+    font-weight: bold;
+}
+
+.card_bot{
+    display: flex;
+    justify-content: center;
+}

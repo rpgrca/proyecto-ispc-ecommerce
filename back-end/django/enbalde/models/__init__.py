@@ -8,6 +8,7 @@ from .articulo import Articulo
 from .carrito import Carrito
 from .seleccion import Seleccion
 from .venta import Venta
+from .configuracion import Configuracion
 
 __all__ = ("aceptar_solo_fechas_futuras", "aceptar_solo_fechas_pasadas", "password_reset_token_created", "TipoArticulo",
-           "Envio", "Oferta", "Usuario", "Articulo", "Carrito", "Seleccion", "Venta")
+           "Envio", "Oferta", "Usuario", "Articulo", "Carrito", "Seleccion", "Venta", "Configuracion")

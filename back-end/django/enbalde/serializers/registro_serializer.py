@@ -4,14 +4,14 @@ from .common import quitar_clave_de_respuesta
 
 
 class RegistroSerializer(serializers.ModelSerializer):
-    nombre = serializers.CharField(required=True, source="first_name")
-    apellido = serializers.CharField(required=True, source="last_name")
-    usuario = serializers.CharField(required=True, source="username")
-    clave = serializers.CharField(required=True, source="password")
-    direccion = serializers.CharField(required=True)
+    nombre = serializers.CharField(required=True, source="first_name", error_messages={'required': 'El nombre es requerido.', 'blank': 'El nombre no puede estar vacío.'})
+    apellido = serializers.CharField(required=True, source="last_name", error_messages={'required': 'El apellido es requerido.', 'blank': 'El apellido no puede estar vacío.'})
+    usuario = serializers.CharField(required=True, source="username", error_messages={'required': 'El usuario es requerido.', 'blank': 'El usuario no puede estar vacío.'})
+    clave = serializers.CharField(required=True, source="password", error_messages={'required': 'La clave es requerida.', 'blank': 'La clave no puede estar vacía.'})
+    direccion = serializers.CharField(required=True, error_messages={'required': 'La dirección es requerida.', 'blank': 'La dirección no puede estar vacía.'})
     telefono = serializers.CharField(required=False)
-    email = serializers.CharField(required=True)
-    tipo = serializers.IntegerField(required=True)
+    email = serializers.CharField(required=True, error_messages={'required': 'El e-mail es requerido.', 'blank': 'El e-mail no puede estar vacío.'})
+    tipo = serializers.IntegerField(required=True, error_messages={'required': 'El tipo es requerido.', 'invalid': 'Se necesita un tipo válido.'})
     observaciones = serializers.CharField(required=False)
 
     class Meta:

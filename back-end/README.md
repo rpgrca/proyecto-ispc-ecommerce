@@ -65,6 +65,12 @@ Utilizar el comando _python manage.py createsuperuser_ para crear el super usuar
 
 ![image](https://github.com/NataliaAlvarezIspc/proyecto-ispc-ecommerce/assets/15602473/a29086d2-b200-426a-b482-b83a563cdac5)
 
+## Cargar datos por defecto
+
+La tabla de configuraciones necesita valores por defecto, éstos se encuentran dentro de _configurations.json_. Para importarlos se puede ejecutar el comando _python manage.py loaddata configurations.json_:
+
+![image](https://github.com/enbalde-ispc/enbalde-ispc/assets/15602473/0a0a8c2b-5fec-4c4f-a2f4-2a4359a62044)
+
 ## Ejecución del servidor
 
 Utilizar el comando _python manager.py runserver_ para ejecutar el servidor Django:

@@ -1,13 +1,14 @@
 <header>
     <nav class="navbar navbar-expand-lg  navbar-header">
         <div class="container-fluid">
-            <a class="navbar-brand nav-logo" [routerLink]="['/']"><img id="logoHeader" [src]="itemLogo" alt="Logo EnBalde"></a>
+            <a class="navbar-brand nav-logo" [routerLink]="['/']"><img id="logoHeader" [src]="itemLogo" alt="Site logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navegacion" aria-controls="navegacion" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navegacion">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 menu">
                     <li class="nav-item"><a class="nav-link" [routerLink]="['/catalogo']">Catalogo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://github.com/enbalde-ispc/enbalde-ispc/tree/dev/app/apk">App Móvil</a></li>
                     <ng-container *ngIf="!usuario">
                       <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ingresar</a>
                         <ul class="dropdown-menu">
@@ -31,6 +32,7 @@
                           <li><a class="nav-link dropdown-item" [routerLink]="['/ventas']">Ventas</a></li>
                           <li><a class="nav-link dropdown-item" [routerLink]="['/ofertas']">Ofertas</a></li>
                           <li><a class="nav-link dropdown-item" [routerLink]="['/usuarios']">Usuarios</a></li>
+                          <li><a class="nav-link dropdown-item" [routerLink]="['/configuraciones']">Configuraciones</a></li>
                         </ul>
                       </li>
                     </ng-container>
@@ -60,7 +62,7 @@
                   </div>
                 </div>
 
-                
+
             </div>
         </div>
     </nav>

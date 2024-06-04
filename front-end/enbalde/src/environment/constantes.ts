@@ -36,5 +36,10 @@ export const constantes =
   MINIMO_MENSAJE_CONTACTO: 10,
   MAXIMO_MENSAJE_CONTACTO: 255,
 
+  MINIMO_NOMBRE_CONFIGURACION: 1,
+  MAXIMO_NOMBRE_CONFIGURACION: 64,
+  MINIMO_VALOR_CONFIGURACION: 0,
+  MAXIMO_VALOR_CONFIGURACION: 1024,
+
   PATRON_EMAIL: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 }
