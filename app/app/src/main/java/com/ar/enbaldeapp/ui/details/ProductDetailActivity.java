@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,7 +34,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private User currentUser;
     private Cart currentCart;
     private String accessToken;
-    private EditText editText;
+    private TextView quantityTextView;
     private TextView productDetailSubTotalTextView;
     private Button plusButton;
     private Button minusButton;
@@ -62,7 +61,9 @@ public class ProductDetailActivity extends AppCompatActivity {
         plusButton = this.findViewById(R.id.buttonDetailAdd);
         minusButton = this.findViewById(R.id.buttonDetailMinus);
 
-        editText = this.findViewById(R.id.editNumberDetailAmount);
+        updateMinusButton();
+
+        quantityTextView = this.findViewById(R.id.editNumberDetailAmount);
         productDetailSubTotalTextView = this.findViewById(R.id.productDetailSubTotalTextView);
 
         if (currentUser != null) {
@@ -76,7 +77,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                         s -> {
                             updateCart(s);
                             updateMinusButton();
-                            editText.setText(String.valueOf(s.getQuantity()));
+                            quantityTextView.setText(String.valueOf(s.getQuantity()));
                             updateCurrentCost(s);
                             result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product added correctly");
                             setResult(Activity.RESULT_OK, result);
@@ -95,7 +96,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                         s -> {
                             updateCart(s);
                             updateMinusButton();
-                            editText.setText(String.valueOf(s.getQuantity()));
+                            quantityTextView.setText(String.valueOf(s.getQuantity()));
                             updateCurrentCost(s);
                             result.putExtra(DETAIL_MESSAGE_FOR_CATALOGUE, "Product removed correctly");
                         },
@@ -108,7 +109,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         }
         else {
             initializePrice(product);
-            editText.setVisibility(View.GONE);
+            quantityTextView.setVisibility(View.GONE);
             plusButton.setVisibility(View.GONE);
             minusButton.setVisibility(View.GONE);
         }
@@ -139,7 +140,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     private void initializeCurrentAmount() {
         int amount = getQuantity();
-        editText.setText(String.valueOf(amount));
+        quantityTextView.setText(String.valueOf(amount));
     }
 
     private void updateMinusButton() {
