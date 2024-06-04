@@ -13,7 +13,7 @@ public class DjangoApiResetPasswordResponseWrapper implements IResponseWrapper {
 
     @Override
     public String preprocessResponse(int statusCode, String response) {
-        String result = "";
+        String result;
 
         if (HttpUtilities.isSuccessful(statusCode)) {
             result = "{ \"status\": " + statusCode + ", \"mensaje\": \"" + PASSWORD_RESET_SUCCESS + "\", \"data\": " + response + " }";

@@ -2,7 +2,6 @@ package com.ar.enbaldeapp.services.reply;
 
 import com.ar.enbaldeapp.services.ApiError;
 import com.ar.enbaldeapp.services.ApiResponse;
-import com.ar.enbaldeapp.services.IResponseCreator;
 import com.ar.enbaldeapp.services.requesters.IRequester;
 import com.google.gson.JsonParser;
 

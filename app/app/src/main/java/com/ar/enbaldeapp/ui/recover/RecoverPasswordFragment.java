@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ar.enbaldeapp.R;
@@ -82,6 +83,9 @@ public class RecoverPasswordFragment extends Fragment {
         emailEditText = view.findViewById(R.id.recoverEmailEditText);
         tokenEditText = view.findViewById(R.id.recoverTokenEditText);
         newPasswordEditText = view.findViewById(R.id.recoverPasswordEditText);
+        ImageView logoImageView = view.findViewById(R.id.recoverLogoImageView);
+
+        Utilities.insertLogoImageInto(getContext(), logoImageView);
 
         Button button = view.findViewById(R.id.recoverButtonEmail);
         button.setOnClickListener(v -> {

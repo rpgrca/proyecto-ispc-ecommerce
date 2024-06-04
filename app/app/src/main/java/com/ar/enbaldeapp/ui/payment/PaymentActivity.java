@@ -13,6 +13,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -71,6 +72,9 @@ public class PaymentActivity extends AppCompatActivity implements AdapterView.On
 
         TextView totalTextView = this.findViewById(R.id.paymentTotalTextView);
         totalTextView.setText("Total");
+
+        ImageView imageView = this.findViewById(R.id.paymentLogoImageView);
+        Utilities.insertLogoImageInto(getApplicationContext(), imageView);
 
         stripeKey = "pk_test_51PNOnNAI1OQ6xCK87d15hp031AIdnT1S0hudDQrCkhcmybaQkvym9CcL6l7ipxd7ghsvR6dAZjuENrRzmG7jy16300lvHWQmvt";
 

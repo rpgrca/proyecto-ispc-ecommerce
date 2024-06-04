@@ -2,7 +2,6 @@ package com.ar.enbaldeapp.services.reply;
 
 import com.ar.enbaldeapp.services.ApiError;
 import com.ar.enbaldeapp.services.ApiResponse;
-import com.ar.enbaldeapp.services.IResponseCreator;
 import com.ar.enbaldeapp.services.requesters.IRequester;
 
 import java.io.IOException;
@@ -32,7 +31,7 @@ public class OkServerReply<T> extends ServerReply<T> {
         String jsonText = this.loadInputFrom(this.inputStream);
         jsonText = this.requester.preprocessResponse(this.status, jsonText);
 
-        return new ApiResponse<T>(jsonText);
+        return new ApiResponse<>(jsonText);
     }
 
     @Override

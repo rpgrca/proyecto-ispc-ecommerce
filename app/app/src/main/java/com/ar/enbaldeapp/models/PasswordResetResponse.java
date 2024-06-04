@@ -1,10 +1,5 @@
 package com.ar.enbaldeapp.models;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.Date;
-import java.util.List;
-
 public class PasswordResetResponse {
     private final String status;
 

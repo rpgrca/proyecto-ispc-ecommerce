@@ -31,6 +31,7 @@ import com.ar.enbaldeapp.models.utilities.SharedPreferencesManager;
 import com.ar.enbaldeapp.services.ApiServices;
 import com.ar.enbaldeapp.services.IApiServices;
 import com.ar.enbaldeapp.services.adapters.CartAdapter;
+import com.ar.enbaldeapp.ui.Utilities;
 import com.ar.enbaldeapp.ui.payment.PaymentActivity;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -56,6 +57,7 @@ public class CartFragment extends Fragment {
         binding = FragmentCartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        Utilities.insertLogoImageInto(getContext(), binding.cartLogoImageView);
         updateCart(root);
 
         return root;

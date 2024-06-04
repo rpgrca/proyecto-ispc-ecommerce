@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.ar.enbaldeapp.R;
@@ -13,8 +12,7 @@ import java.util.List;
 import java.util.function.Function;
 
 public class ShippingMethodSpinnerAdapter<T> extends BaseAdapter {
-    private ShippingMethodSpinnerAdapter.OnClickListener<T> onItemClickListener;
-    private List<T> items;
+    private final List<T> items;
     private final Function<T, Long> spinnerIdGetter;
     private final Function<T, String> spinnerTextGetter;
 
@@ -51,19 +49,8 @@ public class ShippingMethodSpinnerAdapter<T> extends BaseAdapter {
 
         if (! newText.equals(textView.toString())) {
             textView.setText(newText);
-            if (onItemClickListener != null) {
-                onItemClickListener.onClick(position, item);
-            }
         }
 
         return convertView;
-    }
-
-    public interface OnClickListener<T> {
-        void onClick(int position, T item);
-    }
-
-    public void setOnClickListeners(ShippingMethodSpinnerAdapter.OnClickListener<T> onClickListener) {
-        this.onItemClickListener = onClickListener;
     }
 }

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.ar.enbaldeapp.R;
@@ -34,6 +35,9 @@ public class ContactActivity extends AppCompatActivity {
         EditText emailEditText = findViewById(R.id.contactEmailEditText);
         EditText titleEditText = findViewById(R.id.contactTitleEditText);
         EditText messageEditText = findViewById(R.id.contactMessageEditView);
+        ImageView logoImageView = findViewById(R.id.contactLogoImageView);
+
+        Utilities.insertLogoImageInto(getApplicationContext(), logoImageView);
 
         SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getApplicationContext());
         User user = sharedPreferencesManager.loadCurrentUser();

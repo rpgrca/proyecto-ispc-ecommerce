@@ -17,7 +17,7 @@
         android:background="@color/grey">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
+            android:id="@+id/registerCardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="28dp"
@@ -25,14 +25,14 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:id="@+id/upper_content"
+                android:id="@+id/registerUpperContent"
                 android:layout_width="match_parent"
                 android:layout_height="195dp"
                 android:orientation="vertical"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/registerLogoImageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/content_logo"
@@ -59,7 +59,7 @@
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            app:layout_constraintTop_toBottomOf="@+id/registerCardView"
             app:layout_constraintWidth_max="488dp"/>
 
         <EditText

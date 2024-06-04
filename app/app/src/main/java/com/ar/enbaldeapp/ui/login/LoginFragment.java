@@ -41,6 +41,9 @@ public class LoginFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         binding = FragmentLoginBinding.inflate(inflater, container, false);
+
+        Utilities.insertLogoImageInto(getContext(), binding.loginLogoImageView);
+
         return binding.getRoot();
     }
 
@@ -57,9 +60,9 @@ public class LoginFragment extends Fragment {
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-        final EditText usernameEditText = binding.username;
-        final EditText passwordEditText = binding.password;
-        final Button loginButton = binding.login;
+        final EditText usernameEditText = binding.loginUsernameEditText;
+        final EditText passwordEditText = binding.loginPasswordEditText;
+        final Button loginButton = binding.loginButton;
         final ProgressBar loadingProgressBar = binding.loading;
 
         binding.loginRegisterTextView.setOnClickListener(v -> {
