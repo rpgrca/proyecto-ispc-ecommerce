@@ -79,7 +79,7 @@ public class HomeFragment extends Fragment {
         });
 
         binding.web.setOnClickListener(v -> {
-            String url = "http://localhost:4200/";
+            String url = "http://10.0.2.2:4200/";
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(url));
             startActivity(intent);
