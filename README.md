@@ -15,14 +15,13 @@ El usuario tendrá la posibilidad, mediante un catálogo, de elegir helados por 
 diversos pesos. Habrá variedad de gustos. Cada pote será de sabores fijos. Una vez
 finalizada la elección la página lo dirigirá a la sección carrito en donde podrá agregar o quitar artículos, decidir la forma de abonar y si solicita delivery o retira en sucursal. Concluida la compra se emitirá un aviso de transacción efectuada y el administrador recibirá el aviso de la compra.
 
-## Nombre de los integrantes: 
+## Nombre de los integrantes:
 - Pamela Sol Pilotti-GitHub: Pamela198713
 - Leonardo Daniel Vivas-GitHub: LeonardoEC
 - Roberto Alfonso-GitHub: rpgrca
 - Lucia Ailen Leonetti-GitHub: LuciaL152
-- Facundo Manuel Díaz-GitHub: facumd
+- Facundo Manuel Díaz-GitHub: fmdcba
 - Yuliana Paula Capdevila- GitHub: YuliCap
-- Lidio Guedez- GitHub: lidioguedez
 
 ## Modo de Uso
 
@@ -40,12 +39,12 @@ Para más información leer los README correspondientes a cada proyecto.
    - `cd front-end/enbalde`
    - `npm install`
    - `ng serve`
-   
+
 2. **Servicio de Pago**:
    - `cd front-end/enbaldePago`
    - `npm install`
    - `npm start`
-  
+
 3. **Backend Django**:
    - `cd back-end/django`
    - `pip install -r requirements.txt`
@@ -63,6 +62,11 @@ Acceder al sitio en `http://localhost:4200`.
 - [Diagrama Entidad Relación](https://github.com/enbalde-ispc/enbalde-ispc/wiki/Diagrama-Entidad-Relación)
 - [Diagrama Relacional](https://github.com/enbalde-ispc/enbalde-ispc/wiki/Diagrama-Relacional)
 - [Mapa del sitio](https://github.com/enbalde-ispc/enbalde-ispc/wiki/Mapa-del-sitio)
+
+## App en funcionamiento
+![ui](https://github.com/enbalde-ispc/enbalde-ispc/assets/95236196/9625a8c5-6039-43e3-9102-f789d518605f)
+![pay](https://github.com/enbalde-ispc/enbalde-ispc/assets/95236196/a1f53f78-35f7-42cc-805b-394fe8561e39)
+![mobile](https://github.com/enbalde-ispc/enbalde-ispc/assets/95236196/7901f6b7-3965-4467-b215-dc6ea51a00c3)
 
 <!-- Emblemas -->
 [contrib-img]: https://img.shields.io/github/contributors/enbalde-ispc/enbalde-ispc
