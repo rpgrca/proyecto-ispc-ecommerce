@@ -81,3 +81,6 @@ Acceder al sitio en `http://localhost:4200`.
 [pipeline-python-url]: https://github.com/enbalde-ispc/enbalde-ispc/actions/workflows/python.yml
 [pipeline-android-img]: https://github.com/enbalde-ispc/enbalde-ispc/actions/workflows/android.yml/badge.svg
 [pipeline-android-url]: https://github.com/enbalde-ispc/enbalde-ispc/actions/workflows/android.yml
+
+
+Link promoción del software:  https://youtu.be/EqFfTr-PTMA?si=Z8XLvOiKLy-hfPn_
