@@ -20,7 +20,7 @@ finalizada la elección la página lo dirigirá a la sección carrito en donde p
 - Leonardo Daniel Vivas-GitHub: LeonardoEC
 - Roberto Alfonso-GitHub: rpgrca
 - Lucia Ailen Leonetti-GitHub: LuciaL152
-- Facundo Manuel Díaz-GitHub: facumd
+- Facundo Manuel Díaz-GitHub: fmdcba
 - Yuliana Paula Capdevila- GitHub: YuliCap
 
 ## Modo de Uso
