@@ -60,9 +60,12 @@
 
             <Button
                 android:id="@+id/cartSubtractItem"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/minus" />
+                android:layout_width="wrap_content"
+                android:minWidth="50dp"
+                android:text="@string/minus"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/cartQuantity"
@@ -76,7 +79,10 @@
                 android:id="@+id/cartAddItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/plus" />
+                android:minWidth="50dp"
+                android:text="@string/plus"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <TextView
