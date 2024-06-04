@@ -5,11 +5,14 @@ import static com.ar.enbaldeapp.ui.IntentConstants.CONTACT_MESSAGE_FOR_HOME;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -34,6 +37,8 @@ import java.util.stream.Collectors;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
+    TextView webLink;
+    TextView repoLink;
     private final ActivityResultLauncher<Intent> intentLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             o -> {
@@ -71,6 +76,20 @@ public class HomeFragment extends Fragment {
         binding.contactUs.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), ContactActivity.class);
             intentLauncher.launch(intent);
+        });
+
+        binding.web.setOnClickListener(v -> {
+            String url = "http://10.0.2.2:4200/";
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
+        });
+
+        binding.repo.setOnClickListener(v -> {
+            String url = "https://github.com/enbalde-ispc/enbalde-ispc";
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
         });
 
         return root;
