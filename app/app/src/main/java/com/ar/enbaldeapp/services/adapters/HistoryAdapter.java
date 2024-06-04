@@ -49,7 +49,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     }
 
     private String getSaleName(Sale sale) {
-        String description = sale.getSelections().stream().map(p -> p.getProduct().getName()).collect(Collectors.joining(","));
+        String description = sale.getSelections().stream().map(p -> p.getQuantity() + " x " + p.getProduct().getName()).collect(Collectors.joining(", "));
         if (description.isEmpty()) {
             description = "Artículos varios";
         }
