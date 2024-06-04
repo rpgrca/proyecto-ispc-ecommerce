@@ -65,6 +65,10 @@ public class SharedPreferencesManager {
         sharedPreferences.edit().putString(CURRENT_LOGO_URL, logoUrl).apply();
     }
 
+    public void deleteCurrentLogo() {
+        sharedPreferences.edit().remove(CURRENT_LOGO_URL).apply();
+    }
+
     public String getLogo() {
         return sharedPreferences.getString(CURRENT_LOGO_URL, null);
     }
