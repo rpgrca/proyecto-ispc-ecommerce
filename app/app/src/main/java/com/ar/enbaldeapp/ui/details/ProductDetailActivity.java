@@ -62,6 +62,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         plusButton = this.findViewById(R.id.buttonDetailAdd);
         minusButton = this.findViewById(R.id.buttonDetailMinus);
 
+        updateMinusButton();
+
         editText = this.findViewById(R.id.editNumberDetailAmount);
         productDetailSubTotalTextView = this.findViewById(R.id.productDetailSubTotalTextView);
 
