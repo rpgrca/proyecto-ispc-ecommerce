@@ -72,9 +72,11 @@
         android:layout_height="48dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/button"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:minWidth="200dp"
         android:text="@string/comprar"
         android:textColor="@color/white"
-        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

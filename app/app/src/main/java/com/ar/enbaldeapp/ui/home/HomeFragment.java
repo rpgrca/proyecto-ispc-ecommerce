@@ -55,10 +55,14 @@ public class HomeFragment extends Fragment {
         apiServices.getConfiguration(c -> {
                     List<Configuration> logo = c.stream().filter(p -> p.getName().equals("logoHeader")).collect(Collectors.toList());
                     if (! logo.isEmpty()) {
+                        SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getActivity());
+
                         if (logo.get(0).getValue().startsWith("http")) {
-                            SharedPreferencesManager sharedPreferencesManager = new SharedPreferencesManager(getActivity());
                             sharedPreferencesManager.saveLogo(logo.get(0).getValue());
                             Utilities.insertLogoImageInto(getContext(), binding.homeMainLogo);
+                        }
+                        else {
+                            sharedPreferencesManager.deleteCurrentLogo();
                         }
                     }
                 },
