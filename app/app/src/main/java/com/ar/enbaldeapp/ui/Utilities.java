@@ -106,4 +106,12 @@ public class Utilities {
             Picasso.with(context).load(logoUrl).into(imageView);
         }
     }
+
+    public static void hidePreviousOrdersMenuItem(View view) {
+        BottomNavigationView bottomNavigationView = view.getRootView().findViewById(R.id.nav_view);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem item = menu.findItem(R.id.navigation_history);
+        item.setEnabled(false);
+        item.setVisible(false);
+    }
 }
