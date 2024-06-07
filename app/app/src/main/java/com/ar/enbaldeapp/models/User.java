@@ -10,6 +10,7 @@ public class User implements Serializable {
     public static final int Client = 2;
 
     public static final String INVALID_PASSWORD = "La clave es inválida";
+    public static final String INVALID_PASSWORD_LENGTH = "La longitud de la clave debe ser mayor a 6";
     public static final String INVALID_USERNAME = "El nombre de usuario es inválido";
     public static final String INVALID_OBSERVATIONS = "Las observaciones son inválidas";
     public static final String INVALID_PHONE = "El teléfono es inválido";
@@ -49,6 +50,7 @@ public class User implements Serializable {
         if (observations == null) throw new RuntimeException(INVALID_OBSERVATIONS);
         if (username == null || username.trim().isEmpty()) throw new RuntimeException(INVALID_USERNAME);
         if (password == null || password.trim().isEmpty()) throw new RuntimeException(INVALID_PASSWORD);
+        if (password.length() < 6) throw new RuntimeException(INVALID_PASSWORD_LENGTH);
         if (type != Admin && type != Client) throw new RuntimeException(INVALID_TYPE);
 
         this.id = id;
