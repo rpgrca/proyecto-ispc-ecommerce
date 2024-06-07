@@ -1,5 +1,6 @@
 package com.ar.enbaldeapp.models;
 
+import com.ar.enbaldeapp.ui.Utilities;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -42,7 +43,7 @@ public class User implements Serializable {
         if (id <= 0) throw new RuntimeException(INVALID_ID);
         if (lastName == null || lastName.trim().isEmpty()) throw new RuntimeException(INVALID_LAST_NAME);
         if (firstName == null || firstName.trim().isEmpty()) throw new RuntimeException(INVALID_FIRST_NAME);
-        if (email == null || email.trim().isEmpty()) throw new RuntimeException(INVALID_EMAIL); // TODO: Agregar mejor chequeo de email
+        if (! isValidEmail(email)) throw new RuntimeException(INVALID_EMAIL);
         if (address == null || address.trim().isEmpty()) throw new RuntimeException(INVALID_ADDRESS);
         if (phone == null) throw new RuntimeException(INVALID_PHONE);
         if (observations == null) throw new RuntimeException(INVALID_OBSERVATIONS);
@@ -72,4 +73,33 @@ public class User implements Serializable {
     public String getUsername() { return username; }
     public String getPassword() { return password; }
     public int getType() { return type; }
+
+    private boolean isValidEmail(String email) {
+        String validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.+_-";
+
+        if (email == null) return false;
+        if (email.trim().isEmpty()) return false;
+
+        String[] sections = email.split("@");
+        if (sections.length != 2) return false;
+
+        String[] states = sections[1].split("\\.");
+        if (states.length < 1) return false;
+
+        for (int index = 0; index < sections[0].length(); index++) {
+            if (validChars.indexOf(sections[0].charAt(index)) == -1) {
+                return false;
+            }
+        }
+
+        for (String state : states) {
+            for (int index = 0; index < state.length(); index++) {
+                if (validChars.indexOf(state.charAt(index)) == -1) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 }

@@ -2,6 +2,8 @@ package com.ar.enbaldeapp.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -113,5 +115,9 @@ public class Utilities {
         MenuItem item = menu.findItem(R.id.navigation_history);
         item.setEnabled(false);
         item.setVisible(false);
+    }
+
+    public static boolean isValidEmail(CharSequence target) {
+        return (! TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 }
