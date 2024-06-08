@@ -119,6 +119,7 @@ public class ProfileFragment extends Fragment {
         Utilities.changeToolbarTitleToLogin(getActivity());
         Utilities.changeBottomMenuToLogin(getView());
         Utilities.hideCartMenuItem(getView());
+        Utilities.hidePreviousOrdersMenuItem(getView());
 
         Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).show();
     }

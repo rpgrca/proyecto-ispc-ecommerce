@@ -41,9 +41,6 @@ public class MainActivity extends AppCompatActivity {
             Utilities.changeBottomMenuToProfile(view);
             Utilities.showCartMenuItem(view);
             Utilities.showPreviousOrdersMenuItem(view);
-
-            Utilities.changeBottomMenuToProfile(binding.navView);
-            Utilities.showCartMenuItem(binding.navView);
         }
     }
 }

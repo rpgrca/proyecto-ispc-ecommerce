@@ -78,6 +78,7 @@ public class RecoverPasswordFragment extends Fragment {
         textView.setOnClickListener(v -> {
             Navigation.findNavController(view).navigate(R.id.action_recoverFragment_to_loginFragment);
             Utilities.changeToolbarTitleToLogin(getActivity());
+            Utilities.changeBottomMenuToLogin(view);
         });
 
         emailEditText = view.findViewById(R.id.recoverEmailEditText);

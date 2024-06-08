@@ -165,12 +165,16 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     private Selection getCurrentSelection() {
-        List<Selection> selections = currentCart.getSelections().stream().filter(p -> p.getProduct().getId() == product.getId()).collect(Collectors.toList());
-        if (selections.isEmpty()) {
-            return null;
+        if (currentCart != null) {
+            List<Selection> selections = currentCart.getSelections().stream().filter(p -> p.getProduct().getId() == product.getId()).collect(Collectors.toList());
+            if (selections.isEmpty()) {
+                return null;
+            }
+
+            return selections.get(0);
         }
 
-        return selections.get(0);
+        return null;
     }
 
     private void updateCart(Selection s) {
