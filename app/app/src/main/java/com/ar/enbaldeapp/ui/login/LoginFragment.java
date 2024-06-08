@@ -165,8 +165,9 @@ public class LoginFragment extends Fragment {
 
     private void goToProfile() {
         Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_profileFragment);
-        Utilities.changeBottomMenuToProfile(getView());
         Utilities.showCartMenuItem(getView());
+        Utilities.showPreviousOrdersMenuItem(getView());
+        Utilities.changeBottomMenuToProfile(getView());
         Utilities.changeToolbarTitleToProfile(getActivity());
     }
 

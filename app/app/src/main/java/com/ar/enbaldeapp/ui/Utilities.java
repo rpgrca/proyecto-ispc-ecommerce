@@ -2,6 +2,8 @@ package com.ar.enbaldeapp.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -105,5 +107,17 @@ public class Utilities {
         if (logoUrl != null) {
             Picasso.with(context).load(logoUrl).into(imageView);
         }
+    }
+
+    public static void hidePreviousOrdersMenuItem(View view) {
+        BottomNavigationView bottomNavigationView = view.getRootView().findViewById(R.id.nav_view);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem item = menu.findItem(R.id.navigation_history);
+        item.setEnabled(false);
+        item.setVisible(false);
+    }
+
+    public static boolean isValidEmail(CharSequence target) {
+        return (! TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 }

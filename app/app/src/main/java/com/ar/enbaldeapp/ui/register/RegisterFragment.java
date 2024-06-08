@@ -86,6 +86,7 @@ public class RegisterFragment extends Fragment {
         textView.setOnClickListener(v -> {
             Navigation.findNavController(view).navigate(R.id.action_registrationFragment_to_loginFragment);
             Utilities.changeToolbarTitleToLogin(getActivity());
+            Utilities.changeBottomMenuToLogin(view);
         });
 
         firstNameEditText = view.findViewById(R.id.registerFirstNameEditText);
