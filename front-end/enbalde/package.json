@@ -17,7 +17,7 @@
     "@angular/forms": "^18.2.5",
     "@angular/platform-browser": "^18.2.4",
     "@angular/platform-browser-dynamic": "^18.2.5",
-    "@angular/router": "^18.2.3",
+    "@angular/router": "^18.2.6",
     "@auth0/angular-jwt": "^5.2.0",
     "@popperjs/core": "^2.11.7",
     "@stripe/stripe-js": "^4.5.0",
