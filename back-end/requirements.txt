@@ -20,5 +20,5 @@ pytest==8.3.3
 pytest-cov==6.0.0
 pytz==2024.2
 sqlparse==0.5.2
-tomli==2.1.0
+tomli==2.2.1
 stripe==11.2.0
