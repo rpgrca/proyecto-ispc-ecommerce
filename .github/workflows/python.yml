@@ -46,7 +46,7 @@ jobs:
         mv coverage.xml coverage-${{ matrix.python-version }}.xml
 
     - name: Archive code coverage results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: code-coverage-report-${{ matrix.python-version }}
         path: back-end/django/coverage-${{ matrix.python-version }}.xml
