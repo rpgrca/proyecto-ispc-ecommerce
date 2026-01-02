@@ -18,6 +18,6 @@ pluggy==1.6.0
 PyJWT==2.10.1
 pytest==9.0.2
 pytest-cov==7.0.0
-sqlparse==0.5.3
+sqlparse==0.5.5
 tomli==2.3.0
 stripe==14.1.0
